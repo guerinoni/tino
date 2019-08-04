@@ -2,6 +2,8 @@
 
 #include "Value.hpp"
 
+class QHBoxLayout;
+
 namespace widget
 {
 class Joined : public QWidget
@@ -13,7 +15,7 @@ class Joined : public QWidget
     ~Joined() override = default;
 
   private:
-    QBoxLayout *l;
+    QHBoxLayout *l;
 
     core::Group *val;
 

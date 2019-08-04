@@ -1,10 +1,14 @@
 #include "Value.hpp"
 
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QSpinBox>
+
 widget::Value::Value(core::Byte *value, bool write, QWidget *parent) :
     QWidget(parent)
 {
     this->val = value;
-    l         = new QBoxLayout(QBoxLayout::LeftToRight, this);
+    l         = new QHBoxLayout(this);
     lblValue =
         new QLabel(QString::fromStdString(val->getName()), this, Qt::Widget);
 

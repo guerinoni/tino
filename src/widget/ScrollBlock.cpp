@@ -1,5 +1,7 @@
 #include "ScrollBlock.hpp"
 
+#include <QLabel>
+
 ScrollBlock::ScrollBlock(core::Block *value, QWidget *parent) : QWidget(parent)
 {
     this->val = value;

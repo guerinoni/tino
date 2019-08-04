@@ -1,9 +1,11 @@
 #include "GroupWidget.hpp"
 
+#include <QDebug>
+
 widget::GroupWidget::GroupWidget(core::Group *val, QWidget *parent) :
     QWidget(parent)
 {
-    l = new QBoxLayout(QBoxLayout::TopToBottom, this);
+    l = new QVBoxLayout(this);
     long unsigned int i;
 
     switch (val->getType()) {

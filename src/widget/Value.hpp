@@ -2,8 +2,10 @@
 
 #include "BtnContainer.hpp"
 
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QSpinBox>
+class QLabel;
+class QSpinBox;
+
+class QHBoxLayout;
 
 namespace widget
 {
@@ -16,7 +18,7 @@ class Value : public QWidget
     ~Value() override = default;
 
   private:
-    QBoxLayout *l;
+    QHBoxLayout *l;
 
     core::Byte *val;
 

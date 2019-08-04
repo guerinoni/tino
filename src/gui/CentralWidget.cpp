@@ -1,6 +1,7 @@
 #include "CentralWidget.hpp"
 
 #include "Parser.hpp"
+#include <QDebug>
 
 CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 {

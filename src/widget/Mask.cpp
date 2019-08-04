@@ -1,5 +1,8 @@
 #include "Mask.hpp"
 
+#include <QVBoxLayout>
+#include <QLabel>
+
 widget::Mask::Mask(core::Byte *val, bool write, QWidget *parent) :
     QWidget(parent)
 {

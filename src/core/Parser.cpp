@@ -1,23 +1,22 @@
 #include "Parser.hpp"
 
 #include <fstream>
+#include "json/json.h"
 
-Json::Value core::Parser::getRoot(const std::string &name)
+std::ifstream core::Parser::getRoot(const std::string &name)
 {
     // open the conf.json
     std::ifstream conf(name, std::ios::in);
     std::cout << (conf.is_open() ? "conf.json opened" : "conf.json NOT opened")
               << std::endl;
-
-    Json::Value root;
-    conf >> root;
-
-    return root;
+    return conf;
 }
 
 void core::Parser::parse(std::string name, std::vector<core::Block> &all)
 {
-    Json::Value root         = core::Parser::getRoot(name);
+    Json::Value root;
+    core::Parser::getRoot(name) >> root;
+
     const Json::Value blocks = root["blocks"]; // get the main object
     all.clear();
     std::cout << std::endl << "parsing..." << std::endl;
@@ -117,7 +116,8 @@ void core::Parser::parse(std::string name, std::vector<core::Block> &all)
 
 void core::Parser::getSettings(std::string name, core::Settings &s)
 {
-    Json::Value root     = core::Parser::getRoot(name);
+    Json::Value root;
+    core::Parser::getRoot(name) >> root;
     const auto &settings = root["settings"]; // get the main object
 
     s.portName      = settings["portName"].asString();

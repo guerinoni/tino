@@ -2,6 +2,8 @@
 #include "Joined.hpp"
 #include "Mask.hpp"
 
+#include <QVBoxLayout>
+
 namespace widget
 {
 class GroupWidget : public QWidget
@@ -13,7 +15,7 @@ class GroupWidget : public QWidget
     ~GroupWidget() override          = default;
 
   private:
-    QBoxLayout *l;
+    QVBoxLayout *l;
 
     std::vector<std::unique_ptr<widget::Mask>> m;
     std::vector<std::unique_ptr<widget::Value>> v;

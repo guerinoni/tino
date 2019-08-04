@@ -1,11 +1,9 @@
 #pragma once
 
-#include <algorithm>
-#include <cmath>
-#include <functional>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 namespace core
 {

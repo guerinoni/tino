@@ -2,6 +2,10 @@
 
 #include "BtnContainer.hpp"
 
+#include <QWidget>
+
+class QHBoxLayout;
+
 namespace widget
 {
 class HalfMask : public QWidget

@@ -2,7 +2,9 @@
 
 #include "HalfMask.hpp"
 
-#include <QLabel>
+class QVBoxLayout;
+
+class QLabel;
 
 namespace widget
 {

@@ -1,13 +1,8 @@
 #pragma once
 
 #include "Block.hpp"
-
-#include <QDebug>
-#include <QWidgetSet>
-#include <QtWidgets/QBoxLayout>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QWidget>
 #include <memory>
+#include <QPushButton>
 
 namespace widget
 {
