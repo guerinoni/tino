@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="1.89 dev"/>
+    <errors>
+        <error id="syntaxError" severity="error" msg="No pair for character (&apos;). Can&apos;t process file. File is either invalid or unicode, which is currently not supported." verbose="No pair for character (&apos;). Can&apos;t process file. File is either invalid or unicode, which is currently not supported.">
+            <location file="LICENSE" line="45"/>
+        </error>
+        <error id="syntaxError" severity="error" msg="syntax error: ~ . /" verbose="syntax error: ~ . /">
+            <location file="README.md" line="10"/>
+        </error>
+        <error id="syntaxError" severity="error" msg="syntax error" verbose="syntax error">
+            <location file="checkout.xml" line="7"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &apos;v&apos; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&apos;t explicitly write them to the initialization list. You could avoid assigning &apos;v&apos; a value by passing the value to the constructor in the initialization list." cwe="398">
+            <location file="src/core/Block.cpp" line="5"/>
+            <symbol>v</symbol>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &apos;name&apos; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&apos;t explicitly write them to the initialization list. You could avoid assigning &apos;name&apos; a value by passing the value to the constructor in the initialization list." cwe="398">
+            <location file="src/core/Block.cpp" line="6"/>
+            <symbol>name</symbol>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;setIntAtAddress&apos; argument 2 names different: declaration &apos;addres&apos; definition &apos;address&apos;." verbose="Function &apos;setIntAtAddress&apos; argument 2 names different: declaration &apos;addres&apos; definition &apos;address&apos;." cwe="628" inconclusive="true">
+            <location file="src/core/Block.cpp" line="61"/>
+            <location file0="src/core/Block.cpp" file="src/core/Block.hpp" line="28"/>
+            <symbol>setIntAtAddress</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;v&apos; should be passed by const reference." verbose="Parameter &apos;v&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/core/Block.cpp" line="3"/>
+            <symbol>v</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;name&apos; should be passed by const reference." verbose="Parameter &apos;name&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/core/Block.cpp" line="3"/>
+            <symbol>name</symbol>
+        </error>
+        <error id="constParameter" severity="style" msg="Parameter &apos;g&apos; can be declared with const" verbose="Parameter &apos;g&apos; can be declared with const" cwe="398">
+            <location file="src/core/Block.cpp" line="56"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &apos;v&apos; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&apos;t explicitly write them to the initialization list. You could avoid assigning &apos;v&apos; a value by passing the value to the constructor in the initialization list." cwe="398">
+            <location file="src/core/Byte.cpp" line="6"/>
+            <symbol>v</symbol>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &apos;desc&apos; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&apos;t explicitly write them to the initialization list. You could avoid assigning &apos;desc&apos; a value by passing the value to the constructor in the initialization list." cwe="398">
+            <location file="src/core/Byte.cpp" line="7"/>
+            <symbol>desc</symbol>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &apos;name&apos; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&apos;t explicitly write them to the initialization list. You could avoid assigning &apos;name&apos; a value by passing the value to the constructor in the initialization list." cwe="398">
+            <location file="src/core/Byte.cpp" line="8"/>
+            <symbol>name</symbol>
+        </error>
+        <error id="functionConst" severity="style" msg="Technically the member function &apos;core::Byte::operator[]&apos; can be const." verbose="The member function &apos;core::Byte::operator[]&apos; can be made a const function. Making this function &apos;const&apos; should not cause compiler errors. Even though the function can be made const function technically it may not make sense conceptually. Think about your design and the task of the function first - is it a function that must not change object internal state?" cwe="398" inconclusive="true">
+            <location file0="src/core/Byte.cpp" file="src/core/Byte.hpp" line="27"/>
+            <location file="src/core/Byte.cpp" line="15"/>
+            <symbol>core::Byte::operator[]</symbol>
+        </error>
+        <error id="functionConst" severity="style" msg="Technically the member function &apos;core::Byte::getDesc&apos; can be const." verbose="The member function &apos;core::Byte::getDesc&apos; can be made a const function. Making this function &apos;const&apos; should not cause compiler errors. Even though the function can be made const function technically it may not make sense conceptually. Think about your design and the task of the function first - is it a function that must not change object internal state?" cwe="398" inconclusive="true">
+            <location file0="src/core/Byte.cpp" file="src/core/Byte.hpp" line="29"/>
+            <location file="src/core/Byte.cpp" line="11"/>
+            <symbol>core::Byte::getDesc</symbol>
+        </error>
+        <error id="functionConst" severity="style" msg="Technically the member function &apos;core::Byte::getInt&apos; can be const." verbose="The member function &apos;core::Byte::getInt&apos; can be made a const function. Making this function &apos;const&apos; should not cause compiler errors. Even though the function can be made const function technically it may not make sense conceptually. Think about your design and the task of the function first - is it a function that must not change object internal state?" cwe="398" inconclusive="true">
+            <location file0="src/core/Byte.cpp" file="src/core/Byte.hpp" line="31"/>
+            <location file="src/core/Byte.cpp" line="59"/>
+            <symbol>core::Byte::getInt</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;v&apos; should be passed by const reference." verbose="Parameter &apos;v&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/core/Byte.cpp" line="3"/>
+            <symbol>v</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;desc&apos; should be passed by const reference." verbose="Parameter &apos;desc&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/core/Byte.cpp" line="3"/>
+            <symbol>desc</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;name&apos; should be passed by const reference." verbose="Parameter &apos;name&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/core/Byte.cpp" line="4"/>
+            <symbol>name</symbol>
+        </error>
+        <error id="operatorEqVarError" severity="warning" msg="Member variable &apos;Group::name&apos; is not assigned a value in &apos;Group::operator=&apos;." verbose="Member variable &apos;Group::name&apos; is not assigned a value in &apos;Group::operator=&apos;." cwe="398" inconclusive="true">
+            <location file="src/core/Group.cpp" line="31"/>
+            <symbol>Group::name</symbol>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &apos;v&apos; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&apos;t explicitly write them to the initialization list. You could avoid assigning &apos;v&apos; a value by passing the value to the constructor in the initialization list." cwe="398">
+            <location file="src/core/Group.cpp" line="11"/>
+            <symbol>v</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;v&apos; should be passed by const reference." verbose="Parameter &apos;v&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/core/Group.cpp" line="9"/>
+            <symbol>v</symbol>
+        </error>
+        <error id="functionConst" severity="style" msg="Technically the member function &apos;core::Settings::operator==&apos; can be const." verbose="The member function &apos;core::Settings::operator==&apos; can be made a const function. Making this function &apos;const&apos; should not cause compiler errors. Even though the function can be made const function technically it may not make sense conceptually. Think about your design and the task of the function first - is it a function that must not change object internal state?" cwe="398" inconclusive="true">
+            <location file0="src/core/Settings.cpp" file="src/core/Settings.hpp" line="10"/>
+            <location file="src/core/Settings.cpp" line="3"/>
+            <symbol>core::Settings::operator==</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;CentralWidget&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;CentralWidget&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398">
+            <location file0="src/gui/CentralWidget.cpp" file="src/gui/CentralWidget.hpp" line="14"/>
+            <symbol>CentralWidget</symbol>
+        </error>
+        <error id="unsignedLessThanZero" severity="style" msg="Checking if unsigned expression &apos;blocks.size()&apos; is less than zero." verbose="The unsigned expression &apos;blocks.size()&apos; will never be negative so it is either pointless or an error to check if it is." cwe="570">
+            <location file="src/gui/CentralWidget.cpp" line="114" info="Unsigned less than zero"/>
+            <symbol>blocks.size()</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;CentralWidget&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;CentralWidget&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398">
+            <location file0="src/gui/MainWindow.cpp" file="src/gui/CentralWidget.hpp" line="14"/>
+            <symbol>CentralWidget</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;GroupWidget&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;GroupWidget&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398">
+            <location file0="src/widget/BlockWidget.cpp" file="src/widget/GroupWidget.hpp" line="12"/>
+            <symbol>GroupWidget</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;BlockWidget&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;BlockWidget&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398">
+            <location file0="src/widget/BlockWidget.cpp" file="src/widget/BlockWidget.hpp" line="12"/>
+            <symbol>BlockWidget</symbol>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;BlockWidget&apos; argument 1 names different: declaration &apos;value&apos; definition &apos;val&apos;." verbose="Function &apos;BlockWidget&apos; argument 1 names different: declaration &apos;value&apos; definition &apos;val&apos;." cwe="628" inconclusive="true">
+            <location file="src/widget/BlockWidget.cpp" line="3"/>
+            <location file0="src/widget/BlockWidget.cpp" file="src/widget/BlockWidget.hpp" line="12"/>
+            <symbol>BlockWidget</symbol>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;BtnContainer&apos; argument 1 names different: declaration &apos;val&apos; definition &apos;val1&apos;." verbose="Function &apos;BtnContainer&apos; argument 1 names different: declaration &apos;val&apos; definition &apos;val1&apos;." cwe="628" inconclusive="true">
+            <location file="src/widget/BtnContainer.cpp" line="6"/>
+            <location file0="src/widget/BtnContainer.cpp" file="src/widget/BtnContainer.hpp" line="15"/>
+            <symbol>BtnContainer</symbol>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;BtnContainer&apos; argument 2 names different: declaration &apos;offset&apos; definition &apos;off&apos;." verbose="Function &apos;BtnContainer&apos; argument 2 names different: declaration &apos;offset&apos; definition &apos;off&apos;." cwe="628" inconclusive="true">
+            <location file="src/widget/BtnContainer.cpp" line="6"/>
+            <location file0="src/widget/BtnContainer.cpp" file="src/widget/BtnContainer.hpp" line="15"/>
+            <symbol>BtnContainer</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;GroupWidget&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;GroupWidget&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398">
+            <location file0="src/widget/GroupWidget.cpp" file="src/widget/GroupWidget.hpp" line="12"/>
+            <symbol>GroupWidget</symbol>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;GroupWidget&apos; argument 1 names different: declaration &apos;value&apos; definition &apos;val&apos;." verbose="Function &apos;GroupWidget&apos; argument 1 names different: declaration &apos;value&apos; definition &apos;val&apos;." cwe="628" inconclusive="true">
+            <location file="src/widget/GroupWidget.cpp" line="3"/>
+            <location file0="src/widget/GroupWidget.cpp" file="src/widget/GroupWidget.hpp" line="12"/>
+            <symbol>GroupWidget</symbol>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;HalfMask&apos; argument 1 names different: declaration &apos;value&apos; definition &apos;val&apos;." verbose="Function &apos;HalfMask&apos; argument 1 names different: declaration &apos;value&apos; definition &apos;val&apos;." cwe="628" inconclusive="true">
+            <location file="src/widget/HalfMask.cpp" line="3"/>
+            <location file0="src/widget/HalfMask.cpp" file="src/widget/HalfMask.hpp" line="12"/>
+            <symbol>HalfMask</symbol>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;Joined&apos; argument 1 names different: declaration &apos;val&apos; definition &apos;value&apos;." verbose="Function &apos;Joined&apos; argument 1 names different: declaration &apos;val&apos; definition &apos;value&apos;." cwe="628" inconclusive="true">
+            <location file="src/widget/Joined.cpp" line="3"/>
+            <location file0="src/widget/Joined.cpp" file="src/widget/Joined.hpp" line="12"/>
+            <symbol>Joined</symbol>
+        </error>
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;Mask&apos; argument 1 names different: declaration &apos;value&apos; definition &apos;val&apos;." verbose="Function &apos;Mask&apos; argument 1 names different: declaration &apos;value&apos; definition &apos;val&apos;." cwe="628" inconclusive="true">
+            <location file="src/widget/Mask.cpp" line="3"/>
+            <location file0="src/widget/Mask.cpp" file="src/widget/Mask.hpp" line="14"/>
+            <symbol>Mask</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;GroupWidget&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;GroupWidget&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398">
+            <location file0="src/widget/ScrollBlock.cpp" file="src/widget/GroupWidget.hpp" line="12"/>
+            <symbol>GroupWidget</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;BlockWidget&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;BlockWidget&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398">
+            <location file0="src/widget/ScrollBlock.cpp" file="src/widget/BlockWidget.hpp" line="12"/>
+            <symbol>BlockWidget</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;ScrollBlock&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;ScrollBlock&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398">
+            <location file0="src/widget/ScrollBlock.cpp" file="src/widget/ScrollBlock.hpp" line="11"/>
+            <symbol>ScrollBlock</symbol>
+        </error>
+        <error id="syntaxError" severity="error" msg="syntax error" verbose="syntax error">
+            <location file="startVSP.sh" line="3"/>
+        </error>
+        <error id="noConstructor" severity="style" msg="The class &apos;tst_Parser&apos; does not have a constructor although it has private member variables." verbose="The class &apos;tst_Parser&apos; does not have a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398">
+            <location file="tests/tst_core/tst_parser/tst_Parser.cpp" line="8"/>
+            <symbol>tst_Parser</symbol>
+        </error>
+        <error id="noConstructor" severity="style" msg="The class &apos;tst_Mask&apos; does not have a constructor although it has private member variables." verbose="The class &apos;tst_Mask&apos; does not have a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398">
+            <location file="tests/tst_widget/tst_mask/tst_Mask.cpp" line="6"/>
+            <symbol>tst_Mask</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;val&apos; can be reduced." verbose="The scope of the variable &apos;val&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file="tests/tst_widget/tst_mask/tst_Mask.cpp" line="46"/>
+            <symbol>val</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;clr&apos; is assigned a value that is never used." verbose="Variable &apos;clr&apos; is assigned a value that is never used." cwe="563">
+            <location file="tests/tst_widget/tst_mask/tst_Mask.cpp" line="49"/>
+            <symbol>clr</symbol>
+        </error>
+        <error id="syntaxError" severity="error" msg="syntax error" verbose="syntax error">
+            <location file="tino.pri" line="56"/>
+        </error>
+        <error id="syntaxError" severity="error" msg="syntax error" verbose="syntax error">
+            <location file="tino.pro.user" line="6"/>
+        </error>
+    </errors>
+</results>
