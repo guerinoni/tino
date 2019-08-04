@@ -1,6 +1,6 @@
 #include "Settings.hpp"
 
-bool core::Settings::operator==(const Settings &other)
+bool core::Settings::operator==(const Settings &other) const
 {
     return (portName == other.portName && Parity == other.Parity &&
             BaudRate == other.BaudRate && DataBits == other.DataBits &&

@@ -9,8 +9,7 @@ class GroupWidget : public QWidget
     Q_OBJECT
 
   public:
-    GroupWidget(core::Group *value, QWidget *parent = nullptr);
-    GroupWidget(const GroupWidget &) = default;
+    explicit GroupWidget(core::Group *val, QWidget *parent = nullptr);
     ~GroupWidget() override          = default;
 
   private:

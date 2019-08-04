@@ -1,11 +1,7 @@
 #include "Block.hpp"
 
-core::Block::Block(std::vector<core::Group> v, int start, std::string name)
-{
-    this->v     = v;
-    this->name  = name;
-    this->start = start;
-}
+core::Block::Block(const std::vector<core::Group> &v, int start, const std::string &name) : v(v), name(name), start(start) {}
+
 std::string core::Block::getName() const
 {
     return name;
@@ -53,7 +49,7 @@ int core::Block::getNbyte()
     int n = 0;
 
     std::for_each(v.begin(), v.end(),
-                  [&n](core::Group &g) { n += g.getDim(); });
+                  [&n](const core::Group &g) { n += g.getDim(); });
 
     return n;
 }

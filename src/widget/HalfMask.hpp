@@ -9,9 +9,8 @@ class HalfMask : public QWidget
     Q_OBJECT
 
   public:
-    HalfMask(core::Byte *value, int offset, QWidget *parent = nullptr);
+    HalfMask(core::Byte *val, unsigned long int offset, QWidget *parent = nullptr);
     ~HalfMask() override       = default;
-    HalfMask(const HalfMask &) = default;
 
     std::unique_ptr<widget::BtnContainer> c;
 

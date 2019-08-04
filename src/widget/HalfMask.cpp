@@ -1,6 +1,6 @@
 #include "HalfMask.hpp"
 
-widget::HalfMask::HalfMask(core::Byte *val, int offset, QWidget *parent) :
+widget::HalfMask::HalfMask(core::Byte *val, unsigned long int offset, QWidget *parent) :
     QWidget(parent)
 {
     l = new QHBoxLayout(this);
@@ -8,7 +8,7 @@ widget::HalfMask::HalfMask(core::Byte *val, int offset, QWidget *parent) :
     c = std::unique_ptr<widget::BtnContainer>(
         new widget::BtnContainer(val, offset));
 
-    for (int i = 0; i < 4; ++i) {
+    for (unsigned long i = 0; i < 4; ++i) {
         c->b[i].first->setText(
             QString::fromStdString(c->val->getDesc(i + offset)));
         connect(c->b[i].first.get(), &QPushButton::clicked, this,

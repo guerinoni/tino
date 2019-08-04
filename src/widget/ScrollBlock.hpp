@@ -8,7 +8,7 @@ class ScrollBlock : public QWidget
     Q_OBJECT
 
   public:
-    ScrollBlock(core::Block *value, QWidget *parent = nullptr);
+    explicit ScrollBlock(core::Block *value, QWidget *parent = nullptr);
     void refresh();
 
   private:

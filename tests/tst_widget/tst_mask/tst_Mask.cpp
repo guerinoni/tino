@@ -42,12 +42,8 @@ void tst_Mask::tst_color()
 
 void tst_Mask::tst_click()
 {
-    QString clr;
-    bool val;
-
     for (int i = 0; i < 8; ++i) {
-        clr = getClr(i);
-        val = m->valAt(i);
+        bool val = m->valAt(i);
 
         m->clickBtn(i);
 

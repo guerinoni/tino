@@ -9,9 +9,7 @@ class BlockWidget : public QWidget
     Q_OBJECT
 
   public:
-    BlockWidget(core::Block *value, QWidget *parent = nullptr);
-    BlockWidget(const BlockWidget &) = default;
-    BlockWidget &operator=(const BlockWidget &) = default;
+    explicit BlockWidget(core::Block *val, QWidget *parent = nullptr);
     ~BlockWidget() override                     = default;
 
   private:

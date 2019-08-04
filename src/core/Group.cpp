@@ -6,12 +6,7 @@
  * j: joined
  */
 
-core::Group::Group(std::vector<Byte> v, char type, bool write)
-{
-    this->v     = v;
-    this->type  = type;
-    this->write = write;
-}
+core::Group::Group(const std::vector<Byte> &v, char type, bool write) : v(v), type(type), write(write) {}
 
 char core::Group::getType() const
 {

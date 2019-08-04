@@ -9,7 +9,7 @@ class Joined : public QWidget
     Q_OBJECT
 
   public:
-    Joined(core::Group *val, QWidget *parent);
+    Joined(core::Group *value, QWidget *parent);
     ~Joined() override = default;
 
   private:

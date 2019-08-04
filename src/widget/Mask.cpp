@@ -8,7 +8,7 @@ widget::Mask::Mask(core::Byte *val, bool write, QWidget *parent) :
         new QLabel(QString::fromStdString(val->getName()), this, Qt::Widget);
     l->addWidget(lblName, Qt::AlignVCenter);
 
-    for (int i = 0; i < 2; ++i) {
+    for (unsigned long int i = 0; i < 2; ++i) {
         m.push_back(std::unique_ptr<widget::HalfMask>(
             new widget::HalfMask(val, i * 4, this)));
         m[i].get()->setEnabled(write);
@@ -16,17 +16,17 @@ widget::Mask::Mask(core::Byte *val, bool write, QWidget *parent) :
     }
 }
 
-bool widget::Mask::valAt(int i)
+bool widget::Mask::valAt(unsigned long int i)
 {
     return (m[0]->c->val->operator[](i));
 }
 
-QString widget::Mask::getStyleBtn(int i)
+QString widget::Mask::getStyleBtn(unsigned long int i)
 {
     return m[i / 4]->c->b[i % 4].first->styleSheet();
 }
 
-void widget::Mask::clickBtn(int i)
+void widget::Mask::clickBtn(unsigned long int i)
 {
     m[i / 4]->c->b[i % 4].first->click();
 }

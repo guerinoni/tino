@@ -1,18 +1,12 @@
 #include "Byte.hpp"
 
-core::Byte::Byte(std::vector<bool> v, std::vector<std::string> desc,
-                 std::string name)
-{
-    this->v    = v;
-    this->desc = desc;
-    this->name = name;
-}
+core::Byte::Byte(const std::vector<bool> &v, const std::vector<std::string> &desc, const std::string &name) : v(v), desc(desc), name(name) {}
 
-std::string core::Byte::getDesc(long unsigned i)
+std::string core::Byte::getDesc(long unsigned i) const
 {
     return desc[i];
 }
-bool core::Byte::operator[](long unsigned i)
+bool core::Byte::operator[](long unsigned i) const
 {
     return v[i];
 }
@@ -56,7 +50,7 @@ bool core::Byte::operator==(const core::Byte &other) const
     return i == desc.size();
 }
 
-int core::Byte::getInt()
+int core::Byte::getInt() const
 {
     double value           = 0;
     unsigned long int cont = 0;

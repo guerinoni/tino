@@ -12,7 +12,7 @@ class Block
     int start;
 
   public:
-    Block(std::vector<core::Group> v, int start, std::string name);
+    Block(const std::vector<core::Group> &v, int start, const std::string &name);
     ~Block()             = default;
     Block(const Block &) = default;
 
@@ -25,7 +25,7 @@ class Block
     std::string getName() const;
     int getNbyte();
 
-    bool setIntAtAddress(int values, int addres);
+    bool setIntAtAddress(int values, int address);
 };
 
 } // namespace core

@@ -8,12 +8,11 @@ class Group
 {
   private:
     std::vector<Byte> v;
-    std::string name;
     char type;
     bool write;
 
   public:
-    Group(std::vector<Byte> v, char type, bool write);
+    Group(const std::vector<Byte> &v, char type, bool write);
     ~Group()             = default;
     Group(const Group &) = default;
 

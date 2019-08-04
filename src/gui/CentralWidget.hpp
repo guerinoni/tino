@@ -11,7 +11,7 @@
 class CentralWidget : public QWidget
 {
   public:
-    CentralWidget(QWidget *parent);
+    explicit CentralWidget(QWidget *parent);
     ~CentralWidget();
 
     void clean();

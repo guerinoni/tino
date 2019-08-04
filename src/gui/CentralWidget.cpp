@@ -111,9 +111,6 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
         c = nullptr;
         lblNbytes->setText("0 bytes written");
 
-        if (blocks.size() <= 0)
-            return;
-
         clean();
         c = new Connector(&blocks, this);
         m = new MainSplitter(&blocks, this);

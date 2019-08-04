@@ -12,7 +12,7 @@
 namespace widget
 {
 struct BtnContainer {
-    BtnContainer(core::Byte *val, int offset);
+    BtnContainer(core::Byte *val, unsigned long int offset);
     BtnContainer(const BtnContainer &) = default;
     ~BtnContainer()                    = default;
 
@@ -21,8 +21,8 @@ struct BtnContainer {
     std::vector<std::pair<std::unique_ptr<QPushButton>, std::function<void()>>>
         b;
 
-    void setClr(int i);
-    int offset;
+    void setClr(unsigned long int i);
+    unsigned long int offset;
 
     static QString clrOn;
     static QString clrOff;
