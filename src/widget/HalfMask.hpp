@@ -2,7 +2,7 @@
 
 #include "BtnContainer.hpp"
 
-#include <QHBoxLayout>
+class QHBoxLayout;
 
 namespace widget
 {
