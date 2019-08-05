@@ -17,6 +17,7 @@ class tst_Mask : public QObject
     void initTestCase();
     void tst_color();
     void tst_click();
+    void tst_name();
 };
 
 void tst_Mask::initTestCase()
@@ -52,6 +53,11 @@ void tst_Mask::tst_click()
                  getClr(i));
         QCOMPARE((!val), m->valAt(i));
     }
+}
+
+void tst_Mask::tst_name()
+{
+    QCOMPARE(m->getName(), QString::fromStdString(b.getName()));
 }
 
 QTEST_MAIN(tst_Mask)

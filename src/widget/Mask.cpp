@@ -1,7 +1,7 @@
 #include "Mask.hpp"
 
-#include <QVBoxLayout>
 #include <QLabel>
+#include <QVBoxLayout>
 
 widget::Mask::Mask(core::Byte *val, bool write, QWidget *parent) :
     QWidget(parent)
@@ -32,4 +32,9 @@ QString widget::Mask::getStyleBtn(unsigned long int i)
 void widget::Mask::clickBtn(unsigned long int i)
 {
     m[i / 4]->c->b[i % 4].first->click();
+}
+
+QString widget::Mask::getName()
+{
+    return lblName->text();
 }

@@ -14,11 +14,12 @@ class Mask : public QWidget
 
   public:
     Mask(core::Byte *val, bool write, QWidget *parent = nullptr);
-    ~Mask() override   = default;
+    ~Mask() override = default;
 
     QString getStyleBtn(unsigned long int i);
     bool valAt(unsigned long int i);
     void clickBtn(unsigned long int i);
+    QString getName();
 
   private:
     QVBoxLayout *l;
