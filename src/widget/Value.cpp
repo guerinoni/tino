@@ -24,3 +24,13 @@ widget::Value::Value(core::Byte *value, bool write, QWidget *parent) :
     l->addWidget(box, 0, Qt::AlignVCenter);
     l->addWidget(lblValue, 0, Qt::AlignVCenter);
 }
+
+int widget::Value::getBoxValue()
+{
+    return box->value();
+}
+
+QString widget::Value::getName()
+{
+    return lblValue->text();
+}

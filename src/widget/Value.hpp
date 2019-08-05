@@ -17,6 +17,9 @@ class Value : public QWidget
     Value(core::Byte *value, bool write, QWidget *parent = nullptr);
     ~Value() override = default;
 
+    int getBoxValue();
+    QString getName();
+
   private:
     QHBoxLayout *l;
 
