@@ -61,6 +61,6 @@ script
 *html*
 *xml*
 *gcov*
-coverage/
+metrics/coverage/
 *bb*
 *bbg*
