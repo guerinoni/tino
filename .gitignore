@@ -62,3 +62,5 @@ script
 *xml*
 *gcov*
 coverage/
+*bb*
+*bbg*

@@ -11,7 +11,7 @@ SCRIPT_DIR=$(dirname $0)
 SRC_DIR="$SCRIPT_DIR/../../build-tino-Desktop_Qt_5_13_0_GCC_64bit-Debug"
 
 # COV_DIR is the directory where the coverage results will be stored
-COV_DIR="$SCRIPT_DIR/../coverage"
+COV_DIR="$SCRIPT_DIR/coverage"
 
 ############################################################################################################
 
