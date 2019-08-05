@@ -34,4 +34,4 @@ genhtml -o "${HTML_RESULTS}" "${COV_DIR}/coverage-filtered.info"
 lcov -d "${COV_DIR}" -z
  
 # Open the index.html
-firefox "${HTML_RESULTS}/index.html"
+open "${HTML_RESULTS}/index.html"
