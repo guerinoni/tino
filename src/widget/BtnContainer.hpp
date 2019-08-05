@@ -2,22 +2,26 @@
 
 #include "Block.hpp"
 
-#include <QWidgetSet>
-#include <QtWidgets/QBoxLayout>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QWidget>
+#include <QPushButton>
+#include <functional>
 #include <memory>
 
 namespace widget
 {
 struct BtnContainer {
-    BtnContainer();
+    BtnContainer(core::Byte *val, unsigned long int offset);
     BtnContainer(const BtnContainer &) = default;
     ~BtnContainer()                    = default;
+
+    core::Byte *val;
+
     std::vector<std::pair<std::unique_ptr<QPushButton>, std::function<void()>>>
         b;
-    core::Byte val;
 
-    void setClr(const int i);
+    void setClr(unsigned long int i);
+    unsigned long int offset;
+
+    static QString clrOn;
+    static QString clrOff;
 };
 } // namespace widget

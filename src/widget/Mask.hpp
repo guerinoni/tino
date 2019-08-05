@@ -2,6 +2,10 @@
 
 #include "HalfMask.hpp"
 
+class QVBoxLayout;
+
+class QLabel;
+
 namespace widget
 {
 class Mask : public QWidget
@@ -9,18 +13,16 @@ class Mask : public QWidget
     Q_OBJECT
 
   public:
-    Mask(core::Byte val, QWidget *parent = nullptr);
+    Mask(core::Byte *val, bool write, QWidget *parent = nullptr);
     ~Mask() override   = default;
-    Mask(const Mask &) = default;
 
-    QString getStyleBtn(int i);
-    bool valAt(int i);
-    void clickBtn(int i);
+    QString getStyleBtn(unsigned long int i);
+    bool valAt(unsigned long int i);
+    void clickBtn(unsigned long int i);
 
   private:
     QVBoxLayout *l;
-    std::vector<HalfMask *> m;
-
-    friend class tst_Mask;
+    std::vector<std::unique_ptr<HalfMask>> m;
+    QLabel *lblName;
 };
 } // namespace widget

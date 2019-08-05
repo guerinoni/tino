@@ -1,101 +1,200 @@
 ﻿#include "Connector.hpp"
 
-Connector::Connector(short unsigned int sz, QObject *parent) : QObject(parent)
+#include <QDebug>
+#include <QModbusRtuSerialSlave>
+#include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <thread>
+
+Connector::Connector(std::vector<core::Block> *v, QObject *parent) :
+    QObject(parent)
 {
-    modbus_server = new QModbusRtuSerialSlave(this);
+    server = new QModbusRtuSerialSlave(this);
+    all    = v;
 
-    //    QModbusRtuSerialSlave *tmpServer = new QModbusRtuSerialSlave(this);
-    //    if (!tmpServer) {
-    //        qDebug() << "tmpServer null";
-    //        return;
-    //    }
-
-    //    modbus_server = dynamic_cast<stocazz *>(tmpServer);
-    //    if (!modbus_server) {
-    //        qDebug() << "modbus_server null";
-    //        return;
-    //    }
+    short unsigned int sz = 0;
+    for (core::Block &bl : (*all))
+        sz += static_cast<quint16>(bl.getNbyte());
 
     QModbusDataUnitMap reg;
     reg.insert(QModbusDataUnit::HoldingRegisters,
-               { QModbusDataUnit::HoldingRegisters, 0, sz });
+               { QModbusDataUnit::HoldingRegisters, (*all)[0].getStart(), sz });
 
-    modbus_server->setMap(reg);
+    server->setMap(reg);
+
+    connect(server, &QModbusServer::dataWritten, this,
+            [this](QModbusDataUnit::RegisterType table, int address, int size) {
+                QModbusDataUnit u(table, address,
+                                  static_cast<unsigned short>(size));
+                // unit contains one HoldingRegisters
+
+                if (!server->data(&u))
+                    qDebug() << "cannot server->data()";
+
+                long unsigned int i =
+                    0; // find in which block data were written
+                while ((i < all->size()) &&
+                       (*all)[i].getStart() <= u.startAddress())
+                    ++i;
+
+                --i;
+                qDebug() << "i: " << i << ", value: " << u.value(0)
+                         << ", address: " << u.startAddress()
+                         << ", size: " << u.valueCount();
+
+                for (int j = 0; j < static_cast<int>(u.valueCount()); ++j)
+                    (*all)[i].setIntAtAddress(
+                        static_cast<unsigned short>(u.value(j)),
+                        static_cast<unsigned short>(u.startAddress() + j));
+                emit updateBlockReq(i);
+            });
 }
 
 Connector::~Connector()
 {
     endConnection();
 
-    delete modbus_server;
-    modbus_server = nullptr;
+    delete server;
+    server = nullptr;
 }
 
-bool Connector::startConnection(QString portname)
+bool Connector::startConnection(const core::Settings &s)
 {
-    if (modbus_server) {
-        modbus_server->setConnectionParameter(
-            QModbusDevice::SerialPortNameParameter, portname);
-        modbus_server->setConnectionParameter(
-            QModbusDevice::SerialParityParameter, QSerialPort::EvenParity);
-        modbus_server->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud57600);
-        modbus_server->setConnectionParameter(
-            QModbusDevice::SerialDataBitsParameter, QSerialPort::Data8);
-        modbus_server->setConnectionParameter(
-            QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
-        modbus_server->setServerAddress(1);
+    if (server) {
+        // set server parameter
 
-        if (!modbus_server->connectDevice())
-            qDebug() << "cannot connect ";
-        else
-            qDebug() << "connect";
+        server->setConnectionParameter(QModbusDevice::SerialPortNameParameter,
+                                       QString::fromStdString(s.portName));
+        server->setConnectionParameter(QModbusDevice::SerialParityParameter,
+                                       s.Parity);
+        server->setConnectionParameter(QModbusDevice::SerialBaudRateParameter,
+                                       s.BaudRate);
+        server->setConnectionParameter(QModbusDevice::SerialDataBitsParameter,
+                                       s.DataBits);
+        server->setConnectionParameter(QModbusDevice::SerialStopBitsParameter,
+                                       s.StopBits);
+        server->setServerAddress(s.ServerAddress);
 
-        qDebug() << "error: " << modbus_server->errorString();
-        qDebug() << "state: " << modbus_server->state();
+        // connect server
+        if (!server->connectDevice())
+            qDebug() << "cannot connect server";
 
-        return (modbus_server->state() == QModbusRtuSerialSlave::ConnectedState
-                    ? true
-                    : false);
-    }
+        qDebug() << "error: " << server->errorString();
+        qDebug() << "state: " << server->state();
+
+        return (server->state() == QModbusRtuSerialSlave::ConnectedState);
+    } // end if (server && portname.length() > 0)
     return false;
 }
 
 void Connector::endConnection()
 {
-    if (modbus_server)
-        modbus_server->disconnectDevice();
+    if (server)
+        server->disconnectDevice();
 }
 
-int Connector::writeBlock(core::Block &all)
+int Connector::writeBlock(long unsigned int a)
 {
     int cont = -1;
-    if (modbus_server) {
+
+    if (server) {
         ++cont;
-        for (unsigned long i = 0; i < all.getDim(); ++i) {
-            for (unsigned long j = 0; j < all[i].getDim(); ++j) {
-                if (modbus_server->setData(QModbusDataUnit::HoldingRegisters,
-                                           all.getStartAddress() + cont++,
-                                           all[i][j].getInt()))
-                    qDebug() << "writing " << all[i][j].getInt()
-                             << " address: " << (all.getStartAddress() + cont);
-                else
-                    qDebug() << "error writing data: "
-                             << modbus_server->errorString();
+        for (unsigned long i = 0; i < (*all)[a].getDim(); ++i) {
+            for (unsigned long j = 0; j < (*all)[a][i].getDim(); ++j) {
+                if ((*all)[a][i].getWrite()) {
+                    if (!server->setData(QModbusDataUnit::HoldingRegisters,
+                                         static_cast<unsigned short>(
+                                             (*all)[a].getStart() + cont),
+                                         static_cast<unsigned short>(
+                                             (*all)[a][i][j].getInt())))
+                        qDebug() << "error writing data: " << cont << " "
+                                 << server->errorString();
+                }
+                ++cont;
             }
         }
     }
     return cont;
 }
 
-// stocazz::stocazz(QObject *parent) : QModbusRtuSerialSlave(parent) {}
+bool Connector::isConnected()
+{
+    return (server->state() == QModbusServer::ConnectedState);
+}
 
-// QModbusResponse stocazz::processRequest(const QModbusPdu &request)
-//{
-//    QModbusResponse response(QModbusResponse::ReadHoldingRegisters,
-//                             request.data());
-//    //    Connector::writeBlock(all[request.data().toInt()]);
-//    qDebug() << "this thing actually does something";
+std::string Connector::openPort()
+{
+    closePort();
 
-//    return response;
-//}
+    // socat output path
+    qDebug() << "env: " << QString::fromStdString(std::getenv("HOME"));
+    char outFile[300] = "";
+    strcat(outFile, std::getenv("HOME"));
+    strcat(outFile, "/.tino/socatOutput.txt");
+    qDebug() << "outfile: " << QString::fromStdString(outFile);
+
+    // start socat
+    std::thread([outFile]() {
+        char socat[300] = "rm ";
+        strcat(socat, outFile);
+        system(socat);
+
+        socat[0] = '\0';
+        strcat(socat, "socat -d -d -lf ");
+        strcat(socat, outFile);
+        strcat(socat, " pty,raw,echo=0 pty,raw,echo=0");
+        system(socat);
+    })
+        .detach();
+
+    std::fstream socatOutput;
+    socatOutput.open(outFile, std::ifstream::in);
+    std::string ret;
+    std::string found;
+
+    bool stop = true;
+    do {
+        std::string temp;
+
+        while (getline(socatOutput, temp)) {
+            if (temp.find("starting data transfer loop with FDs") ==
+                std::string::npos)
+                stop = false;
+        }
+        socatOutput.clear();
+        socatOutput.seekg(0, std::ios::beg);
+    } while (stop);
+    system("sleep 0.1");
+
+    // read socat output
+    for (int i = 0; i < 2; ++i) {
+        std::string temp;
+        getline(socatOutput, temp);
+        qDebug() << "temp: " << QString::fromStdString(temp);
+        found = temp.substr(temp.find("/dev/pts/", 0), 10);
+
+        if (ret.empty())
+            ret = found;
+        else {
+            //            char toWrite[300] = "notify-send \"connect your client
+            //            to "; strcat(toWrite, found.c_str()); strcat(toWrite,
+            //            "\""); system(toWrite);
+
+            //            toWrite[0] = '\0';
+            char toWrite[300] = "";
+            strcat(toWrite, "echo \"");
+            strcat(toWrite, found.c_str());
+            strcat(toWrite, "\" > ");
+            strcat(toWrite, std::getenv("HOME"));
+            strcat(toWrite, "/.tino/clientPort.txt");
+            system(toWrite);
+        }
+    }
+    return ret;
+}
+
+void Connector::closePort()
+{
+    system("killall socat");
+}

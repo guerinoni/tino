@@ -1,21 +1,19 @@
 #pragma once
-#include "Block.hpp"
-#include "rapidjson/document.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/writer.h"
 
-#include <fstream>
+#include "Block.hpp"
 
 namespace core
 {
 struct Generator {
-    static std::vector<core::Block> parse(std::string name);
-    static core::Byte getByte1();
-    static core::Byte getByte2();
-    static core::Group getGroup1();
-    static core::Group getGroup2();
-    static core::Group getGroup3();
-    static core::Block getBlock(int n);
-};
+    Generator()  = delete;
+    ~Generator() = default;
 
+    static core::Byte getByte1(int n);
+    static core::Byte getByte2(int n);
+    static core::Group getGroup1(bool rw);
+    static core::Group getGroup2(bool rw);
+    static core::Group getGroup3(bool rw);
+    static core::Block getBlock();
+    static core::Block getBlock(int n, std::vector<bool> write);
+};
 } // namespace core

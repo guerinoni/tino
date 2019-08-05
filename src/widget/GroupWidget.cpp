@@ -1,35 +1,36 @@
 #include "GroupWidget.hpp"
 
-widget::GroupWidget::GroupWidget(core::Group val, QWidget *parent) :
+#include <QDebug>
+
+widget::GroupWidget::GroupWidget(core::Group *val, QWidget *parent) :
     QWidget(parent)
 {
-    l        = new QBoxLayout(QBoxLayout::TopToBottom, this);
-    lblGroup = new QLabel(this);
+    l = new QVBoxLayout(this);
     long unsigned int i;
 
-    if (val.getType() == 'm') {
-        lblGroup->setText(QString::fromStdString("mask group"));
-        l->addWidget(lblGroup, 0, Qt::AlignHCenter);
-        std::vector<Mask *> m;
-
-        for (i = 0; i < val.getDim(); ++i) {
-            m.emplace_back(new Mask(val[i], this));
-            l->addWidget(m[static_cast<unsigned long>(i)], 0, Qt::AlignHCenter);
-        }
-    } else if (val.getType() == 'v') {
-        lblGroup->setText(QString::fromStdString("value group"));
-        l->addWidget(lblGroup, 0, Qt::AlignHCenter);
-        std::vector<Value *> v;
-
-        for (i = 0; i < val.getDim(); ++i) {
-            v.emplace_back(new Value(val[i], this));
-            l->addWidget(v[static_cast<unsigned long>(i)], 0, Qt::AlignHCenter);
-        }
-    } else if (val.getType() == 'j') {
-        lblGroup->setText(QString::fromStdString("joined group"));
-        l->addWidget(lblGroup, 0, Qt::AlignHCenter);
-
-        Joined *jo = new Joined(val, this);
-        l->addWidget(jo, 0, Qt::AlignHCenter);
-    }
+    switch (val->getType()) {
+        case 'm': // mask
+            for (i = 0; i < val->getDim(); ++i) {
+                m.emplace_back(std::unique_ptr<widget::Mask>(
+                    new widget::Mask(&(*val)[i], val->getWrite(), this)));
+                l->addWidget(m[static_cast<unsigned long>(i)].get(), 0,
+                             Qt::AlignHCenter);
+            }
+            break;
+        case 'v': // value
+            for (i = 0; i < val->getDim(); ++i) {
+                v.emplace_back(std::unique_ptr<widget::Value>(
+                    new widget::Value(&((*val)[i]), val->getWrite(), this)));
+                l->addWidget(v[static_cast<unsigned long>(i)].get(), 0,
+                             Qt::AlignHCenter);
+            }
+            break;
+        case 'j': // joined
+            jo = std::unique_ptr<widget::Joined>(new widget::Joined(val, this));
+            l->addWidget(jo.get(), 0, Qt::AlignHCenter);
+            break;
+        default:
+            qDebug() << val->getType() << " is not a type";
+            break;
+    } // end switch (val->getType())
 }

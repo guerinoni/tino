@@ -1,6 +1,0 @@
-[submodule "src/yaml/yaml-cpp"]
-	path = src/yaml/yaml-cpp
-	url = https://github.com/jbeder/yaml-cpp.git
-[submodule "tino"]
-	path = tino
-	url = https://github.com/Stivvo/tino.git

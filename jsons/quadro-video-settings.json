@@ -1,0 +1,466 @@
+{
+    "settings":
+    {
+        "portName": "auto",
+        "Parity": 0,
+        "BaudRate": 57600,
+        "DataBits": 8,
+        "StopBits": 1,
+        "ServerAddress": 1,
+        "refreshTime": 1000
+    },
+    "blocks": [
+    {
+        "name": "da QUADRO a VIDEO a sola lettura",
+        "start": 4096,
+        "groups": [
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "SND_AMB 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "SND_AMB 1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "SCUORE 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "SCUORE 1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "SCUORE2 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "SCUORE2 1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "SND_SOTV 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "SND_SOTV 1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "MED_UR 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "MED_UR 1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "m",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "FL_RET",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["start cottura da porta aperta a fine preriscaldo", "finito preriscaldamento", "finito cooldown", "fine cottura/fine clean test", "top cotura/lavaggio per allarme", "fine taratura UR%", "esci dal lavaggio a fine lavaggio per porta aperta", ""]
+                    },
+                    {
+                        "name": "MFL_RET",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "MFL_RET+1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "MFL_RET+2",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "MFL_RET+3",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "MFL_RET+4",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "MFL_RET+5",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "MFL_RET+6",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "MFL_RET+7",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "FLAR",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "FLAR+1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "FLAR+2",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "FLAR+3",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "FLAR+4",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "FLAR+5",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "FLAR+6",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    },
+                    {
+                        "name": "FLAR+7",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["", "", "", "", "", "", "", ""]
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "MINFUNZ 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "MINFUNZ 1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "v",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "UR_VIS",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "CNT_LIT2 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "CNT_LIT2 1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "TIM_PLAV 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "TIM_PLAV 1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "v",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "TIM_PLAV 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "unnamed",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "CNT_LIT1 0",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "CNT_LIT1 1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "unnamed",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "unnamed",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "unnamed",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "unnamed",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "unnamed",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "unnamed",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            },
+            {
+                "type": "j",
+                "write": true,
+                "bytes": [
+                    {
+                        "name": "unnamed",
+                        "values": [false, true, false, false, false, false, false, false],
+                        "desc": []
+                    },
+                    {
+                        "name": "unnamed",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "scrittura",
+        "start": 312,
+        "groups": [
+            {
+                "type": "m",
+                "write": false,
+                "bytes": [
+                    {
+                        "name": "FL_COM",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["scheda", "start", "preriscaldo", "cooldown", "lavaggio", "start configurazione forno", "salva configurazione slave in eeprom", "luci in start"]
+                    },
+                    {
+                        "name": "FL_COM+1",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["start collaudio GAS", "unnamed", "START procedura di taratura UR%", "start del test pompa di lavaggio", "collaudo gas C2", "interrompi test pompe di lavaggio", "ripeti fase", "start del test veloce flussostati e riduttori di pressione"]
+                    },
+                    {
+                        "name": "FL_COM+2",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["scheda", "start", "preriscaldo", "cooldown", "lavaggio", "start configurazione forno", "salva configurazione slave in eeprom", "luci in start"]
+                    },
+                    {
+                        "name": "FL_COM+3",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["scheda", "start", "preriscaldo", "cooldown", "lavaggio", "start configurazione forno", "salva configurazione slave in eeprom", "luci in start"]
+                    },
+                    {
+                        "name": "FL_COM+4",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["scheda", "start", "preriscaldo", "cooldown", "lavaggio", "start configurazione forno", "salva configurazione slave in eeprom", "luci in start"]
+                    },
+                    {
+                        "name": "FL_COM+5",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["scheda", "start", "preriscaldo", "cooldown", "lavaggio", "start configurazione forno", "salva configurazione slave in eeprom", "luci in start"]
+                    },
+                    {
+                        "name": "FL_COM+6",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["scheda", "start", "preriscaldo", "cooldown", "lavaggio", "start configurazione forno", "salva configurazione slave in eeprom", "luci in start"]
+                    },
+                    {
+                        "name": "FL_COM+7",
+                        "values": [false, false, false, false, false, false, false, false],
+                        "desc": ["scheda", "start", "preriscaldo", "cooldown", "lavaggio", "start configurazione forno", "salva configurazione slave in eeprom", "luci in start"]
+                    }
+                ]
+            }
+        ]
+    }
+]}

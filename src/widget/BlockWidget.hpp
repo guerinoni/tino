@@ -9,13 +9,12 @@ class BlockWidget : public QWidget
     Q_OBJECT
 
   public:
-    BlockWidget(core::Block val, QWidget *parent = nullptr);
-    BlockWidget(const BlockWidget &) = default;
-    BlockWidget &operator=(const BlockWidget &) = default;
+    explicit BlockWidget(core::Block *val, QWidget *parent = nullptr);
     ~BlockWidget() override                     = default;
 
   private:
     QBoxLayout *l;
-    std::vector<GroupWidget *> g;
+
+    std::vector<std::unique_ptr<widget::GroupWidget>> g;
 };
 } // namespace widget

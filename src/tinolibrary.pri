@@ -21,6 +21,8 @@ CONFIG(debug, debug|release) {
     QMAKE_CXXFLAGS -= -O2
     QMAKE_CXXFLAGS -= -O3
     QMAKE_CXXFLAGS += --debug
+    QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
+    LIBS += -lgcov
 }
 
 

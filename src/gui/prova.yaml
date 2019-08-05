@@ -1,9 +1,0 @@
-- block1name:
-        name: "name1"
-        type: "type1"
-        byte1name:
-                type: "typeb1"
-                value: "valueb1"
-        byte2name:
-                type: "typeb2"
-                value: "valueb2"

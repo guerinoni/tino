@@ -6,28 +6,12 @@
  * j: joined
  */
 
-core::Group::Group(std::vector<Byte> v, char type)
+core::Group::Group(const std::vector<Byte> &v, char type, bool write) :
+    v(v), type(type), write(write)
 {
-    this->v    = v;
-    this->type = type;
 }
 
-core::Group::Group(std::vector<bool> v, /*std::tring name,*/
-                   std::vector<std::string> description, bool rw, char type)
-{
-    this->type = type = type;
-    this->add(v, description, rw);
-    //    this->name = name;
-}
-
-void core::Group::add(std::vector<bool> v, std::vector<std::string> description,
-                      bool rw)
-{
-    core::Byte tv(v, description, rw);
-    this->v[v.size() - 1] = tv;
-}
-
-char core::Group::getType()
+char core::Group::getType() const
 {
     return type;
 }
@@ -44,15 +28,16 @@ long unsigned core::Group::getDim() const
 
 core::Group &core::Group::operator=(const Group &other)
 {
-    this->type = other.type;
-
-    this->v = other.v;
+    this->type  = other.type;
+    this->write = other.write;
+    this->v     = other.v;
     return *this;
 }
 
 bool core::Group::operator==(const core::Group &other) const
 {
-    if ((type != other.type) || (v.size() != other.v.size()))
+    if ((write != other.write) || (type != other.type) ||
+        (v.size() != other.v.size()))
         return false;
 
     unsigned long i = 0;
@@ -60,5 +45,10 @@ bool core::Group::operator==(const core::Group &other) const
     while (i < v.size() && v[i] == other.v[i])
         ++i;
 
-    return i == v.size() ? true : false;
+    return i == v.size();
+}
+
+bool core::Group::getWrite() const
+{
+    return write;
 }

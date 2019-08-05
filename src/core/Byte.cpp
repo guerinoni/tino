@@ -1,43 +1,49 @@
 #include "Byte.hpp"
 
+#include <algorithm>
 #include <cmath>
+#include <functional>
 
-core::Byte::Byte(std::vector<bool> v, std::vector<std::string> desc, bool rw)
+core::Byte::Byte(const std::vector<bool> &v,
+                 const std::vector<std::string> &desc,
+                 const std::string &name) :
+    v(v),
+    desc(desc), name(name)
 {
-    this->v    = v;
-    this->desc = desc;
-    this->rw   = rw;
 }
 
-std::string core::Byte::getDesc(long unsigned i)
+std::string core::Byte::getDesc(long unsigned i) const
 {
     return desc[i];
 }
-bool core::Byte::operator[](long unsigned i)
+
+bool core::Byte::operator[](long unsigned i) const
 {
     return v[i];
 }
+
 void core::Byte::set(long unsigned i)
 {
     v[i] = !v[i];
 }
 
-bool core::Byte::getRw()
+std::string core::Byte::getName() const
 {
-    return rw;
+    return name;
 }
+
 core::Byte &core::Byte::operator=(const core::Byte &other)
 {
     this->v    = other.v;
-    this->rw   = other.rw;
     this->desc = other.desc;
+    this->name = other.name;
 
     return *this;
 }
 
 bool core::Byte::operator==(const core::Byte &other) const
 {
-    if ((rw != other.rw) || (desc.size() != other.desc.size()))
+    if ((name != other.name) || (desc.size() != other.desc.size()))
         return false;
 
     unsigned long i = 0;
@@ -52,23 +58,24 @@ bool core::Byte::operator==(const core::Byte &other) const
     while (i < desc.size() && desc[i] == other.desc[i])
         ++i;
 
-    if (i != desc.size())
-        return false;
-
-    return true;
+    return i == desc.size();
 }
 
-bool core::Byte::isMask()
+int core::Byte::getInt() const
 {
-    return desc.size() == 1 ? false : true;
+    double value           = 0;
+    unsigned long int cont = 0;
+
+    for (int i = 7; i >= 0; --i)
+        value += (v[cont++] ? pow(2, i) : 0);
+
+    return static_cast<int>(value);
 }
 
-double core::Byte::getInt()
+void core::Byte::setInt(int n)
 {
-    double value = 0;
-
-    for (unsigned long i = 0; i < 8; ++i)
-        value += (v[i] ? pow(2, i) : 0);
-
-    return value;
+    for (int i = 7; i >= 0; --i) {
+        v[static_cast<unsigned long int>(i)] = (n > 0) && (n % 2 == 1);
+        n /= 2;
+    }
 }

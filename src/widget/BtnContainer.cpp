@@ -1,23 +1,24 @@
 #include "BtnContainer.hpp"
 
-widget::BtnContainer::BtnContainer()
+QString widget::BtnContainer::clrOn  = "background-color:#ff0000;";
+QString widget::BtnContainer::clrOff = "background-color:#0000ff;";
+
+widget::BtnContainer::BtnContainer(core::Byte *val, unsigned long int offset)
 {
-    for (int i = 0; i < 8; ++i) {
+    this->offset = offset;
+    this->val    = val;
+
+    for (unsigned long int i = 0; i < 4; ++i) {
         b.emplace_back(std::make_pair(
             std::unique_ptr<QPushButton>(new QPushButton()), [i, this]() {
-                val.set(i);
+                this->val->set(i + this->offset);
                 setClr(i);
             }));
+        setClr(i);
     }
-    //    ci vorrebbe un modo per mettere in un Btncontainer i button da 0 a 3 e
-    //    nell'altro dal 4 al 7, altrimenti entrambi contengono anche i valori
-    //    dell'altro
 }
 
-void widget::BtnContainer::setClr(const int i)
+void widget::BtnContainer::setClr(unsigned long int i)
 {
-    if (val[i])
-        b[i].first->setStyleSheet("background-color:#ff0000;");
-    else
-        b[i].first->setStyleSheet("background-color:#0000ff;");
+    b[i].first->setStyleSheet((*val)[i + offset] ? clrOn : clrOff);
 }

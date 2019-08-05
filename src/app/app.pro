@@ -7,7 +7,6 @@ TARGET = tino
 QT -= testlib
 QT += core gui widgets
 
-INCLUDEPATH += $$PWD/../yaml/yaml-cpp/include
 INCLUDEPATH += $$PWD/../gui
 
 CONFIG(release, debug|release) {
