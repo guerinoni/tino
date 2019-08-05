@@ -8,7 +8,7 @@
 SCRIPT_DIR=$(dirname $0)
 
 # SRC_DIR is the directory containing the .gcno files (%{buildDir} in Qt Creator)
-SRC_DIR="$SCRIPT_DIR/../../../build-CodeCoverageExample-Desktop_Qt_5_3_clang_64bit-Debug"
+SRC_DIR="$SCRIPT_DIR/../../build-tino-Desktop_Qt_5_13_0_GCC_64bit-Debug"
 
 # COV_DIR is the directory where the coverage results will be stored
 COV_DIR="$SCRIPT_DIR/../coverage"
@@ -34,4 +34,4 @@ genhtml -o "${HTML_RESULTS}" "${COV_DIR}/coverage-filtered.info"
 lcov -d "${COV_DIR}" -z
  
 # Open the index.html
-open "${HTML_RESULTS}/index.html"
+firefox "${HTML_RESULTS}/index.html"

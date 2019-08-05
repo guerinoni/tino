@@ -1,9 +1,9 @@
 # tino
 
-## required dependencies
-rapidjson
+required dependencies:
+* lcov to run metrics/runCoverage.sh (see how much code is covered by tests)
+* socat to run startVSP.sh (open a virtual serial port) and use the auto connection feature
 
-socat to comunicate througt a virtual serial modbus
 to open a virtual comunication:
 
 ~~~
@@ -20,4 +20,3 @@ this generates an output like this:
 
 connect tino to /dev/pts/2 and your client to /dev/pts/3
 
-or use the auto connection feature instead
