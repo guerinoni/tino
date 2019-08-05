@@ -1,9 +1,9 @@
 #include "Joined.hpp"
 
-#include <cmath>
 #include <QHBoxLayout>
-#include <QSpinBox>
 #include <QLabel>
+#include <QSpinBox>
+#include <cmath>
 
 widget::Joined::Joined(core::Group *value, QWidget *parent) : QWidget(parent)
 {

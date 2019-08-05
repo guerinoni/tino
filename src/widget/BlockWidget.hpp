@@ -1,6 +1,9 @@
 #pragma once
 
+#include "Block.hpp"
 #include "GroupWidget.hpp"
+
+class QVBoxLayout;
 
 namespace widget
 {
@@ -10,10 +13,10 @@ class BlockWidget : public QWidget
 
   public:
     explicit BlockWidget(core::Block *val, QWidget *parent = nullptr);
-    ~BlockWidget() override                     = default;
+    ~BlockWidget() override = default;
 
   private:
-    QBoxLayout *l;
+    QVBoxLayout *l;
 
     std::vector<std::unique_ptr<widget::GroupWidget>> g;
 };

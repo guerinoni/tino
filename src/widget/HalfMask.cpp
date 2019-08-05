@@ -1,8 +1,7 @@
 #include "HalfMask.hpp"
 
-#include <QHBoxLayout>
-
-widget::HalfMask::HalfMask(core::Byte *val, unsigned long int offset, QWidget *parent) :
+widget::HalfMask::HalfMask(core::Byte *val, unsigned long int offset,
+                           QWidget *parent) :
     QWidget(parent)
 {
     l = new QHBoxLayout(this);

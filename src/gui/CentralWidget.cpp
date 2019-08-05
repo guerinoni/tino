@@ -1,7 +1,12 @@
 #include "CentralWidget.hpp"
 
 #include "Parser.hpp"
+
 #include <QDebug>
+#include <QFileDialog>
+#include <QGridLayout>
+#include <QLineEdit>
+#include <QTimer>
 
 CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 {

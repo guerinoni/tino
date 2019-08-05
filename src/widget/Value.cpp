@@ -1,7 +1,6 @@
 #include "Value.hpp"
 
 #include <QHBoxLayout>
-#include <QLabel>
 #include <QSpinBox>
 
 widget::Value::Value(core::Byte *value, bool write, QWidget *parent) :

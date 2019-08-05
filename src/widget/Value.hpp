@@ -1,11 +1,11 @@
 #pragma once
 
-#include "BtnContainer.hpp"
+#include "Byte.hpp"
 
-class QLabel;
-class QSpinBox;
+#include <QLabel>
 
 class QHBoxLayout;
+class QSpinBox;
 
 namespace widget
 {

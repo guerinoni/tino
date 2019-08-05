@@ -1,8 +1,11 @@
 #pragma once
+
 #include "Joined.hpp"
 #include "Mask.hpp"
+#include "Value.hpp"
 
-#include <QVBoxLayout>
+class QVBoxLayout;
+class Group;
 
 namespace widget
 {
@@ -12,7 +15,7 @@ class GroupWidget : public QWidget
 
   public:
     explicit GroupWidget(core::Group *val, QWidget *parent = nullptr);
-    ~GroupWidget() override          = default;
+    ~GroupWidget() override = default;
 
   private:
     QVBoxLayout *l;

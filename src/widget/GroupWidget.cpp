@@ -1,6 +1,7 @@
 #include "GroupWidget.hpp"
 
 #include <QDebug>
+#include <QVBoxLayout>
 
 widget::GroupWidget::GroupWidget(core::Group *val, QWidget *parent) :
     QWidget(parent)

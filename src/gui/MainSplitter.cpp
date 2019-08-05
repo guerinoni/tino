@@ -1,5 +1,9 @@
 #include "MainSplitter.hpp"
 
+#include <QFileDialog>
+#include <QSplitter>
+#include <QVBoxLayout>
+
 MainSplitter::MainSplitter(std::vector<core::Block> *blocks, QWidget *parent) :
     QWidget(parent)
 {

@@ -1,8 +1,11 @@
 #pragma once
 
-#include "Value.hpp"
+#include "Group.hpp"
+
+#include <QLabel>
 
 class QHBoxLayout;
+class QSpinBox;
 
 namespace widget
 {

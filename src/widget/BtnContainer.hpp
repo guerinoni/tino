@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Block.hpp"
+#include "Byte.hpp"
 
 #include <QPushButton>
 #include <functional>

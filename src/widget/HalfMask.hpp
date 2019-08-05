@@ -2,9 +2,7 @@
 
 #include "BtnContainer.hpp"
 
-#include <QWidget>
-
-class QHBoxLayout;
+#include <QHBoxLayout>
 
 namespace widget
 {
@@ -13,8 +11,9 @@ class HalfMask : public QWidget
     Q_OBJECT
 
   public:
-    HalfMask(core::Byte *val, unsigned long int offset, QWidget *parent = nullptr);
-    ~HalfMask() override       = default;
+    HalfMask(core::Byte *val, unsigned long int offset,
+             QWidget *parent = nullptr);
+    ~HalfMask() override = default;
 
     std::unique_ptr<widget::BtnContainer> c;
 

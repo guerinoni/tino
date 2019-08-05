@@ -1,7 +1,9 @@
 #pragma once
+
 #include "BlockWidget.hpp"
 
-#include <QScrollArea>
+class QVBoxLayout;
+class QScrollArea;
 
 class ScrollBlock : public QWidget
 {

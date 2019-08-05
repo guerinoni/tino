@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Connector.hpp"
 #include "ScrollBlock.hpp"
 
-#include <QFileDialog>
-#include <QSplitter>
+class QSplitter;
+class QVBoxLayout;
 
 class MainSplitter : public QWidget
 {

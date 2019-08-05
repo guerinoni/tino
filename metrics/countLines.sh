@@ -1,4 +1,5 @@
 #!/bin/bash
+
 mv ../src/json ~/.
-find ../ -name '*pp' | xargs wc -l
+cat $(find ../ -name '*pp') | sed '/^\s*$/d' | wc -l
 mv ~/json ../src/

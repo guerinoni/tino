@@ -1,6 +1,7 @@
 #include "ScrollBlock.hpp"
 
-#include <QLabel>
+#include <QScrollArea>
+#include <QVBoxLayout>
 
 ScrollBlock::ScrollBlock(core::Block *value, QWidget *parent) : QWidget(parent)
 {

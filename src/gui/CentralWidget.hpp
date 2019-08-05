@@ -1,12 +1,11 @@
 #pragma once
 
+#include "Connector.hpp"
 #include "MainSplitter.hpp"
 
-#include <QLabel>
-#include <QLayout>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QTimer>
+class QGridLayout;
+class QLineEdit;
+class QTimer;
 
 class CentralWidget : public QWidget
 {

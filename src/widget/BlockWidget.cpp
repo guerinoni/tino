@@ -1,9 +1,11 @@
 #include "BlockWidget.hpp"
 
+#include <QVBoxLayout>
+
 widget::BlockWidget::BlockWidget(core::Block *val, QWidget *parent) :
     QWidget(parent)
 {
-    l = new QBoxLayout(QBoxLayout::TopToBottom, this);
+    l = new QVBoxLayout(this);
 
     for (long unsigned int i = 0; i < val->getDim(); ++i) {
         g.emplace_back(std::unique_ptr<widget::GroupWidget>(

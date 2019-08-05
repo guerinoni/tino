@@ -3,7 +3,6 @@
 #include "HalfMask.hpp"
 
 class QVBoxLayout;
-
 class QLabel;
 
 namespace widget
