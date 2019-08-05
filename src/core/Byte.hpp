@@ -1,9 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
 
 namespace core
 {
@@ -16,7 +14,8 @@ class Byte
 
   public:
     Byte() = default;
-    Byte(const std::vector<bool> &v, const std::vector<std::string> &desc, const std::string &name);
+    Byte(const std::vector<bool> &v, const std::vector<std::string> &desc,
+         const std::string &name);
     ~Byte()            = default;
     Byte(const Byte &) = default;
 

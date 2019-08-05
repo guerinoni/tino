@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Block.hpp"
-#include <memory>
+
 #include <QPushButton>
+#include <functional>
+#include <memory>
 
 namespace widget
 {

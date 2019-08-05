@@ -1,14 +1,22 @@
 #include "Byte.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <functional>
 
-core::Byte::Byte(const std::vector<bool> &v, const std::vector<std::string> &desc, const std::string &name) : v(v), desc(desc), name(name) {}
+core::Byte::Byte(const std::vector<bool> &v,
+                 const std::vector<std::string> &desc,
+                 const std::string &name) :
+    v(v),
+    desc(desc), name(name)
+{
+}
 
 std::string core::Byte::getDesc(long unsigned i) const
 {
     return desc[i];
 }
+
 bool core::Byte::operator[](long unsigned i) const
 {
     return v[i];

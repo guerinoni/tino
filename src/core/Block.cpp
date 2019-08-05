@@ -1,6 +1,13 @@
 #include "Block.hpp"
 
-core::Block::Block(const std::vector<core::Group> &v, int start, const std::string &name) : v(v), name(name), start(start) {}
+#include <algorithm>
+
+core::Block::Block(const std::vector<core::Group> &v, int start,
+                   const std::string &name) :
+    v(v),
+    name(name), start(start)
+{
+}
 
 std::string core::Block::getName() const
 {

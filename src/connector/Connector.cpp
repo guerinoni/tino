@@ -25,7 +25,8 @@ Connector::Connector(std::vector<core::Block> *v, QObject *parent) :
 
     connect(server, &QModbusServer::dataWritten, this,
             [this](QModbusDataUnit::RegisterType table, int address, int size) {
-                QModbusDataUnit u(table, address, static_cast<unsigned short>(size));
+                QModbusDataUnit u(table, address,
+                                  static_cast<unsigned short>(size));
                 // unit contains one HoldingRegisters
 
                 if (!server->data(&u))
@@ -43,7 +44,9 @@ Connector::Connector(std::vector<core::Block> *v, QObject *parent) :
                          << ", size: " << u.valueCount();
 
                 for (int j = 0; j < static_cast<int>(u.valueCount()); ++j)
-                    (*all)[i].setIntAtAddress(static_cast<unsigned short>(u.value(j)), static_cast<unsigned short>(u.startAddress() + j));
+                    (*all)[i].setIntAtAddress(
+                        static_cast<unsigned short>(u.value(j)),
+                        static_cast<unsigned short>(u.startAddress() + j));
                 emit updateBlockReq(i);
             });
 }
@@ -101,8 +104,10 @@ int Connector::writeBlock(long unsigned int a)
             for (unsigned long j = 0; j < (*all)[a][i].getDim(); ++j) {
                 if ((*all)[a][i].getWrite()) {
                     if (!server->setData(QModbusDataUnit::HoldingRegisters,
-                                         static_cast<unsigned short>((*all)[a].getStart() + cont),
-                                         static_cast<unsigned short>((*all)[a][i][j].getInt())))
+                                         static_cast<unsigned short>(
+                                             (*all)[a].getStart() + cont),
+                                         static_cast<unsigned short>(
+                                             (*all)[a][i][j].getInt())))
                         qDebug() << "error writing data: " << cont << " "
                                  << server->errorString();
                 }

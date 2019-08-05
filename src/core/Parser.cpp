@@ -1,7 +1,8 @@
 #include "Parser.hpp"
 
-#include <fstream>
 #include "json/json.h"
+#include <algorithm>
+#include <fstream>
 
 std::ifstream core::Parser::getRoot(const std::string &name)
 {
