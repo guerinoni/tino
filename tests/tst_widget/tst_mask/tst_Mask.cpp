@@ -1,4 +1,4 @@
-#include "Generator.hpp"
+#include "generator/Generator.hpp"
 #include "Mask.hpp"
 
 #include <QtTest>
@@ -22,7 +22,7 @@ class tst_Mask : public QObject
 
 void tst_Mask::initTestCase()
 {
-    b = core::Generator::getByte1(0);
+    b = Generator::getByte1(0);
     m = new widget::Mask(&b, true, nullptr);
 }
 

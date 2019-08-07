@@ -1,4 +1,4 @@
-#include "Generator.hpp"
+#include "generator/Generator.hpp"
 #include "Value.hpp"
 
 #include <QtTest>
@@ -19,7 +19,7 @@ class tst_Value : public QObject
 
 void tst_Value::initTestCase()
 {
-    b = core::Generator::getByte1(0);
+    b = Generator::getByte1(0);
     v = new widget::Value(&b, true, nullptr);
 }
 
