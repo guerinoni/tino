@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-core::Byte core::Generator::getByte1(int n)
+core::Byte Generator::getByte1(int n)
 {
     std::vector<bool> v = {
         true, false, true, false, true, false, true, false
@@ -16,7 +16,7 @@ core::Byte core::Generator::getByte1(int n)
     return b;
 }
 
-core::Byte core::Generator::getByte2(int n)
+core::Byte Generator::getByte2(int n)
 {
     std::vector<bool> v = {
         true, false, true, false, true, false, true, false
@@ -27,27 +27,28 @@ core::Byte core::Generator::getByte2(int n)
     return b;
 }
 
-core::Group core::Generator::getGroup1(bool rw)
+core::Group Generator::getGroup1(bool rw)
 {
     std::vector<core::Byte> vb = { getByte1(0), getByte1(1), getByte1(2) };
     core::Group g(vb, 'm', rw);
     return g;
 }
 
-core::Group core::Generator::getGroup2(bool rw)
+core::Group Generator::getGroup2(bool rw)
 {
     std::vector<core::Byte> vb = { getByte2(3), getByte2(4), getByte2(5) };
     core::Group g(vb, 'v', rw);
     return g;
 }
-core::Group core::Generator::getGroup3(bool rw)
+
+core::Group Generator::getGroup3(bool rw)
 {
     std::vector<core::Byte> vb = { getByte2(6), getByte2(7), getByte2(8) };
     core::Group g(vb, 'j', rw);
     return g;
 }
 
-core::Block core::Generator::getBlock(int n, std::vector<bool> write)
+core::Block Generator::getBlock(int n, std::vector<bool> write)
 {
     std::vector<core::Group> vg = { getGroup1(write[0]), getGroup2(write[1]),
                                     getGroup3(write[2]) };
@@ -60,7 +61,7 @@ core::Block core::Generator::getBlock(int n, std::vector<bool> write)
     return bl;
 }
 
-core::Block core::Generator::getBlock()
+core::Block Generator::getBlock()
 {
     std::vector<core::Group> vg = { getGroup1(false), getGroup2(false),
                                     getGroup3(false) };

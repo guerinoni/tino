@@ -1,4 +1,4 @@
-#include "Generator.hpp"
+#include "generator/Generator.hpp"
 #include "Parser.hpp"
 
 #include <QDebug>
@@ -32,11 +32,11 @@ void tst_Parser::initTestCase()
     conf  = "../../../../tino/jsons/conf.json";
     // you should look at the path relative to the tst_gui executable
     all = {
-        core::Generator::getBlock(1, write),
-        core::Generator::getBlock(2, write),
-        core::Generator::getBlock(3, write),
-        core::Generator::getBlock(4, write),
-        core::Generator::getBlock(5, write),
+        Generator::getBlock(1, write),
+        Generator::getBlock(2, write),
+        Generator::getBlock(3, write),
+        Generator::getBlock(4, write),
+        Generator::getBlock(5, write),
     };
     core::Parser::parse(conf, cmp);
 }

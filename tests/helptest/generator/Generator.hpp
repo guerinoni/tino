@@ -2,8 +2,6 @@
 
 #include "Block.hpp"
 
-namespace core
-{
 struct Generator {
     Generator()  = delete;
     ~Generator() = default;
@@ -16,4 +14,3 @@ struct Generator {
     static core::Block getBlock();
     static core::Block getBlock(int n, std::vector<bool> write);
 };
-} // namespace core
