@@ -9,7 +9,7 @@ core::Byte Generator::getByte1(int n)
     };
     std::vector<std::string> s = {
         "bitname1", "bitname2", "bitname3", "bitname4",
-        "bitname5", "bitname6", "bitname7", "bitname8",
+        "bitname5", "bitname6", "bitname7", "bitname8"
     };
 
     core::Byte b(v, s, std::to_string(n) + " bytename");

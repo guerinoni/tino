@@ -6,4 +6,7 @@ include(../../tests.pri) #not sure
 HEADERS += $$PWD\Generator.hpp
 SOURCES += $$PWD\Generator.cpp
 
-INCLUDEPATH += ../../../src/core/
+INCLUDEPATH += \
+    $$PWD/. \
+    $$PWD/../../src/core/ \
+
