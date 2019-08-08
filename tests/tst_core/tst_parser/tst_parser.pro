@@ -4,3 +4,5 @@ TINO_LIB_DEPENDS += \
 include(../../tests.pri)
 
 SOURCES += tst_Parser.cpp
+
+INCLUDEPATH += $$PWD/../../helptest/generator/

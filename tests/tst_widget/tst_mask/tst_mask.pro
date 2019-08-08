@@ -4,4 +4,3 @@ TINO_LIB_DEPENDS += \
 
 include(../../tests.pri)
 
-SOURCES += tst_Mask.cpp
