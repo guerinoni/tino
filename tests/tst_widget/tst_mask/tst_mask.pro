@@ -1,6 +1,7 @@
 TINO_LIB_DEPENDS += \
     core \
-    widget
+    widget \
 
 include(../../tests.pri)
 
+SOURCES += tst_Mask.cpp

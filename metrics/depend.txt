@@ -1,0 +1,2 @@
+   45  sudo apt-get install libmesa
+   50  sudo apt-get install libgl1-mesa-dev

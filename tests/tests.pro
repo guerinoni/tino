@@ -1,6 +1,5 @@
 TEMPLATE = subdirs
 SUBDIRS += \
-    helptest \
-    tst_widget \
-    tst_core
-
+#    helptest \ undefined reference to main if uncomment
+    tst_core \
+    tst_widget

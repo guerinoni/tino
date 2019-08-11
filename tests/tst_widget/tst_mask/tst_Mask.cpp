@@ -1,4 +1,4 @@
-#include "generator/Generator.hpp"
+#include "Generator.hpp"
 #include "Mask.hpp"
 
 #include <QtTest>
