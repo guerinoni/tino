@@ -1,10 +1,20 @@
-#include "Parser.hpp"
+#pragma once
+
+#include "Block.hpp"
+#include "Settings.hpp"
 
 #include "json/json.h"
 #include <algorithm>
 #include <fstream>
 
-std::ifstream core::Parser::getRoot(const std::string &name)
+namespace parser
+{
+static std::ifstream getRoot(const std::string &name);
+static void parse(std::string name, std::vector<core::Block> &all);
+static void getSettings(std::string name, connector::Settings &s);
+} // namespace parser
+
+std::ifstream parser::getRoot(const std::string &name)
 {
     // open the conf.json
     std::ifstream conf(name, std::ios::in);
@@ -13,10 +23,10 @@ std::ifstream core::Parser::getRoot(const std::string &name)
     return conf;
 }
 
-void core::Parser::parse(std::string name, std::vector<core::Block> &all)
+void parser::parse(std::string name, std::vector<core::Block> &all)
 {
     Json::Value root;
-    core::Parser::getRoot(name) >> root;
+    parser::getRoot(name) >> root;
 
     const Json::Value blocks = root["blocks"]; // get the main object
     all.clear();
@@ -115,10 +125,10 @@ void core::Parser::parse(std::string name, std::vector<core::Block> &all)
     }); // end foreach BLOCK
 }
 
-void core::Parser::getSettings(std::string name, core::Settings &s)
+void parser::getSettings(std::string name, connector::Settings &s)
 {
     Json::Value root;
-    core::Parser::getRoot(name) >> root;
+    parser::getRoot(name) >> root;
     const auto &settings = root["settings"]; // get the main object
 
     s.portName      = settings["portName"].asString();

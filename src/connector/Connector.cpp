@@ -58,7 +58,7 @@ Connector::~Connector()
     server = nullptr;
 }
 
-bool Connector::startConnection(const core::Settings &s)
+bool Connector::startConnection(const connector::Settings &s)
 {
     if (server) {
         // set server parameter
@@ -152,8 +152,7 @@ std::string Connector::openPort()
         strcat(socat, outFile);
         strcat(socat, " pty,raw,echo=0 pty,raw,echo=0");
         system(socat);
-    })
-        .detach();
+    }).detach();
 
     std::fstream socatOutput;
     socatOutput.open(outFile, std::ifstream::in);

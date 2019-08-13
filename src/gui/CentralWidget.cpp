@@ -40,7 +40,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     connect(btnConnect, &QPushButton::clicked, this, [&]() {
         if (c) {
             if (btnConnectState == 0) {
-                core::Parser::getSettings(filename, s);
+                parser::getSettings(filename, s);
 
                 if (!linePort->text().isEmpty()) // take portname from gui
                     s.portName = linePort->text().toStdString();
@@ -112,7 +112,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
             return;
 
         blocks.erase(blocks.begin(), blocks.end());
-        core::Parser::parse(filename, blocks);
+        parser::parse(filename, blocks);
 
         lblNbytes->setText("0 bytes written");
         linePort->setText("");

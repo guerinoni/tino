@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-namespace core
+namespace connector
 {
 struct Settings {
     Settings()  = default;
     ~Settings() = default;
-    bool operator==(const Settings &other) const;
+    bool operator==(const connector::Settings &other) const;
 
     std::string portName;
     int Parity;
@@ -17,4 +17,4 @@ struct Settings {
     int ServerAddress;
     int refreshTime;
 };
-} // namespace core
+} // namespace connector

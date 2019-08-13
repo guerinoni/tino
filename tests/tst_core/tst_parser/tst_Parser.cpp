@@ -32,13 +32,11 @@ void tst_Parser::initTestCase()
     conf  = "../../../../tino/jsons/conf.json";
     // you should look at the path relative to the tst_gui executable
     all = {
-        core::Generator::getBlock(1, write),
-        core::Generator::getBlock(2, write),
-        core::Generator::getBlock(3, write),
-        core::Generator::getBlock(4, write),
-        core::Generator::getBlock(5, write),
+        generator::getBlock(1, write), generator::getBlock(2, write),
+        generator::getBlock(3, write), generator::getBlock(4, write),
+        generator::getBlock(5, write),
     };
-    core::Parser::parse(conf, cmp);
+    parser::parse(conf, cmp);
 }
 
 void tst_Parser::tst_load()
@@ -73,7 +71,7 @@ void tst_Parser::parse()
 
 void tst_Parser::parseSettings()
 {
-    core::Settings s;
+    connector::Settings s;
     s.portName      = "auto";
     s.Parity        = 0;
     s.BaudRate      = 57600;
@@ -82,8 +80,8 @@ void tst_Parser::parseSettings()
     s.ServerAddress = 1;
     s.refreshTime   = 1000;
 
-    core::Settings s1;
-    core::Parser::getSettings(conf, s1);
+    connector::Settings s1;
+    parser::getSettings(conf, s1);
 
     QVERIFY(s == s1);
 }

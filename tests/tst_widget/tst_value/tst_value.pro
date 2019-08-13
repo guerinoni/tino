@@ -1,7 +1,10 @@
 TINO_LIB_DEPENDS += \
     core \
-    widget
+    widget \
+    helptest
 
-include(../../test.pri)
+include(../../tests.pri)
 
 SOURCES += tst_Value.cpp
+
+

@@ -1,6 +1,7 @@
 TINO_LIB_DEPENDS += \
-    core
+    core \
+    helptest
 
-include(../../test.pri)
+include(../../tests.pri)
 
 SOURCES += tst_Conversion.cpp

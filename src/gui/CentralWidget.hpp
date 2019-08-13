@@ -34,7 +34,7 @@ class CentralWidget : public QWidget
 
     int nBytes;
     std::string filename;
-    core::Settings s;
+    connector::Settings s;
 
     int btnConnectState;
 };
