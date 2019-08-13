@@ -32,11 +32,9 @@ void tst_Parser::initTestCase()
     conf  = "../../../../tino/jsons/conf.json";
     // you should look at the path relative to the tst_gui executable
     all = {
-        Generator::getBlock(1, write),
-        Generator::getBlock(2, write),
-        Generator::getBlock(3, write),
-        Generator::getBlock(4, write),
-        Generator::getBlock(5, write),
+        generator::getBlock(1, write), generator::getBlock(2, write),
+        generator::getBlock(3, write), generator::getBlock(4, write),
+        generator::getBlock(5, write),
     };
     core::Parser::parse(conf, cmp);
 }

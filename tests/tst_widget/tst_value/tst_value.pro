@@ -1,6 +1,7 @@
 TINO_LIB_DEPENDS += \
     core \
-    widget
+    widget \
+    helptest
 
 include(../../tests.pri)
 

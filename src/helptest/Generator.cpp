@@ -1,2 +1,1 @@
 #include "Generator.hpp"
-

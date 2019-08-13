@@ -1,5 +1,6 @@
 TINO_LIB_DEPENDS += \
-    core
+    core \
+    helptest
 
 include(../../tests.pri)
 

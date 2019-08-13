@@ -7,4 +7,5 @@ SUBDIRS += \
     connector \
     widget \
     gui \
+    helptest \
     app

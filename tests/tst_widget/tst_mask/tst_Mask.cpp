@@ -22,7 +22,7 @@ class tst_Mask : public QObject
 
 void tst_Mask::initTestCase()
 {
-    b = Generator::getByte1(0);
+    b = generator::getByte1(0);
     m = new widget::Mask(&b, true, nullptr);
 }
 
