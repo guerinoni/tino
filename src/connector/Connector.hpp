@@ -19,7 +19,7 @@ class Connector : public QObject
     Connector(std::vector<core::Block> *v, QObject *parent);
     ~Connector();
 
-    bool startConnection(const core::Settings &s);
+    bool startConnection(const connector::Settings &s);
     void endConnection();
 
     int writeBlock(long unsigned int a);
