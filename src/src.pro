@@ -5,6 +5,7 @@ SUBDIRS += \
     json \
     core \
     connector \
+    parser \
     widget \
     gui \
     helptest \

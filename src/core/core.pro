@@ -3,13 +3,9 @@ include(../tinolibrary.pri)
 HEADERS += \
     $$PWD/Byte.hpp \
     $$PWD/Block.hpp \
-    $$PWD/Group.hpp \
-    $$PWD/Parser.hpp \
-    $$PWD/Settings.hpp \
+    $$PWD/Group.hpp
 
 SOURCES += \
     $$PWD/Byte.cpp \
     $$PWD/Block.cpp \
-    $$PWD/Group.cpp \
-    $$PWD/Parser.cpp \
-    $$PWD/Settings.cpp \
+    $$PWD/Group.cpp
