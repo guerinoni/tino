@@ -1,0 +1,37 @@
+# ubuntu.yml 
+
+name: Ubuntu
+
+on:
+  push:
+    branches:
+    - master
+    - release/*
+  pull_request:
+    branches:
+    - master
+  schedule:
+    - cron: "0 2 * * 1-5"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-18.04]
+        qt_arch: [gcc_64]
+    steps:
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2  
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Build Project
+        run: |
+          qmake
+          make
+      - name: Run Tests
+        run: |
+          ./tests/tst_core/tst_elements/tst_elements
+          ./tests/tst_parser/tst_parser/tst_parser
