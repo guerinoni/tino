@@ -38,6 +38,7 @@ void tst_Elements::checkBitset()
     b.setAt(6, false);
     b.setAt(7, false);
     QCOMPARE(b.sValue(), value);
+    QCOMPARE(b.descriptions().size(), Bitset::size);
 }
 
 void tst_Elements::checkByte()

@@ -6,9 +6,11 @@ Bitset::Bitset(QString name, QString descr, uint16_t addr) :
     setType(Element::Type::Bitset);
 }
 
-void Bitset::setAt(size_t index, bool value)
+void Bitset::setAt(size_t index, bool value, QString name, QString description)
 {
     m_bits.set(index, value);
+    m_bitsNames[index]        = name;
+    m_bitsDescriptions[index] = description;
 }
 
 bool Bitset::valueAt(size_t index) const
@@ -49,18 +51,9 @@ const QStringList &Bitset::descriptions() const noexcept
     return m_bitsDescriptions;
 }
 
-QStringList &Bitset::descriptions() noexcept
-{
-    return m_bitsDescriptions;
-}
-
 const QStringList &Bitset::names() const noexcept
 {
     return m_bitsNames;
 }
 
-QStringList &Bitset::names() noexcept
-{
-    return m_bitsNames;
-}
 static_assert(Bitset::size == 8, "Is the size of bit changed?");

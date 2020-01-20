@@ -148,9 +148,7 @@ std::unique_ptr<Bitset> ConfigParser::makeBitset(const QJsonObject &obj,
         auto d   = obj.find(Tags::description)->toString();
         auto n   = obj.find(Tags::name)->toString();
         auto val = obj.find(Tags::defaultValue)->toBool();
-        bitset->names().push_back(n);
-        bitset->descriptions().push_back(d);
-        bitset->setAt(i, val);
+        bitset->setAt(i, val, n, d);
     }
 
     return element;

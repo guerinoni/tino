@@ -17,7 +17,7 @@ class Bitset final : public Element
     Bitset &operator=(const Bitset &other) = default;
     Bitset &operator=(Bitset &&other) = default;
 
-    void setAt(size_t index, bool value);
+    void setAt(size_t index, bool value, QString name= {}, QString description = {});
     bool valueAt(size_t index) const;
 
     uint16_t uValue() const override;
@@ -27,15 +27,13 @@ class Bitset final : public Element
     void setValue(uint16_t value) override;
 
     const QStringList &descriptions() const noexcept;
-    QStringList &descriptions() noexcept;
 
     const QStringList &names() const noexcept;
-    QStringList &names() noexcept;
 
     constexpr static size_t size = 8;
 
   private:
-    QStringList m_bitsNames{};
-    QStringList m_bitsDescriptions{};
+    QStringList m_bitsNames{{}, {}, {}, {}, {}, {}, {}, {}};
+    QStringList m_bitsDescriptions{{}, {}, {}, {}, {}, {}, {}, {}};
     std::bitset<size> m_bits{};
 };
