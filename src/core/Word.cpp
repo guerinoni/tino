@@ -7,7 +7,7 @@ UWord::UWord(QString name, QString descr, uint16_t addr, uint16_t value) :
 }
 
 UWord::UWord(QString name, QString descr, uint16_t addr) :
-    Element{ name, descr, addr }, m_value{ 0 }
+    Element{ std::move(name), std::move(descr), addr }, m_value{ 0 }
 {
     setType(Element::Type::UWord);
 }
@@ -47,7 +47,7 @@ SWord::SWord(QString name, QString descr, uint16_t addr, int16_t value) :
 }
 
 SWord::SWord(QString name, QString descr, uint16_t addr) :
-    Element{ name, descr, addr }, m_value{ 0 }
+    Element{ std::move(name), std::move(descr), addr }, m_value{ 0 }
 {
     setType(Element::Type::SWord);
 }

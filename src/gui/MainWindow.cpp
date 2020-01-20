@@ -112,7 +112,7 @@ void MainWindow::createMenuBar()
 
     const auto comMenu = new QMenu("Com", ui->menuBar);
 
-    m_serialConnect.reset(new QAction("Connect...", comMenu));
+    m_serialConnect = std::make_unique<QAction>("Connect...", comMenu);
     m_serialConnect->setEnabled(false);
     connect(m_serialConnect.get(), &QAction::triggered, this, [&]() {
         if (m_modbus->isConnected()) {
@@ -131,7 +131,7 @@ void MainWindow::createMenuBar()
 
     comMenu->addSeparator();
 
-    m_serialSettings.reset(new QAction("Settings...", comMenu));
+    m_serialSettings = std::make_unique<QAction>("Settings...", comMenu);
     m_serialSettings->setEnabled(false);
     connect(m_serialSettings.get(), &QAction::triggered, this,
             [&]() { DialogSerialSettings(&m_config->settings).exec(); });
@@ -153,7 +153,7 @@ MainWindow::Error MainWindow::importConfig(const QString &filename)
     }
 
     ConfigParser parser;
-    m_config.reset(new Configuration{ parser.parse(filename) });
+    m_config = std::make_unique<Configuration>(parser.parse(filename));
 
     if (m_config == nullptr) {
         return Error{ true, "Parsing configuration error!" };
