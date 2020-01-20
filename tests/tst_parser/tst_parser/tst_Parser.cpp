@@ -53,7 +53,7 @@ void tst_Parser::normalSettings()
     right_settings.dataTerminalReady = false;
     right_settings.flowControl       = QSerialPort::FlowControl::NoFlowControl;
     right_settings.parity            = QSerialPort::Parity::NoParity;
-    right_settings.requestToSend     = true;
+    right_settings.requestToSend     = false;
     right_settings.stopBits          = QSerialPort::StopBits::OneStop;
 
     auto config = cp_.parse(path_ + "protocol.json");
@@ -62,17 +62,16 @@ void tst_Parser::normalSettings()
 
 void tst_Parser::parseBitset()
 {
-    const auto config = cp_.parse(path_ + "1block-1group-flag.json");
+    const auto config = cp_.parse(path_ + "protocol.json");
     const auto &p     = config.protocol;
     QVERIFY(!p.blocks.empty());
-    QCOMPARE(p.blocks.front().description, "Block n1");
-    QCOMPARE(p.blocks.front().elements.size(), size_t(1));
+    QCOMPARE(p.blocks.front().description, "");
+    QCOMPARE(p.blocks.front().elements.size(), size_t(5));
     auto b = dynamic_cast<Bitset *>(p.blocks.front().elements.front().get());
     QVERIFY(b != Q_NULLPTR);
-    QCOMPARE(b->address(), 0x10);
-    QCOMPARE(b->description(), "BitsArray n1");
+    QCOMPARE(b->address(), 262);
+    QCOMPARE(b->description(), "BitsetDescription");
     QCOMPARE(b->descriptions().size(), 8);
-
     QCOMPARE(p.elementMap.at(b->address())->description(), b->description());
 }
 
@@ -81,33 +80,40 @@ void tst_Parser::parseByte()
     const auto config = cp_.parse(path_ + "protocol.json");
     const auto &p     = config.protocol;
     QVERIFY(!p.blocks.empty());
-    QCOMPARE(p.blocks.size(), 5);
+    QCOMPARE(p.blocks.size(), std::size_t(1));
     const auto b = p.blocks.back();
-    QCOMPARE(b.description, "Control Panel Command Block");
+    QCOMPARE(b.description, "");
     QCOMPARE(b.category, "Command");
     QCOMPARE(b.address, 0x0106);
-    QCOMPARE(b.elements.size(), 5);
-    QCOMPARE(b.elements.back()->name(), "ConsistencyCorrection");
-    QCOMPARE(b.elements.back()->value(),
-             0xC8); // FIXME: this fail because the value if > of int8_ts
-    QCOMPARE(b.elements.back()->address(), 9);
-    QCOMPARE(b.elements.back()->description(), "100-250, 200 no correction");
+    QCOMPARE(b.elements.size(), std::size_t(5));
+    auto byte = b.elements.at(2);
+    QCOMPARE(byte->name(), "UByte");
+    auto v =
+        byte->type() == Element::Type::SByte ? byte->sValue() : byte->uValue();
+    QCOMPARE(v, 0x85);
+    QCOMPARE(byte->address(), 264);
+    QCOMPARE(byte->description(), "UByteDescr");
 }
 
 void tst_Parser::parseWord()
 {
-    const auto config = cp_.parse(path_ + "1block-1group-word.json");
+    const auto config = cp_.parse(path_ + "protocol.json");
     const auto &p     = config.protocol;
     QVERIFY(!p.blocks.empty());
-    QCOMPARE(p.blocks.front().description, "Block n1");
-    QCOMPARE(p.blocks.front().elements.size(), size_t(1));
-    auto w = dynamic_cast<Word *>(p.blocks.front().elements.front().get());
-    QVERIFY(w != Q_NULLPTR);
-    QCOMPARE(w->address(), 0x10);
-    QCOMPARE(w->value(), 0x7DDA);
-    QCOMPARE(w->description(), "Word description");
-
-    QCOMPARE(p.elementMap.at(w->address())->description(), w->description());
+    QCOMPARE(p.blocks.front().description, "");
+    QCOMPARE(p.blocks.front().elements.size(), size_t(5));
+    const auto w = p.blocks.back();
+    QCOMPARE(w.description, "");
+    QCOMPARE(w.category, "Command");
+    QCOMPARE(w.address, 0x0106);
+    QCOMPARE(w.elements.size(), std::size_t(5));
+    auto word = w.elements.back();
+    QCOMPARE(word->name(), "UWord");
+    auto v =
+        word->type() == Element::Type::SWord ? word->sValue() : word->uValue();
+    QCOMPARE(v, 0x85);
+    QCOMPARE(word->address(), 266);
+    QCOMPARE(word->description(), "UWordDescr");
 }
 
 QTEST_GUILESS_MAIN(tst_Parser)

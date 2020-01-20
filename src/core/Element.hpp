@@ -1,34 +1,59 @@
 #pragma once
 
-#include <QDebug>
 #include <QString>
 
 class Element
 {
   public:
+    enum class Type {
+        Bitset,
+        UByte,
+        SByte,
+        UWord,
+        SWord,
+
+        UndefinedType = -1
+    };
+
     Element() = default;
-    explicit Element(QString name, QString descr, int addr);
+    explicit Element(QString name, QString descr, uint16_t addr);
     Element(const Element &) = default;
     Element(Element &&)      = default;
     virtual ~Element()       = default;
 
-    Element &operator=(const Element &) = default;
-    Element &operator=(Element &&) = default;
-
     bool operator==(const Element &other) const;
     bool operator!=(const Element &other) const;
 
-    QString name() const noexcept;
-    QString description() const noexcept;
-    virtual int address() const noexcept;
+    Element &operator=(const Element &other) = default;
+    Element &operator=(Element &&other) = default;
 
-    virtual void setValue(int8_t val)  = 0;
-    virtual void setValue(int16_t val) = 0;
+    Element::Type type() const;
+    void setType(const Element::Type &type);
 
-    virtual int16_t value() const = 0;
+    QString name() const;
+    void setName(const QString &name);
 
-  private:
+    QString description() const;
+    void setDescription(const QString &description);
+
+    uint16_t address() const;
+    void setAddress(const uint16_t &address, const uint16_t &offset = 0);
+
+    template<typename T, typename K> bool valOutOfBound(const T &val)
+    {
+        return val < std::numeric_limits<K>::min() ||
+               val > std::numeric_limits<K>::max();
+    }
+
+    virtual uint16_t uValue() const;
+    virtual int16_t sValue() const;
+
+    virtual void setValue(uint16_t value);
+    virtual void setValue(int16_t value);
+
+  protected:
+    Element::Type m_type{ Element::Type::UndefinedType };
     QString m_name{};
     QString m_description{};
-    int m_address{};
+    uint16_t m_address{ 0 };
 };

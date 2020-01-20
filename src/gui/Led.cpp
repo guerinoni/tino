@@ -200,14 +200,15 @@ void Led::checkWidgetSize()
         QSize led_size = QSize(ledMinimumSize, ledMinimumSize);
         QSize text_size;
         if (!m_description.isEmpty()) {
-            text_size.setWidth(fontMetrics().width(m_description));
+            text_size.setWidth(fontMetrics().horizontalAdvance(m_description));
             text_size.setHeight(fontMetrics().height());
         }
 
         setMinimumSize(led_size.width() + text_size.width(),
                        led_size.height() + text_size.height());
     } else {
-        int w = qMax(m_ledSize.width(), fontMetrics().width(m_description)) +
+        int w = qMax(m_ledSize.width(),
+                     fontMetrics().horizontalAdvance(m_description)) +
                 (spacing * 2);
         int h = m_ledSize.height() + (spacing * 2);
         if (!m_description.isEmpty()) {

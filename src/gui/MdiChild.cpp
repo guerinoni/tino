@@ -1,8 +1,7 @@
 #include "MdiChild.hpp"
 
-#include "ByteWidget.hpp"
 #include "Led.hpp"
-#include "WordWidget.hpp"
+#include "ValueWidget.hpp"
 
 #include <Bitset.hpp>
 #include <Byte.hpp>
@@ -46,27 +45,13 @@ MdiChild::MdiChild(const Block &block, QWidget *parent) : QWidget(parent)
                     ->addWidget(led, r, c);
             }
             m_guiElements.emplace_back(GuiElement{ element.get(), leds });
-        }
-
-        if (auto byte = dynamic_cast<Byte *>(element.get())) {
-            auto bw = new ByteWidget(byte->name(),
-                                     static_cast<quint8>(byte->value()));
-            bw->attachByte(byte);
-            connect(bw, &ByteWidget::byteValueChanged, this,
+        } else {
+            auto w = new ValueWidget(element.get(), element->sValue(),
+                                     element->name());
+            connect(w, &ValueWidget::valueChanged, this,
                     &MdiChild::updateModbus);
-            m_guiElements.emplace_back(GuiElement{ element.get(), { bw } });
-            dynamic_cast<QGridLayout *>(groupBox->layout())
-                ->addWidget(bw, r, c);
-        }
-
-        if (auto word = dynamic_cast<Word *>(element.get())) {
-            auto ww = new WordWidget(word->name(), word->value());
-            ww->attachWord(word);
-            connect(ww, &WordWidget::wordValueChanged, this,
-                    &MdiChild::updateModbus);
-            m_guiElements.emplace_back(GuiElement{ element.get(), { ww } });
-            dynamic_cast<QGridLayout *>(groupBox->layout())
-                ->addWidget(ww, r, c);
+            m_guiElements.emplace_back(GuiElement{ element.get(), { w } });
+            dynamic_cast<QGridLayout *>(groupBox->layout())->addWidget(w, r, c);
         }
 
         m_addresses.emplace_back(element->address());
@@ -93,20 +78,9 @@ void MdiChild::updateGuiElemets()
                 }
             }
             continue;
-        }
-
-        if (auto byte = dynamic_cast<Byte *>(guiElement.el)) {
-            if (auto bw = dynamic_cast<ByteWidget *>(guiElement.w.front())) {
-                bw->updateValue(byte->value());
-            }
-            continue;
-        }
-
-        if (auto word = dynamic_cast<Word *>(guiElement.el)) {
-            if (auto ww = dynamic_cast<WordWidget *>(guiElement.w.front())) {
-                ww->updateValue(word->value());
-            }
-            continue;
+        } else if (auto vw =
+                       dynamic_cast<ValueWidget *>(guiElement.w.front())) {
+            vw->updateValue(guiElement.el->sValue());
         }
     }
 }

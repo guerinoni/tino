@@ -67,9 +67,9 @@ bool ModbusCom::disconnectModbus()
 
 void ModbusCom::writeRegister(int address)
 {
-    qDebug() << address << m_protocol.elementMap.at(address)->value();
+    qDebug() << address << m_protocol.elementMap.at(address)->uValue();
     m_modbusDevice->setData(QModbusDataUnit::HoldingRegisters, address,
-                            m_protocol.elementMap.at(address)->value());
+                            m_protocol.elementMap.at(address)->uValue());
 }
 
 void ModbusCom::handleError(const QString &errorString,

@@ -1,8 +1,9 @@
 #include "Bitset.hpp"
 
-Bitset::Bitset(QString name, QString descr, int addr) :
+Bitset::Bitset(QString name, QString descr, uint16_t addr) :
     Element{ std::move(name), std::move(descr), addr }
 {
+    setType(Element::Type::Bitset);
 }
 
 void Bitset::setAt(size_t index, bool value)
@@ -15,21 +16,32 @@ bool Bitset::valueAt(size_t index) const
     return m_bits.test(index);
 }
 
-void Bitset::setValue(int8_t val)
+uint16_t Bitset::uValue() const
 {
-    for (size_t i = 0; i < m_bits.size(); ++i) {
-        m_bits[i] = (val & (1 << i)) != 0;
-    }
+    return static_cast<uint16_t>(m_bits.to_ulong());
 }
 
-void Bitset::setValue(int16_t val)
-{
-    setValue(static_cast<int8_t>(val));
-}
-
-int16_t Bitset::value() const
+int16_t Bitset::sValue() const
 {
     return static_cast<int16_t>(m_bits.to_ulong());
+}
+
+void Bitset::setValue(int16_t value)
+{
+    if (valOutOfBound<int16_t, uint8_t>(value)) {
+        throw std::logic_error("Out of bound value <int16_t, uint8_t>");
+    }
+
+    m_bits = static_cast<unsigned long long>(value);
+}
+
+void Bitset::setValue(uint16_t value)
+{
+    if (valOutOfBound<uint16_t, uint8_t>(value)) {
+        throw std::logic_error("Out of bound value <uint16_t, uint8_t>");
+    }
+
+    m_bits = static_cast<unsigned long long>(value);
 }
 
 const QStringList &Bitset::descriptions() const noexcept

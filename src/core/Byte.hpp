@@ -2,22 +2,47 @@
 
 #include "Element.hpp"
 
-class Byte final : public Element
+class UByte final : public Element
 {
   public:
-    Byte() = default;
-    explicit Byte(QString name, QString descr, int addr);
-    explicit Byte(QString name, QString descr, int addr, int8_t value);
-    Byte(const Byte &) = default;
-    Byte(Byte &&)      = default;
-    ~Byte() override   = default;
+    UByte() = delete;
+    explicit UByte(QString name, QString descr, uint16_t addr);
+    explicit UByte(QString name, QString descr, uint16_t addr, uint8_t value);
+    UByte(const UByte &) = default;
+    UByte(UByte &&)      = default;
+    ~UByte() override    = default;
 
-    Byte &operator=(const Byte &) = default;
-    Byte &operator=(Byte &&) = default;
+    UByte &operator=(const UByte &other) = default;
+    UByte &operator=(UByte &&other) = default;
 
-    void setValue(int8_t value) override;
-    void setValue(int16_t val) override;
-    int16_t value() const override;
+    uint16_t uValue() const override;
+    int16_t sValue() const override;
+
+    void setValue(int16_t value) override;
+    void setValue(uint16_t value) override;
+
+  private:
+    uint8_t m_value{};
+};
+
+class SByte final : public Element
+{
+  public:
+    SByte() = delete;
+    explicit SByte(QString name, QString descr, uint16_t addr);
+    explicit SByte(QString name, QString descr, uint16_t addr, int8_t value);
+    SByte(const SByte &) = default;
+    SByte(SByte &&)      = default;
+    ~SByte() override    = default;
+
+    SByte &operator=(const SByte &other) = default;
+    SByte &operator=(SByte &&other) = default;
+
+    uint16_t uValue() const override;
+    int16_t sValue() const override;
+
+    void setValue(int16_t value) override;
+    void setValue(uint16_t value) override;
 
   private:
     int8_t m_value{};

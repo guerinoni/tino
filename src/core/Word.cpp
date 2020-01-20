@@ -1,39 +1,81 @@
 #include "Word.hpp"
 
-Word::Word(QString name, QString descr, int addr, int16_t value) :
-    Element{ std::move(name), std::move(descr), addr }
+UWord::UWord(QString name, QString descr, uint16_t addr, uint16_t value) :
+    Element{ std::move(name), std::move(descr), addr }, m_value{ value }
 {
-    m_high = value >> 8;
-    m_low  = value & 0xFF;
+    setType(Element::Type::UWord);
 }
 
-Word::Word(QString name, QString descr, int addr, uint8_t low, uint8_t high) :
-    Element{ name, descr, addr }, m_low{ low }, m_high{ high }
+UWord::UWord(QString name, QString descr, uint16_t addr) :
+    Element{ name, descr, addr }, m_value{ 0 }
 {
+    setType(Element::Type::UWord);
 }
 
-void Word::setValue(int8_t val)
+uint16_t UWord::uValue() const
 {
-    setValue(static_cast<int16_t>(val));
+    return m_value;
 }
 
-void Word::setValue(int16_t value)
+int16_t UWord::sValue() const
 {
-    m_high = value >> 8;
-    m_low  = value & 0xFF;
+    return static_cast<int16_t>(m_value);
 }
 
-int16_t Word::value() const
+void UWord::setValue(int16_t value)
 {
-    return (m_high << 8) | m_low;
+    if (valOutOfBound<int16_t, uint16_t>(value)) {
+        throw std::logic_error("Out of bound value <int16_t, uint16_t>");
+    }
+
+    m_value = static_cast<uint16_t>(value);
 }
 
-uint8_t Word::low() const noexcept
+void UWord::setValue(uint16_t value)
 {
-    return m_low;
+    if (valOutOfBound<uint16_t, uint16_t>(value)) {
+        throw std::logic_error("Out of bound value <uint16_t, uint16_t>");
+    }
+
+    m_value = value;
 }
 
-uint8_t Word::high() const noexcept
+SWord::SWord(QString name, QString descr, uint16_t addr, int16_t value) :
+    Element{ std::move(name), std::move(descr), addr }, m_value{ value }
 {
-    return m_high;
+    setType(Element::Type::SWord);
+}
+
+SWord::SWord(QString name, QString descr, uint16_t addr) :
+    Element{ name, descr, addr }, m_value{ 0 }
+{
+    setType(Element::Type::SWord);
+}
+
+uint16_t SWord::uValue() const
+{
+    return static_cast<uint16_t>(m_value);
+}
+
+int16_t SWord::sValue() const
+{
+    return m_value;
+}
+
+void SWord::setValue(int16_t value)
+{
+    if (valOutOfBound<int16_t, int16_t>(value)) {
+        throw std::logic_error("Out of bound value <int16_t, int16_t>");
+    }
+
+    m_value = value;
+}
+
+void SWord::setValue(uint16_t value)
+{
+    if (valOutOfBound<uint16_t, int16_t>(value)) {
+        throw std::logic_error("Out of bound value <uint16_t, int16_t>");
+    }
+
+    m_value = static_cast<int16_t>(value);
 }

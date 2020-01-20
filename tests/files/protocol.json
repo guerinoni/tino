@@ -1,10 +1,9 @@
 {
-  "Settings" : {
+  "Settings": {
     "SerialPort": {
       "PortName": "/dev/ttymxc1",
       "BaudRate": 115200,
       "DataBits": 8,
-      "RequestToSend": true,
       "StopBits": 1
     },
     "Modbus": {
@@ -12,806 +11,92 @@
       "ServerId": 1
     },
     "Timings": {
-        "Alarm" : 250,
-        "Feedback" : 500
+      "Alarm": 250,
+      "Feedback": 500
     }
   },
   "CommunicationProtocol": {
     "Blocks": [
       {
-        "Description": "Control Panel Parameter Block",
-        "Address": "0x125",
-        "Category": "Parameter",
-        "Groups": [
-          {
-            "Type": "Byte",
-            "Offset": "0x01",
-            "Name": "P01",
-            "Description": "P01 Parameter - Machine Type",
-            "DefaultValue" : "0x00"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x02",
-            "Name": "P02",
-            "Description": "P02 Parameter - Granita consistency multiplier",
-            "DefaultValue" : "0x0A"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x03",
-            "Name": "P03",
-            "Description": "P03 Parameter",
-            "DefaultValue" : "0x0A"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x04",
-            "Name": "P04",
-            "Description": "P04 Parameter",
-            "DefaultValue" : "0x00"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x05",
-            "Name": "P05",
-            "Description": "P05 Parameter",
-            "DefaultValue" : "0x96"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x06",
-            "Name": "P06",
-            "Description": "P06 Parameter",
-            "DefaultValue" : "0x0A"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x07",
-            "Name": "P07",
-            "Description": "P07 Parameter",
-            "DefaultValue" : "0xBE"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x08",
-            "Name": "P08",
-            "Description": "P08 Parameter",
-            "DefaultValue" : "0x04"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x09",
-            "Name": "P09",
-            "Description": "P09 Parameter",
-            "DefaultValue" : "0xB4"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x0A",
-            "Name": "P0A",
-            "Description": "P0A Parameter",
-            "DefaultValue" : "0x0E"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x0B",
-            "Name": "P0B",
-            "Description": "P0B Parameter",
-            "DefaultValue" : "0XC8"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x0C",
-            "Name": "P0C",
-            "Description": "P0C Parameter",
-            "DefaultValue" : "0x0A"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x0D",
-            "Name": "P0D",
-            "Description": "P0D Parameter",
-            "DefaultValue" : "0x02"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x0E",
-            "Name": "P0E",
-            "Description": "P0E Parameter",
-            "DefaultValue" : "0x01"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x0F",
-            "Name": "P0F",
-            "Description": "P0F Parameter",
-            "DefaultValue" : "0x01"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x10",
-            "Name": "P10",
-            "Description": "P10 Parameter",
-            "DefaultValue" : "0x32"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x11",
-            "Name": "P11",
-            "Description": "P11 Parameter",
-            "DefaultValue" : "0x0A"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x12",
-            "Name": "P12",
-            "Description": "P12 Parameter",
-            "DefaultValue" : "0x00"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x13",
-            "Name": "P13",
-            "Description": "P13 Parameter",
-            "DefaultValue" : "0x00"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x14",
-            "Name": "P14",
-            "Description": "P14 Parameter",
-            "DefaultValue" : "0x00"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x15",
-            "Name": "P15",
-            "Description": "P15 Parameter",
-            "DefaultValue" : "0x00"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x16",
-            "Name": "P16",
-            "Description": "P16 Parameter",
-            "DefaultValue" : "0x00"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x17",
-            "Name": "P17",
-            "Description": "P17 Parameter",
-            "DefaultValue" : "0x00"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x18",
-            "Name": "P18",
-            "Description": "P18 Parameter",
-            "DefaultValue" : "0x04"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x19",
-            "Name": "P19",
-            "Description": "P19 Parameter",
-            "DefaultValue" : "0x3C"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x1A",
-            "Name": "P1A",
-            "Description": "P1A Parameter",
-            "DefaultValue" : "0x3C"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x1B",
-            "Name": "P1B",
-            "Description": "P1B Parameter",
-            "DefaultValue" : "0x2D"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x1C",
-            "Name": "P1C",
-            "Description": "P1C Parameter",
-            "DefaultValue" : "0x5A"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x1D",
-            "Name": "P1D",
-            "Description": "P1D Parameter",
-            "DefaultValue" : "0x41"
-          } ,
-          {
-            "Type": "Byte",
-            "Offset": "0x1E",
-            "Name": "P1E",
-            "Description": "P1E Parameter",
-            "DefaultValue" : "0x78"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x1F",
-            "Name": "P1F",
-            "Description": "P1F Parameter",
-            "DefaultValue" : "0x14"
-          },
-          {
-            "Type": "Byte",
-            "Offset": "0x20",
-            "Name": "P20",
-            "Description": "P20 Parameter",
-            "DefaultValue" : "0x14"
-          }
-        ]
-      },
-      {
-        "Description": "Control Panel Feedback Block",
-        "Address": "0x0156",
-        "Category": "Feedback",
-        "Groups": [
-          {
-            "Type": "Word",
-            "Offset": "0x00",
-            "Name": "WaterTemperatureIn",
-            "Description": "Water temperature measured at boiler level"
-          },
-          {
-            "Type": "Word",
-            "Offset": "0x02",
-            "Name": "DoorTemperature",
-            "Description": "Door temperature"
-          },
-          {
-            "Type": "Word",
-            "Offset": "0x06",
-            "Name": "Consistency",
-            "Description": "Ice cream consistency"
-          },
-          {
-            "Type": "Word",
-            "Offset": "0x08",
-            "Name": "ElapsedTime",
-            "Description": "Production / Cleaning elapsed time"
-          },
-          {
-            "Type": "Word",
-            "Offset": "0x0C",
-            "Name": "CurrentPhaseTime",
-            "Description": "Cleaning current phase time"
-          },
-          {
-            "Type": "Byte",
-            "Name": "CleaningPhase",
-            "Address": "0x0164",
-            "Description": "Cleaning current phase"
-          }
-        ]
-      },
-      {
-        "Description": "Control Panel Feedback Bitset Block",
-        "Category": "Feedback",
-        "Address": "0x0166",
-        "Groups": [
-          {
-            "Type": "Bitset",
-            "Name": "FeebackByte00",
-            "Description": "Feedback byte 00",
-            "Offset": "0x00",
-            "Bits": [
-              {
-                "Name": "ProductionAutoActive",
-                "Description": "Production Auto Active",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ProductionAutoHardActive",
-                "Description": "Production Auto-Hard Active",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ProductionSemiAutoActive",
-                "Description": "Production Semi-Auto Active",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ProductionGranitaActive",
-                "Description": "Production Granita Active",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ExtractionActive",
-                "Description": "Extraction Active",
-                "DefaultValue": false
-              },
-              {
-                "Name": "BeaterActive",
-                "Description": "Beater Active",
-                "DefaultValue": false
-              },
-              {
-                "Name": "TurboActive",
-                "Description": "Turbo Active",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ExtractionCompressorActive",
-                "Description": "Extraction and Compressor Active",
-                "DefaultValue": false
-              }
-            ]
-          },
-          {
-            "Type": "Bitset",
-            "Name": "FeebackByte01",
-            "Description": "Feedback byte 01",
-            "Offset": "0x01",
-            "Bits": [
-              {
-                "Name": "ProductionEnded",
-                "Description": "Production Ended",
-                "DefaultValue": false
-              },
-              {
-                "Name": "AutoResetAlarm",
-                "Description": "Auto Reset Alarm",
-                "DefaultValue": false
-              },
-              {
-                "Name": "StopStatus",
-                "Description": "Stop after timeout",
-                "DefaultValue": false
-              },
-              {
-                "Name": "AlarmMuted",
-                "Description": "Alarm muted",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Turbo ended",
-                "Description": "Turbo ended",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              }
-            ]
-          },
-          {
-            "Type": "Bitset",
-            "Name": "FeebackByte02",
-            "Description": "Feedback byte 02",
-            "Offset": "0x02",
-            "Bits": [
-              {
-                "Name": "ConsitencyMinimumReached",
-                "Description": "Consistency Minimum Reached",
-                "DefaultValue": false
-              },
-              {
-                "Name": "CleaningActive",
-                "Description": "CleaningEnded",
-                "DefaultValue": false
-              },
-              {
-                "Name": "TimeTurboActive",
-                "Description": "Time Turbo Active",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ControlPanelType",
-                "Description": "Control Panel Type 0 = Omega, 1 = MEB",
-                "DefaultValue": false
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "Description": "Control Panel Alarm Block",
-        "Category": "Alarm",
-        "Address": "0x016C",
-        "Groups": [
-          {
-            "Type": "Bitset",
-            "Name": "AlarmByte00",
-            "Description": "Alarm byte 00",
-            "Offset": "0x00",
-            "Bits": [
-              {
-                "Name": "ProbeTE01Disconnected",
-                "Description": "Probe TE01 Disconnected",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ProbeTE01ShortCircuit",
-                "Description": "Probe TE01 Short Circuit",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ProbeTE02Disconnected",
-                "Description": "Probe TE02 Disconnected",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ProbeTE02ShortCircuit",
-                "Description": "Probe TE02 Short Circuit",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              }
-            ]
-          },
-          {
-            "Type": "Bitset",
-            "Name": "AlarmByte01",
-            "Description": "Alarm byte 01",
-            "Offset": "0x01",
-            "Bits": [
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "CurrentClampOpen",
-                "Description": "Current Clamp Open",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ElectricMotorThermicalAlarm",
-                "Description": "Thermical Alarm on the electric motor",
-                "DefaultValue": false
-              }
-            ]
-          },
-          {
-            "Type": "Bitset",
-            "Name": "AlarmByte02",
-            "Description": "Alarm byte 02",
-            "Offset": "0x02",
-            "Bits": [
-              {
-                "Name": "DoorOpen",
-                "Description": "Door Open",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ProductionTimeout",
-                "Description": "Production Timeout",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "InstrumentAlarm",
-                "Description": "Instrument alarm",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              }
-            ]
-          },
-          {
-            "Type": "Bitset",
-            "Name": "AlarmByte03",
-            "Description": "Alarm byte 03",
-            "Offset": "0x03",
-            "Bits": [
-              {
-                "Name": "WrongPolarity",
-                "Description": "Wrong Polarity",
-                "DefaultValue": false
-              },
-              {
-                "Name": "MissingWaterAlarm",
-                "Description": "Cleaning Missing Water Alarm",
-                "DefaultValue": false
-              },
-              {
-                "Name": "RinseTemperatureNotReached",
-                "Description": "Rinse Temperature Not Reached Alarm",
-                "DefaultValue": false
-              },
-              {
-                "Name": "CleaningTemperatureNotReached",
-                "Description": "Cleaning Temperature Not Reached Alarm",
-                "DefaultValue": false
-              },
-              {
-                "Name": "WaterDrainAlarm",
-                "Description": "Water Drain Alarm",
-                "DefaultValue": false
-              },
-              {
-                "Name": "MissingDetergent",
-                "Description": "Missing Detergent",
-                "DefaultValue": false
-              },
-              {
-                "Name": "MissingRinseAid",
-                "Description": "Missing Rinse Aid",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ID3Timeout",
-                "Description": "ID3 Timeout",
-                "DefaultValue": false
-              }
-            ]
-          },
-          {
-            "Type": "Bitset",
-            "Name": "AlarmByte04",
-            "Description": "Alarm byte 04",
-            "Offset": "0x04",
-            "Bits": [
-              {
-                "Name": "ID4Timeout",
-                "Description": "ID4 Timeout",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "Description": "Control Panel Command Block",
         "Category": "Command",
-        "Address": "0x0106",
+        "Address": "0x106",
         "Groups": [
           {
             "Type": "Bitset",
-            "Name": "CommandByte00",
-            "Description": "Command byte 00",
-            "Offset": "0x00",
+            "Name": "BitsetName",
+            "Description": "BitsetDescription",
+            "Offset": "0x0",
             "Bits": [
               {
-                "Name": "ProductionAutoEnable",
-                "Description": "Production Auto Enable",
+                "Name": "Bit0",
+                "Description": "Bit0Descr",
                 "DefaultValue": false
               },
               {
-                "Name": "ProductionAutoHardEnable",
-                "Description": "Production Auto-Hard Enable",
+                "Name": "Bit1",
+                "Description": "Bit1Descr",
+                "DefaultValue": true
+              },
+              {
+                "Name": "Bit2",
+                "Description": "Bit2Descr",
                 "DefaultValue": false
               },
               {
-                "Name": "ProductionSemiAutoEnable",
-                "Description": "Production Semi-Auto Enable",
+                "Name": "Bit3",
+                "Description": "Bit3Descr",
                 "DefaultValue": false
               },
               {
-                "Name": "ProductionGranitaEnable",
-                "Description": "Production Granita Enable",
+                "Name": "Bit4",
+                "Description": "Bit4Descr",
                 "DefaultValue": false
               },
               {
-                "Name": "ExtractionEnable",
-                "Description": "Extraction Enable",
+                "Name": "Bit5",
+                "Description": "Bit5Descr",
                 "DefaultValue": false
               },
               {
-                "Name": "BeaterEnable",
-                "Description": "Beater Enable",
+                "Name": "Bit6",
+                "Description": "Bit6Descr",
                 "DefaultValue": false
               },
               {
-                "Name": "TurboEnable",
-                "Description": "Turbo Enable",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ColdExtractionEnable",
-                "Description": "Cold Extraction Enable",
+                "Name": "Bit7",
+                "Description": "Bit7Descr",
                 "DefaultValue": false
               }
             ]
           },
           {
-            "Type": "Bitset",
-            "Name": "CommandByte01",
-            "Description": "Command byte 01",
+            "Type": "SByte",
             "Offset": "0x01",
-            "Bits": [
-              {
-                "Name": "MuteAlarm",
-                "Description": "Mute Alarm",
-                "DefaultValue": false
-              },
-              {
-                "Name": "BuzzerEnable",
-                "Description": "Enable Buzzer 0 = OFF, 1 = ON",
-                "DefaultValue": false
-              },
-              {
-                "Name": "CalibrationEnable",
-                "Description": "Enable Calibration",
-                "DefaultValue": false
-              },
-              {
-                "Name": "ManualOutput",
-                "Description": "Manual Output Command",
-                "DefaultValue": false
-              },
-              {
-                "Name": "CleaningEnable",
-                "Description": "Enable Cleaning",
-                "DefaultValue": false
-              },
-              {
-                "Name": "TemperatureTurboEnable",
-                "Description": "Enable Temperature Turbo",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              },
-              {
-                "Name": "Unused",
-                "Description": "Unused",
-                "DefaultValue": false
-              }
-            ]
+            "Name": "SByte",
+            "Description": "SByteDescr",
+            "DefaultValue": "-0x7B"
           },
           {
-            "Type": "Byte",
+            "Type": "UByte",
             "Offset": "0x02",
-            "Name": "CleaningType",
-            "Description": "0 Rinse, 1 = Hot Rinse, 2 = Heavy Cleaning, 3 = Sanitization"
+            "Name": "UByte",
+            "Description": "UByteDescr",
+            "DefaultValue": "0x85"
           },
           {
-            "Type": "Byte",
+            "Type": "SWord",
             "Offset": "0x03",
-            "Name": "ValidData",
-            "Description": "0x5A Data Valid",
-            "DefaultValue": "0x5A"
+            "Name": "SWord",
+            "Description": "SWordDescr",
+            "DefaultValue": "0xF085"
           },
           {
-            "Type": "Byte",
-            "Offset": "0x05",
-            "Name": "ConsistencyCorrection",
-            "Description": "100-250, 200 no correction",
-            "DefaultValue": "0xC8"
+            "Type": "UWord",
+            "Offset": "0x04",
+            "Name": "UWord",
+            "Description": "UWordDescr",
+            "DefaultValue": "0x0085"
           }
-
         ]
       }
     ]

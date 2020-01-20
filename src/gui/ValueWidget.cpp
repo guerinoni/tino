@@ -1,29 +1,25 @@
-﻿#include "WordWidget.hpp"
+#include "ValueWidget.hpp"
 
+#include <Element.hpp>
 #include <QGridLayout>
 #include <QLabel>
 #include <QSpinBox>
-#include <Word.hpp>
 
-WordWidget::WordWidget(QString description, quint16 defaultValue,
-                       QWidget *parent) :
+ValueWidget::ValueWidget(Element *element, int16_t value, QString description,
+                         QWidget *parent) :
     QWidget(parent),
-    m_description(std::move(description)), m_defaultValue(defaultValue)
+    m_description{ description },
+    m_defaultValue{ value }, m_value{ value }, m_element{ element }
 {
     init();
 }
 
-void WordWidget::updateValue(int16_t val)
+void ValueWidget::updateValue(int16_t val)
 {
     m_valueSpinBox->setValue(val);
 }
 
-void WordWidget::attachWord(Word *word)
-{
-    m_word = word;
-}
-
-void WordWidget::init()
+void ValueWidget::init()
 {
     m_value = m_defaultValue;
 
@@ -38,8 +34,8 @@ void WordWidget::init()
                 m_value = i;
                 update();
 
-                if (m_word) {
-                    Q_EMIT wordValueChanged(m_word->address());
+                if (m_element) {
+                    emit valueChanged(m_element->address());
                 }
             });
     m_decValueLabel = new QLabel(this);
@@ -55,13 +51,13 @@ void WordWidget::init()
     checkWidgetSize();
 }
 
-void WordWidget::checkWidgetSize()
+void ValueWidget::checkWidgetSize()
 {
     setMinimumSize(100, 25);
     update();
 }
 
-void WordWidget::update()
+void ValueWidget::update()
 {
     m_decValueLabel->setText(QString("%1").arg(m_value, 0, 10));
     m_hexValueLabel->setText(QString("0x%1").arg(m_value, 4, 16, QChar('0')));
