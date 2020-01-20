@@ -169,7 +169,12 @@ std::unique_ptr<UByte> ConfigParser::makeUByte(const QJsonObject &obj,
     auto element = std::make_unique<UByte>(name, description, address);
     auto val     = static_cast<uint16_t>(
         obj.find(Tags::defaultValue)->toString().toUInt(Q_NULLPTR, HexBase));
-    element->setValue(val);
+    try {
+        element->setValue(val);
+    } catch (const std::exception &e) {
+        qWarning() << e.what();
+        element->setValue(uint16_t(0));
+    }
     return element;
 }
 
@@ -188,7 +193,12 @@ std::unique_ptr<SByte> ConfigParser::makeSByte(const QJsonObject &obj,
     auto element = std::make_unique<SByte>(name, description, address);
     auto val     = static_cast<int16_t>(
         obj.find(Tags::defaultValue)->toString().toInt(Q_NULLPTR, HexBase));
-    element->setValue(val);
+    try {
+        element->setValue(val);
+    } catch (const std::exception &e) {
+        qWarning() << e.what();
+        element->setValue(uint16_t(0));
+    }
     return element;
 }
 
@@ -207,7 +217,12 @@ std::unique_ptr<UWord> ConfigParser::makeUWord(const QJsonObject &obj,
     auto element = std::make_unique<UWord>(name, description, address);
     auto val     = static_cast<uint16_t>(
         obj.find(Tags::defaultValue)->toString().toUInt(Q_NULLPTR, HexBase));
-    element->setValue(val);
+    try {
+        element->setValue(val);
+    } catch (const std::exception &e) {
+        qWarning() << e.what();
+        element->setValue(uint16_t(0));
+    }
     return element;
 }
 
@@ -226,6 +241,11 @@ std::unique_ptr<SWord> ConfigParser::makeSWord(const QJsonObject &obj,
     auto element = std::make_unique<SWord>(name, description, address);
     auto val     = static_cast<int16_t>(
         obj.find(Tags::defaultValue)->toString().toInt(Q_NULLPTR, HexBase));
-    element->setValue(val);
+    try {
+        element->setValue(val);
+    } catch (const std::exception &e) {
+        qWarning() << e.what();
+        element->setValue(uint16_t(0));
+    };
     return element;
 }
