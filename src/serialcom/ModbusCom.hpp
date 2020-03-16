@@ -1,16 +1,16 @@
 #pragma once
 
 #include <Protocol.hpp>
-#include <QModbusServer>
-#include <QObject>
 #include <Settings.hpp>
 #include <memory>
+#include <QModbusServer>
+#include <QObject>
 
 class ModbusCom : public QObject
 {
     Q_OBJECT
 
-  public:
+public:
     explicit ModbusCom(const Protocol &protocol, QObject *parent = nullptr);
 
     bool isConnected() const;
@@ -19,15 +19,14 @@ class ModbusCom : public QObject
 
     void writeRegister(int address);
 
-  signals:
+signals:
     void updateGui(int address);
 
-  private slots:
+private slots:
     void handleError(const QString &errorString, QModbusDevice::Error error);
-    void updateRegisters(QModbusDataUnit::RegisterType table, int address,
-                         int size);
+    void updateRegisters(QModbusDataUnit::RegisterType table, int address, int size);
 
-  private:
+private:
     std::unique_ptr<QModbusServer> m_modbusDevice;
     const Protocol &m_protocol;
 

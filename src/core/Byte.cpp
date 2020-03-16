@@ -1,13 +1,14 @@
 #include "Byte.hpp"
 
-UByte::UByte(QString name, QString descr, uint16_t addr) :
-    Element{ std::move(name), std::move(descr), addr }
+UByte::UByte(QString name, QString descr, uint16_t addr)
+    : Element{std::move(name), std::move(descr), addr}
 {
     setType(Element::Type::UByte);
 }
 
-UByte::UByte(QString name, QString descr, uint16_t addr, uint8_t value) :
-    Element{ std::move(name), std::move(descr), addr }, m_value{ value }
+UByte::UByte(QString name, QString descr, uint16_t addr, uint8_t value)
+    : Element{std::move(name), std::move(descr), addr}
+    , m_value{value}
 {
     setType(Element::Type::UByte);
 }
@@ -40,14 +41,15 @@ void UByte::setValue(uint16_t value)
     m_value = static_cast<uint8_t>(value);
 }
 
-SByte::SByte(QString name, QString descr, uint16_t addr) :
-    Element{ std::move(name), std::move(descr), addr }
+SByte::SByte(QString name, QString descr, uint16_t addr)
+    : Element{std::move(name), std::move(descr), addr}
 {
     setType(Element::Type::SByte);
 }
 
-SByte::SByte(QString name, QString descr, uint16_t addr, int8_t value) :
-    Element{ std::move(name), std::move(descr), addr }, m_value{ value }
+SByte::SByte(QString name, QString descr, uint16_t addr, int8_t value)
+    : Element{std::move(name), std::move(descr), addr}
+    , m_value{value}
 {
     setType(Element::Type::SByte);
 }

@@ -4,13 +4,13 @@
 
 class UWord final : public Element
 {
-  public:
+public:
     UWord() = delete;
     explicit UWord(QString name, QString descr, uint16_t addr, uint16_t value);
     explicit UWord(QString name, QString descr, uint16_t addr);
     UWord(const UWord &) = default;
-    UWord(UWord &&)      = default;
-    ~UWord() override    = default;
+    UWord(UWord &&) = default;
+    ~UWord() override = default;
 
     UWord &operator=(const UWord &other) = default;
     UWord &operator=(UWord &&other) = default;
@@ -21,19 +21,19 @@ class UWord final : public Element
     void setValue(int16_t value) override;
     void setValue(uint16_t value) override;
 
-  private:
+private:
     uint16_t m_value;
 };
 
 class SWord final : public Element
 {
-  public:
+public:
     SWord() = delete;
     explicit SWord(QString name, QString descr, uint16_t addr, int16_t value);
     explicit SWord(QString name, QString descr, uint16_t addr);
     SWord(const SWord &) = default;
-    SWord(SWord &&)      = default;
-    ~SWord() override    = default;
+    SWord(SWord &&) = default;
+    ~SWord() override = default;
 
     SWord &operator=(const SWord &other) = default;
     SWord &operator=(SWord &&other) = default;
@@ -44,6 +44,6 @@ class SWord final : public Element
     void setValue(int16_t value) override;
     void setValue(uint16_t value) override;
 
-  private:
+private:
     int16_t m_value;
 };

@@ -2,13 +2,13 @@
 
 class Element;
 
-#include <QString>
 #include <memory>
 #include <vector>
+#include <QString>
 
 class Block
 {
-  public:
+public:
     bool operator==(const Block &other) const;
 
     QString description;

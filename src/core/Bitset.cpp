@@ -1,7 +1,7 @@
 #include "Bitset.hpp"
 
-Bitset::Bitset(QString name, QString descr, uint16_t addr) :
-    Element{ std::move(name), std::move(descr), addr }
+Bitset::Bitset(QString name, QString descr, uint16_t addr)
+    : Element{std::move(name), std::move(descr), addr}
 {
     setType(Element::Type::Bitset);
 }
@@ -9,7 +9,7 @@ Bitset::Bitset(QString name, QString descr, uint16_t addr) :
 void Bitset::setAt(size_t index, bool value, QString name, QString description)
 {
     m_bits.set(index, value);
-    m_bitsNames[index]        = std::move(name);
+    m_bitsNames[index] = std::move(name);
     m_bitsDescriptions[index] = std::move(description);
 }
 

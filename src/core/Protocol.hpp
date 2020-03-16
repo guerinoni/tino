@@ -6,7 +6,7 @@
 
 class Protocol
 {
-  public:
+public:
     bool operator==(const Protocol &other) const;
 
     std::vector<Block> blocks;

@@ -1,9 +1,9 @@
 #include <Bitset.hpp>
 #include <Byte.hpp>
 #include <ConfigParser.hpp>
+#include <Word.hpp>
 #include <QDir>
 #include <QtTest>
-#include <Word.hpp>
 
 #define STRINGIFY_INTERNAL(x) #x
 #define STRINGIFY(x) STRINGIFY_INTERNAL(x)
@@ -12,7 +12,7 @@ class tst_Parser : public QObject
 {
     Q_OBJECT
 
-  private slots:
+private slots:
     void initTestCase();
 
     void throwIfNotExists();
@@ -22,7 +22,7 @@ class tst_Parser : public QObject
     void parseByte();
     void parseWord();
 
-  private:
+private:
     QString path_{};
     ConfigParser cp_;
 };
@@ -40,21 +40,21 @@ void tst_Parser::throwIfNotExists()
 void tst_Parser::withoutSettings()
 {
     auto config = cp_.parse(path_ + "empty.json");
-    QVERIFY((config == Configuration{ Settings{}, Protocol{} }));
+    QVERIFY((config == Configuration{Settings{}, Protocol{}}));
 }
 
 void tst_Parser::normalSettings()
 {
     Settings right_settings;
-    right_settings.portName          = "/dev/ttymxc1";
-    right_settings.baudRate          = QSerialPort::BaudRate::Baud115200;
-    right_settings.breakEnabled      = false;
-    right_settings.dataBits          = QSerialPort::DataBits::Data8;
+    right_settings.portName = "/dev/ttymxc1";
+    right_settings.baudRate = QSerialPort::BaudRate::Baud115200;
+    right_settings.breakEnabled = false;
+    right_settings.dataBits = QSerialPort::DataBits::Data8;
     right_settings.dataTerminalReady = false;
-    right_settings.flowControl       = QSerialPort::FlowControl::NoFlowControl;
-    right_settings.parity            = QSerialPort::Parity::NoParity;
-    right_settings.requestToSend     = false;
-    right_settings.stopBits          = QSerialPort::StopBits::OneStop;
+    right_settings.flowControl = QSerialPort::FlowControl::NoFlowControl;
+    right_settings.parity = QSerialPort::Parity::NoParity;
+    right_settings.requestToSend = false;
+    right_settings.stopBits = QSerialPort::StopBits::OneStop;
 
     auto config = cp_.parse(path_ + "protocol.json");
     QVERIFY(config.settings == right_settings);
@@ -63,7 +63,7 @@ void tst_Parser::normalSettings()
 void tst_Parser::parseBitset()
 {
     const auto config = cp_.parse(path_ + "protocol.json");
-    const auto &p     = config.protocol;
+    const auto &p = config.protocol;
     QVERIFY(!p.blocks.empty());
     QCOMPARE(p.blocks.front().description, "");
     QCOMPARE(p.blocks.front().elements.size(), size_t(5));
@@ -78,7 +78,7 @@ void tst_Parser::parseBitset()
 void tst_Parser::parseByte()
 {
     const auto config = cp_.parse(path_ + "protocol.json");
-    const auto &p     = config.protocol;
+    const auto &p = config.protocol;
     QVERIFY(!p.blocks.empty());
     QCOMPARE(p.blocks.size(), std::size_t(1));
     const auto b = p.blocks.back();
@@ -88,8 +88,7 @@ void tst_Parser::parseByte()
     QCOMPARE(b.elements.size(), std::size_t(5));
     auto byte = b.elements.at(2);
     QCOMPARE(byte->name(), "UByte");
-    auto v =
-        byte->type() == Element::Type::SByte ? byte->sValue() : byte->uValue();
+    auto v = byte->type() == Element::Type::SByte ? byte->sValue() : byte->uValue();
     QCOMPARE(v, 0x85);
     QCOMPARE(byte->address(), 264);
     QCOMPARE(byte->description(), "UByteDescr");
@@ -98,7 +97,7 @@ void tst_Parser::parseByte()
 void tst_Parser::parseWord()
 {
     const auto config = cp_.parse(path_ + "protocol.json");
-    const auto &p     = config.protocol;
+    const auto &p = config.protocol;
     QVERIFY(!p.blocks.empty());
     QCOMPARE(p.blocks.front().description, "");
     QCOMPARE(p.blocks.front().elements.size(), size_t(5));
@@ -109,8 +108,7 @@ void tst_Parser::parseWord()
     QCOMPARE(w.elements.size(), std::size_t(5));
     auto word = w.elements.back();
     QCOMPARE(word->name(), "UWord");
-    auto v =
-        word->type() == Element::Type::SWord ? word->sValue() : word->uValue();
+    auto v = word->type() == Element::Type::SWord ? word->sValue() : word->uValue();
     QCOMPARE(v, 0x85);
     QCOMPARE(word->address(), 266);
     QCOMPARE(word->description(), "UWordDescr");

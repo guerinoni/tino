@@ -2,19 +2,19 @@
 
 #include <Bitset.hpp>
 #include <Byte.hpp>
+#include <Word.hpp>
 #include <QDebug>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <Word.hpp>
 
 static constexpr int HexBase = 16;
 
-Configuration::Configuration(Settings &&set, Protocol &&prot) :
-    settings{ set }, protocol{ std::move(prot) }
-{
-}
+Configuration::Configuration(Settings &&set, Protocol &&prot)
+    : settings{set}
+    , protocol{std::move(prot)}
+{}
 
 bool Configuration::operator==(const Configuration &other) const
 {
@@ -23,7 +23,7 @@ bool Configuration::operator==(const Configuration &other) const
 
 Configuration ConfigParser::parse(const QString &filename)
 {
-    QFile file{ filename };
+    QFile file{filename};
     if (!file.exists()) {
         throw std::logic_error("file not exists");
     }
@@ -34,22 +34,20 @@ Configuration ConfigParser::parse(const QString &filename)
 
     QJsonParseError error{};
     const auto content = file.readAll();
-    auto doc           = QJsonDocument::fromJson(content, &error);
+    auto doc = QJsonDocument::fromJson(content, &error);
     if (error.error != QJsonParseError::NoError) {
-        throw std::logic_error("error parsing json " +
-                               std::to_string(error.error));
+        throw std::logic_error("error parsing json " + std::to_string(error.error));
     }
 
     const auto obj = doc.object();
-    const auto serial =
-        obj.find(Tags::settings)->toObject().find(Tags::serialPort)->toObject();
+    const auto serial = obj.find(Tags::settings)->toObject().find(Tags::serialPort)->toObject();
     const auto protocol = obj.find(Tags::protocol)->toObject();
 
     if (serial.isEmpty() && protocol.isEmpty()) {
         return {};
     }
 
-    return Configuration{ readSettings(serial), readBlocks(protocol) };
+    return Configuration{readSettings(serial), readBlocks(protocol)};
 }
 
 Settings ConfigParser::readSettings(const QJsonObject &obj) const noexcept
@@ -66,14 +64,12 @@ Settings ConfigParser::readSettings(const QJsonObject &obj) const noexcept
     s.dataBits = static_cast<QSerialPort::DataBits>(
         obj[Settings::Tags::data_bits].toInt(s.dataBits));
 
-    s.dataTerminalReady =
-        obj[Settings::Tags::data_terminal_ready].toBool(s.dataTerminalReady);
+    s.dataTerminalReady = obj[Settings::Tags::data_terminal_ready].toBool(s.dataTerminalReady);
 
     s.flowControl = static_cast<QSerialPort::FlowControl>(
         obj[Settings::Tags::flow_control].toInt(s.flowControl));
 
-    s.requestToSend =
-        obj[Settings::Tags::request_to_send].toBool(s.requestToSend);
+    s.requestToSend = obj[Settings::Tags::request_to_send].toBool(s.requestToSend);
 
     s.stopBits = static_cast<QSerialPort::StopBits>(
         obj[Settings::Tags::stop_bits].toInt(s.stopBits));
@@ -92,10 +88,9 @@ Protocol ConfigParser::readBlocks(const QJsonObject &obj) const noexcept
     foreach (auto v, array) {
         Block blk;
         const auto block = v.toObject();
-        blk.description  = block.find(Tags::description)->toString();
-        blk.category     = block.find(Tags::category)->toString();
-        blk.address =
-            block.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
+        blk.description = block.find(Tags::description)->toString();
+        blk.category = block.find(Tags::category)->toString();
+        blk.address = block.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
         const auto groups = block.find(Tags::groups)->toArray();
         foreach (auto g, groups) {
             auto type = g.toObject().find(Tags::type)->toString();
@@ -121,32 +116,30 @@ Protocol ConfigParser::readBlocks(const QJsonObject &obj) const noexcept
 
     for (const auto &b : ret.blocks) {
         for (const auto &el : b.elements) {
-            ret.elementMap.insert({ el->address(), el.get() });
+            ret.elementMap.insert({el->address(), el.get()});
         }
     }
 
     return ret;
 }
 
-std::unique_ptr<Bitset> ConfigParser::makeBitset(const QJsonObject &obj,
-                                                 const Block &b) const
+std::unique_ptr<Bitset> ConfigParser::makeBitset(const QJsonObject &obj, const Block &b) const
 {
-    auto name        = obj.find(Tags::name)->toString();
+    auto name = obj.find(Tags::name)->toString();
     auto description = obj.find(Tags::description)->toString();
-    auto address =
-        obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
+    auto address = obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
     if (address == 0) {
         address = b.address;
         address += obj.find(Tags::offset)->toString().toInt(Q_NULLPTR, HexBase);
     }
-    auto element    = std::make_unique<Bitset>(name, description, address);
-    auto bits       = obj.find(Tags::bits)->toArray();
-    auto bitset     = dynamic_cast<Bitset *>(element.get());
+    auto element = std::make_unique<Bitset>(name, description, address);
+    auto bits = obj.find(Tags::bits)->toArray();
+    auto bitset = dynamic_cast<Bitset *>(element.get());
     const auto size = static_cast<size_t>(bits.size());
     for (size_t i = 0; i < size; ++i) {
         auto obj = bits[i].toObject();
-        auto d   = obj.find(Tags::description)->toString();
-        auto n   = obj.find(Tags::name)->toString();
+        auto d = obj.find(Tags::description)->toString();
+        auto n = obj.find(Tags::name)->toString();
         auto val = obj.find(Tags::defaultValue)->toBool();
         bitset->setAt(i, val, n, d);
     }
@@ -154,20 +147,18 @@ std::unique_ptr<Bitset> ConfigParser::makeBitset(const QJsonObject &obj,
     return element;
 }
 
-std::unique_ptr<UByte> ConfigParser::makeUByte(const QJsonObject &obj,
-                                               const Block &b) const
+std::unique_ptr<UByte> ConfigParser::makeUByte(const QJsonObject &obj, const Block &b) const
 {
-    auto name        = obj.find(Tags::name)->toString();
+    auto name = obj.find(Tags::name)->toString();
     auto description = obj.find(Tags::description)->toString();
-    auto address =
-        obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
+    auto address = obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
     if (address == 0) {
         address = b.address;
         address += obj.find(Tags::offset)->toString().toInt(Q_NULLPTR, HexBase);
     }
 
     auto element = std::make_unique<UByte>(name, description, address);
-    auto val     = static_cast<uint16_t>(
+    auto val = static_cast<uint16_t>(
         obj.find(Tags::defaultValue)->toString().toUInt(Q_NULLPTR, HexBase));
     try {
         element->setValue(val);
@@ -178,20 +169,18 @@ std::unique_ptr<UByte> ConfigParser::makeUByte(const QJsonObject &obj,
     return element;
 }
 
-std::unique_ptr<SByte> ConfigParser::makeSByte(const QJsonObject &obj,
-                                               const Block &b) const
+std::unique_ptr<SByte> ConfigParser::makeSByte(const QJsonObject &obj, const Block &b) const
 {
-    auto name        = obj.find(Tags::name)->toString();
+    auto name = obj.find(Tags::name)->toString();
     auto description = obj.find(Tags::description)->toString();
-    auto address =
-        obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
+    auto address = obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
     if (address == 0) {
         address = b.address;
         address += obj.find(Tags::offset)->toString().toInt(Q_NULLPTR, HexBase);
     }
 
     auto element = std::make_unique<SByte>(name, description, address);
-    auto val     = static_cast<int16_t>(
+    auto val = static_cast<int16_t>(
         obj.find(Tags::defaultValue)->toString().toInt(Q_NULLPTR, HexBase));
     try {
         element->setValue(val);
@@ -202,20 +191,18 @@ std::unique_ptr<SByte> ConfigParser::makeSByte(const QJsonObject &obj,
     return element;
 }
 
-std::unique_ptr<UWord> ConfigParser::makeUWord(const QJsonObject &obj,
-                                               const Block &b) const
+std::unique_ptr<UWord> ConfigParser::makeUWord(const QJsonObject &obj, const Block &b) const
 {
-    auto name        = obj.find(Tags::name)->toString();
+    auto name = obj.find(Tags::name)->toString();
     auto description = obj.find(Tags::description)->toString();
-    auto address =
-        obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
+    auto address = obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
     if (address == 0) {
         address = b.address;
         address += obj.find(Tags::offset)->toString().toInt(Q_NULLPTR, HexBase);
     }
 
     auto element = std::make_unique<UWord>(name, description, address);
-    auto val     = static_cast<uint16_t>(
+    auto val = static_cast<uint16_t>(
         obj.find(Tags::defaultValue)->toString().toUInt(Q_NULLPTR, HexBase));
     try {
         element->setValue(val);
@@ -226,20 +213,18 @@ std::unique_ptr<UWord> ConfigParser::makeUWord(const QJsonObject &obj,
     return element;
 }
 
-std::unique_ptr<SWord> ConfigParser::makeSWord(const QJsonObject &obj,
-                                               const Block &b) const
+std::unique_ptr<SWord> ConfigParser::makeSWord(const QJsonObject &obj, const Block &b) const
 {
-    auto name        = obj.find(Tags::name)->toString();
+    auto name = obj.find(Tags::name)->toString();
     auto description = obj.find(Tags::description)->toString();
-    auto address =
-        obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
+    auto address = obj.find(Tags::address)->toString().toInt(Q_NULLPTR, HexBase);
     if (address == 0) {
         address = b.address;
         address += obj.find(Tags::offset)->toString().toInt(Q_NULLPTR, HexBase);
     }
 
     auto element = std::make_unique<SWord>(name, description, address);
-    auto val     = static_cast<int16_t>(
+    auto val = static_cast<int16_t>(
         obj.find(Tags::defaultValue)->toString().toInt(Q_NULLPTR, HexBase));
     try {
         element->setValue(val);

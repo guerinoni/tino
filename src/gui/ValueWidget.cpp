@@ -5,11 +5,12 @@
 #include <QLabel>
 #include <QSpinBox>
 
-ValueWidget::ValueWidget(Element *element, int16_t value, QString description,
-                         QWidget *parent) :
-    QWidget(parent),
-    m_description{ description },
-    m_defaultValue{ value }, m_value{ value }, m_element{ element }
+ValueWidget::ValueWidget(Element *element, int16_t value, QString description, QWidget *parent)
+    : QWidget(parent)
+    , m_description{description}
+    , m_defaultValue{value}
+    , m_value{value}
+    , m_element{element}
 {
     init();
 }
@@ -23,21 +24,20 @@ void ValueWidget::init()
 {
     m_value = m_defaultValue;
 
-    auto layout    = new QGridLayout(this);
+    auto layout = new QGridLayout(this);
     m_valueSpinBox = new QSpinBox(this);
     m_valueSpinBox->setValue(m_value);
     m_valueSpinBox->setMinimum(0);
     m_valueSpinBox->setMaximum(0xFFFF);
     m_valueSpinBox->setAlignment(Qt::AlignRight);
-    connect(m_valueSpinBox, QOverload<int>::of(&QSpinBox::valueChanged),
-            [=](int i) {
-                m_value = i;
-                update();
+    connect(m_valueSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [=](int i) {
+        m_value = i;
+        update();
 
-                if (m_element) {
-                    emit valueChanged(m_element->address());
-                }
-            });
+        if (m_element) {
+            emit valueChanged(m_element->address());
+        }
+    });
     m_decValueLabel = new QLabel(this);
     m_decValueLabel->setAlignment(Qt::AlignRight);
     m_hexValueLabel = new QLabel(this);

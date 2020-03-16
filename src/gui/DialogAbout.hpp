@@ -2,8 +2,7 @@
 
 #include <QDialog>
 
-namespace Ui
-{
+namespace Ui {
 class DialogAbout;
 }
 
@@ -11,10 +10,10 @@ class DialogAbout : public QDialog
 {
     Q_OBJECT
 
-  public:
+public:
     explicit DialogAbout(QWidget *parent = nullptr);
     ~DialogAbout() override;
 
-  private:
+private:
     Ui::DialogAbout *ui;
 };

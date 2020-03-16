@@ -9,7 +9,7 @@ class tst_MainWindow : public QObject
 {
     Q_OBJECT
 
-  private slots:
+private slots:
     void initTestCase();
     void doNothingWhenImportFilenameEmpty();
     void doNothingWhenImportWrongFile();
@@ -17,7 +17,7 @@ class tst_MainWindow : public QObject
 
     void avoidMultipleDockWithMultipleImport();
 
-  private:
+private:
     QString filesPath;
 };
 
@@ -37,8 +37,7 @@ void tst_MainWindow::doNothingWhenImportFilenameEmpty()
 void tst_MainWindow::doNothingWhenImportWrongFile()
 {
     MainWindow mainWindow;
-    QVERIFY_EXCEPTION_THROWN(mainWindow.importConfig(filesPath + "wrong-file"),
-                             std::logic_error);
+    QVERIFY_EXCEPTION_THROWN(mainWindow.importConfig(filesPath + "wrong-file"), std::logic_error);
 }
 
 void tst_MainWindow::emitWhenImportLooksFine()

@@ -3,7 +3,8 @@
 #include <Block.hpp>
 #include <QWidget>
 
-struct GuiElement {
+struct GuiElement
+{
     Element *el;
     std::vector<QWidget *> w;
 };
@@ -12,18 +13,18 @@ class MdiChild : public QWidget
 {
     Q_OBJECT
 
-  public:
+public:
     explicit MdiChild(const Block &block, QWidget *parent = nullptr);
 
     bool hasElementWithAddress(int address) const;
 
-  signals:
+signals:
     void updateModbus(int address);
 
-  public slots:
+public slots:
     void updateGuiElemets();
 
-  private:
+private:
     std::vector<int> m_addresses;
     std::vector<GuiElement> m_guiElements;
 };

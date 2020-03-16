@@ -1,13 +1,13 @@
 #include <Bitset.hpp>
+#include <Word.hpp>
 #include <QDockWidget>
 #include <QtTest>
-#include <Word.hpp>
 
 class tst_Elements : public QObject
 {
     Q_OBJECT
 
-  private slots:
+private slots:
     void checkBitset();
     void checkByte();
     void checkWord();
@@ -16,7 +16,7 @@ class tst_Elements : public QObject
 void tst_Elements::checkBitset()
 {
     int16_t value = 47;
-    Bitset b{ {}, {}, {} };
+    Bitset b{{}, {}, {}};
 
     b.setValue(value);
     QCOMPARE(b.valueAt(0), 1);
@@ -43,13 +43,13 @@ void tst_Elements::checkBitset()
 
 void tst_Elements::checkByte()
 {
-    UByte b{ "name", "description", 0x90, 99 };
+    UByte b{"name", "description", 0x90, 99};
     QCOMPARE(b.name(), "name");
     QCOMPARE(b.description(), "description");
     QCOMPARE(b.address(), 0x90);
     QCOMPARE(b.uValue(), 99);
 
-    SByte bNeg{ "rewq", "rewq", 0xA0, -127 };
+    SByte bNeg{"rewq", "rewq", 0xA0, -127};
     QCOMPARE(bNeg.name(), "rewq");
     QCOMPARE(bNeg.description(), "rewq");
     QCOMPARE(bNeg.address(), 0xA0);
@@ -59,11 +59,11 @@ void tst_Elements::checkByte()
 void tst_Elements::checkWord()
 {
     int16_t value = 4320;
-    SWord w{ {}, {}, {}, value };
+    SWord w{{}, {}, {}, value};
     QCOMPARE(w.sValue(), 4320);
 
     value = -2043;
-    SWord sw{ "", "", 0x11, -2043 };
+    SWord sw{"", "", 0x11, -2043};
     QCOMPARE(sw.sValue(), value);
 }
 

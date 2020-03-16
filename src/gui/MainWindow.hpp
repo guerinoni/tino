@@ -2,11 +2,10 @@
 
 #include <MdiChild.hpp>
 #include <ModbusCom.hpp>
-#include <QMainWindow>
 #include <memory>
+#include <QMainWindow>
 
-namespace Ui
-{
+namespace Ui {
 class MainWindow;
 }
 
@@ -17,19 +16,19 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-  public:
+public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
-  signals:
+signals:
     void importFinished(QPrivateSignal);
 
-  private slots:
+private slots:
     void selectFile();
     void createConfigView();
     void customConfigViewContextMenu(const QPoint &point);
 
-  private:
+private:
     Ui::MainWindow *ui;
 
     std::unique_ptr<Configuration> m_config;
@@ -42,8 +41,9 @@ class MainWindow : public QMainWindow
     std::unique_ptr<ModbusCom> m_modbus;
     std::vector<MdiChild *> m_mdiChilds;
 
-    struct Error {
-        bool error{ false };
+    struct Error
+    {
+        bool error{false};
         QString message{};
     };
 

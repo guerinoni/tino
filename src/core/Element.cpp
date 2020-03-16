@@ -1,11 +1,10 @@
 #include "Element.hpp"
 
-Element::Element(QString name, QString descr, uint16_t addr) :
-    m_name{ std::move(name) }, m_description{ std::move(descr) }, m_address{
-        addr
-    }
-{
-}
+Element::Element(QString name, QString descr, uint16_t addr)
+    : m_name{std::move(name)}
+    , m_description{std::move(descr)}
+    , m_address{addr}
+{}
 
 bool Element::operator==(const Element &other) const
 {
@@ -59,12 +58,12 @@ int16_t Element::sValue() const
 
 void Element::setValue(uint16_t value)
 {
-    (void)value;
+    (void) value;
     throw std::logic_error("Undefined function");
 }
 
 void Element::setValue(int16_t value)
 {
-    (void)value;
+    (void) value;
     throw std::logic_error("Undefined function");
 }

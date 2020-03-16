@@ -2,22 +2,22 @@
 
 #include "Element.hpp"
 
-#include <QStringList>
 #include <bitset>
+#include <QStringList>
 
 class Bitset final : public Element
 {
-  public:
+public:
     Bitset() = delete;
     explicit Bitset(QString name, QString descr, uint16_t addr);
     Bitset(const Bitset &) = default;
-    Bitset(Bitset &&)      = default;
-    ~Bitset() override     = default;
+    Bitset(Bitset &&) = default;
+    ~Bitset() override = default;
 
     Bitset &operator=(const Bitset &other) = default;
     Bitset &operator=(Bitset &&other) = default;
 
-    void setAt(size_t index, bool value, QString name= {}, QString description = {});
+    void setAt(size_t index, bool value, QString name = {}, QString description = {});
     bool valueAt(size_t index) const;
 
     uint16_t uValue() const override;
@@ -32,7 +32,7 @@ class Bitset final : public Element
 
     constexpr static size_t size = 8;
 
-  private:
+private:
     QStringList m_bitsNames{{}, {}, {}, {}, {}, {}, {}, {}};
     QStringList m_bitsDescriptions{{}, {}, {}, {}, {}, {}, {}, {}};
     std::bitset<size> m_bits{};

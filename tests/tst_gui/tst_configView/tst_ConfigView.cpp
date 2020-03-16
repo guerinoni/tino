@@ -10,13 +10,13 @@ class tst_ConfigView : public QObject
 {
     Q_OBJECT
 
-  private slots:
+private slots:
     void initTestCase();
     void checkEmptyProtocol();
     void checkSimpleProtocol();
     void avoidShowEmptyField();
 
-  private:
+private:
     Protocol m_protocol;
 
     bool forEach(QAbstractItemModel *model, QModelIndex parent = QModelIndex());
@@ -24,8 +24,7 @@ class tst_ConfigView : public QObject
 
 void tst_ConfigView::initTestCase()
 {
-    auto bitset =
-        std::make_unique<Bitset>("bitset 1", "bitset 1 description", 0x10);
+    auto bitset = std::make_unique<Bitset>("bitset 1", "bitset 1 description", 0x10);
     for (size_t i = 0; i < 8; ++i) {
         bitset->setAt(i, false, {}, QStringLiteral("description_%1").arg(i));
     }
@@ -39,8 +38,8 @@ void tst_ConfigView::initTestCase()
 
 void tst_ConfigView::checkEmptyProtocol()
 {
-    auto dock        = ConfigViewFactory().makeConfigView({});
-    const auto view  = qobject_cast<QTreeView *>(dock->widget());
+    auto dock = ConfigViewFactory().makeConfigView({});
+    const auto view = qobject_cast<QTreeView *>(dock->widget());
     const auto model = qobject_cast<QStandardItemModel *>(view->model());
     QVERIFY(dock != Q_NULLPTR);
     QVERIFY(view != Q_NULLPTR);
@@ -50,8 +49,8 @@ void tst_ConfigView::checkEmptyProtocol()
 
 void tst_ConfigView::checkSimpleProtocol()
 {
-    auto dock        = ConfigViewFactory().makeConfigView(m_protocol);
-    const auto view  = qobject_cast<QTreeView *>(dock->widget());
+    auto dock = ConfigViewFactory().makeConfigView(m_protocol);
+    const auto view = qobject_cast<QTreeView *>(dock->widget());
     const auto model = qobject_cast<QStandardItemModel *>(view->model());
     QVERIFY(dock != Q_NULLPTR);
     QVERIFY(view != Q_NULLPTR);
@@ -65,8 +64,8 @@ void tst_ConfigView::checkSimpleProtocol()
 
 void tst_ConfigView::avoidShowEmptyField()
 {
-    auto dock        = ConfigViewFactory().makeConfigView(m_protocol);
-    const auto view  = qobject_cast<QTreeView *>(dock->widget());
+    auto dock = ConfigViewFactory().makeConfigView(m_protocol);
+    const auto view = qobject_cast<QTreeView *>(dock->widget());
     const auto model = qobject_cast<QStandardItemModel *>(view->model());
     QVERIFY(forEach(model));
 }
@@ -75,7 +74,7 @@ bool tst_ConfigView::forEach(QAbstractItemModel *model, QModelIndex parent)
 {
     for (int r = 0; r < model->rowCount(parent); ++r) {
         QModelIndex index = model->index(r, 0, parent);
-        QVariant name     = model->data(index);
+        QVariant name = model->data(index);
         if (name.toString().isEmpty()) {
             return false;
         }
