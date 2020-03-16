@@ -1,6 +1,8 @@
 #include "ModbusCom.hpp"
 
+#include <Bitset.hpp>
 #include <Element.hpp>
+
 #include <QDebug>
 #include <QModbusRtuSerialSlave>
 
@@ -109,20 +111,33 @@ void ModbusCom::updateRegisters(QModbusDataUnit::RegisterType table, int address
         quint16 value;
         quint16 add = static_cast<quint16>(address + i);
 
-        switch (table) {
-        case QModbusDataUnit::HoldingRegisters:
-            m_modbusDevice->data(QModbusDataUnit::HoldingRegisters,
-                                 static_cast<quint16>(add),
-                                 &value);
-            if (m_protocol.elementMap.find(add) != m_protocol.elementMap.end()) {
-                m_protocol.elementMap.at(add)->setValue(static_cast<int16_t>(value));
-            } else {
-                qWarning() << QStringLiteral("Address %1 is invalid!").arg(add);
+        if (table != QModbusDataUnit::HoldingRegisters) {
+            continue;
+        }
+
+        m_modbusDevice->data(QModbusDataUnit::HoldingRegisters, static_cast<quint16>(add), &value);
+
+        if (m_protocol.elementMap.find(add) == m_protocol.elementMap.end()) {
+            qWarning() << "Address is invalid (" << add << ")";
+        }
+
+        auto el = m_protocol.elementMap.at(add);
+
+        if (const auto type = el->type(); type == Element::Type::Bitset) {
+            const auto h = static_cast<int16_t>((value & 0xff00) >> 8);
+            if (const auto bitset = dynamic_cast<Bitset *>(el)) {
+                bitset->setValue(h);
+                Q_EMIT updateGui(bitset->address());
             }
-            Q_EMIT updateGui(add);
-            break;
-        default:
-            break;
+
+            const auto lowAdd = add + 1;
+            if (m_protocol.elementMap.find(lowAdd) != m_protocol.elementMap.end()) {
+                const auto l = static_cast<int16_t>((value & 0x00ff));
+                if (const auto bitset = dynamic_cast<Bitset *>(m_protocol.elementMap.at(lowAdd))) {
+                    bitset->setValue(l);
+                    Q_EMIT updateGui(bitset->address());
+                }
+            }
         }
     }
 }

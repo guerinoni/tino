@@ -31,4 +31,5 @@ private:
     const Protocol &m_protocol;
 
     bool initializeServer();
+    inline bool isAddressOdd(uint16_t address) { return (address % 2); };
 };
