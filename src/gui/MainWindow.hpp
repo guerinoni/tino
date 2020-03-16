@@ -20,6 +20,8 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
+    void closeEvent(QCloseEvent *event) override;
+
 signals:
     void importFinished(QPrivateSignal);
 

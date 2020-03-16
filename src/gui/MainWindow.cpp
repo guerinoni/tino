@@ -37,6 +37,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QSettings settings("Tino");
+    settings.setValue("geometry", saveGeometry());
+    settings.setValue("windowState", saveState());
+    QMainWindow::closeEvent(event);
+}
+
 void MainWindow::selectFile()
 {
     const auto filename = QFileDialog::getOpenFileName(this,
@@ -217,6 +225,8 @@ void MainWindow::loadSettings()
     QSettings settings("Tino");
     auto desktop = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
     m_importFilePath = settings.value("importFilePath", desktop).toString();
+    restoreGeometry(settings.value("geometry").toByteArray());
+    restoreState(settings.value("windowState").toByteArray());
 }
 
 bool MainWindow::setFocusIfAlreadyExists(const Block &block) const
