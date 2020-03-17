@@ -1,11 +1,14 @@
 #pragma once
 
+#include <QObject>
 #include <QString>
 
 class Element
 {
+    Q_GADGET
+
 public:
-    enum class Type {
+    enum Type {
         Bitset,
         UByte,
         SByte,
@@ -14,6 +17,7 @@ public:
 
         UndefinedType = -1
     };
+    Q_ENUM(Type);
 
     Element() = default;
     explicit Element(QString name, QString descr, uint16_t addr);

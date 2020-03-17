@@ -8,6 +8,7 @@
 #include <Word.hpp>
 #include <QGridLayout>
 #include <QGroupBox>
+#include <QMetaEnum>
 #include <QScrollArea>
 
 MdiChild::MdiChild(const Block &block, QWidget *parent)
@@ -22,7 +23,8 @@ MdiChild::MdiChild(const Block &block, QWidget *parent)
     for (const auto &element : block.elements) {
         auto groupBox = new QGroupBox(this);
         groupBox->setTitle(element->description() + " - 0x"
-                           + QString::number(element->address(), 16));
+                           + QString::number(element->address(), 16) + " - "
+                           + QMetaEnum::fromType<Element::Type>().valueToKey(element->type()));
         groupBox->setLayout(new QGridLayout);
 
         if (auto bitset = dynamic_cast<Bitset *>(element.get())) {
