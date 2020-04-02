@@ -34,6 +34,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    QToolBar *m_toolbar{nullptr};
+
     std::unique_ptr<Configuration> m_config;
     std::unique_ptr<QAction> m_serialConnect;
     std::unique_ptr<QAction> m_serialSettings;
@@ -51,6 +53,7 @@ private:
     };
 
     void createMenuBar();
+    void createToolBar();
     Error importConfig(const QString &filename);
     void createWidgetRequested(QStandardItem *item);
     void saveSettings();

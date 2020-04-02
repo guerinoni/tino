@@ -20,6 +20,7 @@
 #include <QStandardPaths>
 #include <QTreeView>
 #include <QtDebug>
+#include <QToolBar>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle("Tino");
 
     createMenuBar();
+    createToolBar();
     loadSettings();
 
     connect(this, &MainWindow::importFinished, this, &MainWindow::createConfigView);
@@ -157,6 +159,12 @@ void MainWindow::createMenuBar()
     connect(about, &QAction::triggered, this, []() { DialogAbout().exec(); });
     help->addAction(about);
     ui->menuBar->addMenu(help);
+}
+
+void MainWindow::createToolBar()
+{
+    m_toolbar = new QToolBar(this);
+    addToolBar(Qt::ToolBarArea::TopToolBarArea, m_toolbar);
 }
 
 MainWindow::Error MainWindow::importConfig(const QString &filename)
