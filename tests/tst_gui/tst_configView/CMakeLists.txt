@@ -32,8 +32,6 @@ add_executable(tst_configView
     ../../../src/gui/DialogSerialSettings.cpp    ../../../src/gui/DialogSerialSettings.hpp    ../../../src/gui/DialogSerialSettings.ui
     ../../../src/gui/MainWindow.cpp              ../../../src/gui/MainWindow.hpp              ../../../src/gui/MainWindow.ui
 
-    ../../../src/gui/gui_resources.qrc
-
     tst_ConfigView.cpp)
 
 target_link_libraries(tst_configView PRIVATE Qt5::Core Qt5::Gui Qt5::Test Qt5::Widgets Qt5::SerialPort Qt5::SerialBus Qt5::Svg)

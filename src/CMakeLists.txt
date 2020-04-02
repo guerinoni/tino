@@ -26,7 +26,7 @@ add_executable(${CMAKE_PROJECT_NAME}
     gui/DialogSerialSettings.cpp    gui/DialogSerialSettings.hpp    gui/DialogSerialSettings.ui
     gui/MainWindow.cpp              gui/MainWindow.hpp              gui/MainWindow.ui
 
-    gui/gui_resources.qrc
+    gui/icons/icons.qrc
 
     app/main.cpp)
 

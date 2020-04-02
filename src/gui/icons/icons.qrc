@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons8-apri-cartella-48.png</file>
+        <file>icons8-collegato-48.png</file>
+        <file>icons8-impostazioni-48.png</file>
+        <file>icons8-scollegato-48.png</file>
+    </qresource>
+</RCC>
