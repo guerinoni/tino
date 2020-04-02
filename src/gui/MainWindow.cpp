@@ -68,7 +68,7 @@ void MainWindow::createConfigView()
 
     m_configViewDock.reset(ConfigViewFactory().makeConfigView(m_config->protocol));
     m_configViewDock->setObjectName("ConfigView");
-    m_configViewDock->setParent(this);
+    m_configViewDock->setFeatures(m_configViewDock->features() & ~QDockWidget::DockWidgetClosable);
     addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea,
                   m_configViewDock.get(),
                   Qt::Orientation::Vertical);
