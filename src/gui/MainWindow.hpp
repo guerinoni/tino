@@ -39,11 +39,9 @@ private:
     Ui::MainWindow *ui;
 
     QToolBar *m_toolbar{nullptr};
-
     std::unique_ptr<Configuration> m_config;
-    std::unique_ptr<QAction> m_connectClient;
-    std::unique_ptr<QAction> m_disconnectClient;
-    std::unique_ptr<QAction> m_serialSettings;
+    enum class Actions { Open, Connect, Disconnect, Settins, About, Quit };
+    std::unordered_map<Actions, std::unique_ptr<QAction>> m_actions;
     std::unique_ptr<QDockWidget> m_configViewDock;
 
     QString m_importFilePath;
@@ -57,6 +55,7 @@ private:
         QString message{};
     };
 
+    void createActions();
     void createMenuBar();
     void createToolBar();
     Error importConfig(const QString &filename);

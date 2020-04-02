@@ -10,11 +10,8 @@
 
 #include "../core/Element.hpp"
 
-#include <QDesktopWidget>
 #include <QDockWidget>
 #include <QFileDialog>
-#include <QHeaderView>
-#include <QLabel>
 #include <QMessageBox>
 #include <QSettings>
 #include <QStandardItemModel>
@@ -30,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setWindowTitle("Tino");
 
+    createActions();
     createMenuBar();
     createToolBar();
     loadSettings();
@@ -118,59 +116,73 @@ void MainWindow::connectClient()
         return;
     }
 
-    m_connectClient->setEnabled(false);
-    m_disconnectClient->setEnabled(true);
+    m_actions[Actions::Connect]->setEnabled(false);
+    m_actions[Actions::Disconnect]->setEnabled(true);
 }
 
 void MainWindow::disconnectClient()
 {
     m_modbus->disconnectModbus();
-    m_connectClient->setEnabled(true);
-    m_disconnectClient->setEnabled(false);
+    m_actions[Actions::Connect]->setEnabled(true);
+    m_actions[Actions::Disconnect]->setEnabled(false);
+}
+
+void MainWindow::createActions()
+{
+    m_actions[Actions::Open] = std::make_unique<QAction>(tr("Open File..."));
+    m_actions[Actions::Open]->setIcon(QIcon(":/resources/icons8-apri-cartella-48.png"));
+    connect(m_actions[Actions::Open].get(), &QAction::triggered, this, &MainWindow::selectFile);
+
+    m_actions[Actions::Connect] = std::make_unique<QAction>(tr("Connect"));
+    m_actions[Actions::Connect]->setIcon(QIcon(":/resources/icons8-collegato-48.png"));
+    m_actions[Actions::Connect]->setEnabled(false);
+    connect(m_actions[Actions::Connect].get(),
+            &QAction::triggered,
+            this,
+            &MainWindow::connectClient);
+
+    m_actions[Actions::Disconnect] = std::make_unique<QAction>(tr("Disconnect"));
+    m_actions[Actions::Disconnect]->setIcon(QIcon(":/resources/icons8-scollegato-48.png"));
+    m_actions[Actions::Disconnect]->setEnabled(false);
+    connect(m_actions[Actions::Disconnect].get(),
+            &QAction::trigger,
+            this,
+            &MainWindow::disconnectClient);
+
+    m_actions[Actions::Settins] = std::make_unique<QAction>(tr("Setting..."));
+    m_actions[Actions::Settins]->setIcon(QIcon(":/resources/icons8-impostazioni-48.png"));
+    connect(m_actions[Actions::Settins].get(), &QAction::triggered, this, [&]() {
+        DialogSerialSettings(&m_config->settings).exec();
+    });
+
+    m_actions[Actions::About] = std::make_unique<QAction>(tr("About..."));
+    connect(m_actions[Actions::About].get(), &QAction::triggered, this, []() {
+        DialogAbout().exec();
+    });
+
+    m_actions[Actions::Quit] = std::make_unique<QAction>(tr("Quit"));
+    m_actions[Actions::Quit]->setShortcut(QKeySequence::StandardKey::Quit);
+    connect(m_actions[Actions::Quit].get(), &QAction::triggered, this, []() {
+        QApplication::exit();
+    });
 }
 
 void MainWindow::createMenuBar()
 {
     const auto file = new QMenu("File", ui->menuBar);
-
-    const auto import = new QAction("Import file...", file);
-    connect(import, &QAction::triggered, this, &MainWindow::selectFile);
-    file->addAction(import);
-
-    const auto quit = new QAction("Quit", file);
-    quit->setShortcut(QKeySequence::StandardKey::Quit);
-    connect(quit, &QAction::triggered, this, []() { QApplication::exit(); });
-    file->addAction(quit);
-
+    file->addAction(m_actions[Actions::Open].get());
+    file->addAction(m_actions[Actions::Quit].get());
     ui->menuBar->addMenu(file);
 
     const auto comMenu = new QMenu(tr("Communication"), ui->menuBar);
-
-    m_connectClient = std::make_unique<QAction>(tr("Connect..."), comMenu);
-    m_connectClient->setEnabled(false);
-    connect(m_connectClient.get(), &QAction::triggered, this, &MainWindow::connectClient);
-    comMenu->addAction(m_connectClient.get());
-
-    m_disconnectClient = std::make_unique<QAction>(tr("Disconnect..."), comMenu);
-    m_disconnectClient->setEnabled(false);
-    connect(m_disconnectClient.get(), &QAction::trigger, this, &MainWindow::disconnectClient);
-    comMenu->addAction(m_disconnectClient.get());
-
+    comMenu->addAction(m_actions[Actions::Connect].get());
+    comMenu->addAction(m_actions[Actions::Disconnect].get());
     comMenu->addSeparator();
-
-    m_serialSettings = std::make_unique<QAction>("Settings...", comMenu);
-    m_serialSettings->setEnabled(false);
-    connect(m_serialSettings.get(), &QAction::triggered, this, [&]() {
-        DialogSerialSettings(&m_config->settings).exec();
-    });
-    comMenu->addAction(m_serialSettings.get());
-
+    comMenu->addAction(m_actions[Actions::Settins].get());
     ui->menuBar->addMenu(comMenu);
 
     const auto help = new QMenu("Help", ui->menuBar);
-    const auto about = new QAction("About...", file);
-    connect(about, &QAction::triggered, this, []() { DialogAbout().exec(); });
-    help->addAction(about);
+    help->addAction(m_actions[Actions::About].get());
     ui->menuBar->addMenu(help);
 }
 
@@ -179,10 +191,10 @@ void MainWindow::createToolBar()
     m_toolbar = new QToolBar(this);
     m_toolbar->setMovable(false);
     addToolBar(Qt::ToolBarArea::TopToolBarArea, m_toolbar);
-    m_connectClient->setIcon(QIcon(":/resources/icons8-collegato-48.png"));
-    m_disconnectClient->setIcon(QIcon(":/resources/icons8-scollegato-48.png"));
-    m_toolbar->addAction(m_connectClient.get());
-    m_toolbar->addAction(m_disconnectClient.get());
+    m_toolbar->addAction(m_actions[Actions::Open].get());
+    m_toolbar->addAction(m_actions[Actions::Connect].get());
+    m_toolbar->addAction(m_actions[Actions::Disconnect].get());
+    m_toolbar->addAction(m_actions[Actions::Settins].get());
 }
 
 MainWindow::Error MainWindow::importConfig(const QString &filename)
@@ -208,8 +220,8 @@ MainWindow::Error MainWindow::importConfig(const QString &filename)
         }
     });
 
-    m_connectClient->setEnabled(true);
-    m_serialSettings->setEnabled(true);
+    m_actions[Actions::Connect]->setEnabled(true);
+    m_actions[Actions::Disconnect]->setEnabled(true);
 
     emit importFinished({});
 
