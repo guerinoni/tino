@@ -58,15 +58,15 @@ void tst_Elements::checkByte()
 
 void tst_Elements::checkWord()
 {
-    int16_t value = 4320;
-    SWord w{{}, {}, {}, value};
+    uint16_t uv = 4320;
+    UWord w{{}, {}, {}, uv};
     QCOMPARE(w.sValue(), 4320);
 
-    value = -2043;
+    int16_t sv= -2043;
     SWord sw{"", "", 0x11, -2043};
-    QCOMPARE(sw.sValue(), value);
+    QCOMPARE(sw.sValue(), sv);
 }
 
-QTEST_GUILESS_MAIN(tst_Elements)
+QTEST_APPLESS_MAIN(tst_Elements)
 
 #include "tst_Elements.moc"
