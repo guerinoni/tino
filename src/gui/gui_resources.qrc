@@ -1,45 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>resources/1194989233158318133led_rectangular_h_blue.svg</file>
-        <file>resources/1194989236722398127led_rectangular_h_purple.svg</file>
-        <file>resources/11949892352101664721led_rectangular_h_orange.svg</file>
-        <file>resources/circle_black.svg</file>
-        <file>resources/circle_blue.svg</file>
-        <file>resources/circle_green.svg</file>
-        <file>resources/circle_grey.svg</file>
-        <file>resources/circle_orange.svg</file>
-        <file>resources/circle_purple.svg</file>
-        <file>resources/circle_red.svg</file>
-        <file>resources/circle_yellow.svg</file>
-        <file>resources/led_triangular_1_green.svg</file>
-        <file>resources/led_triangular_1_grey.svg</file>
-        <file>resources/led_triangular_1_red.svg</file>
-        <file>resources/molumen_multicolor_power_buttons.svg</file>
-        <file>resources/qled.png</file>
-        <file>resources/rect_green.svg</file>
-        <file>resources/rect_grey.svg</file>
-        <file>resources/round_blue.svg</file>
-        <file>resources/round_green.svg</file>
-        <file>resources/round_grey.svg</file>
-        <file>resources/round_orange.svg</file>
-        <file>resources/round_purple.svg</file>
-        <file>resources/round_red.svg</file>
-        <file>resources/round_yellow.svg</file>
-        <file>resources/screenshot.png</file>
-        <file>resources/screenshot2.png</file>
-        <file>resources/square_blue.svg</file>
-        <file>resources/square_green.svg</file>
-        <file>resources/square_grey.svg</file>
-        <file>resources/square_orange.svg</file>
-        <file>resources/square_purple.svg</file>
-        <file>resources/square_red.svg</file>
-        <file>resources/square_yellow.svg</file>
-        <file>resources/triang_blue.svg</file>
-        <file>resources/triang_green.svg</file>
-        <file>resources/triang_grey.svg</file>
-        <file>resources/triang_orange.svg</file>
-        <file>resources/triang_purple.svg</file>
-        <file>resources/triang_red.svg</file>
-        <file>resources/triang_yellow.svg</file>
+        <file>resources/icons8-collegato-48.png</file>
+        <file>resources/icons8-scollegato-48.png</file>
     </qresource>
 </RCC>

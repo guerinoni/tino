@@ -1,17 +1,19 @@
 #pragma once
 
-#include "../serialcom/ModbusCom.hpp"
 #include "../gui/MdiChild.hpp"
+#include "../serialcom/ModbusCom.hpp"
+
+#include <QMainWindow>
 
 #include <memory>
-#include <QMainWindow>
+
+class Configuration;
+
+class QStandardItem;
 
 namespace Ui {
 class MainWindow;
-}
-
-class Configuration;
-class QStandardItem;
+} // namespace Ui
 
 class MainWindow : public QMainWindow
 {
@@ -30,6 +32,8 @@ private slots:
     void selectFile();
     void createConfigView();
     void customConfigViewContextMenu(const QPoint &point);
+    void connectClient();
+    void disconnectClient();
 
 private:
     Ui::MainWindow *ui;
@@ -37,7 +41,8 @@ private:
     QToolBar *m_toolbar{nullptr};
 
     std::unique_ptr<Configuration> m_config;
-    std::unique_ptr<QAction> m_serialConnect;
+    std::unique_ptr<QAction> m_connectClient;
+    std::unique_ptr<QAction> m_disconnectClient;
     std::unique_ptr<QAction> m_serialSettings;
     std::unique_ptr<QDockWidget> m_configViewDock;
 

@@ -14,13 +14,14 @@
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QHeaderView>
+#include <QLabel>
 #include <QMessageBox>
 #include <QSettings>
 #include <QStandardItemModel>
 #include <QStandardPaths>
+#include <QToolBar>
 #include <QTreeView>
 #include <QtDebug>
-#include <QToolBar>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -110,6 +111,24 @@ void MainWindow::customConfigViewContextMenu(const QPoint &point)
     protocolItemMenu->exec(tree->viewport()->mapToGlobal(point));
 }
 
+void MainWindow::connectClient()
+{
+    if (!m_modbus->connectModbus(m_config->settings)) {
+        QMessageBox::critical(this, tr("Tino"), tr("Modbus connection failed."));
+        return;
+    }
+
+    m_connectClient->setEnabled(false);
+    m_disconnectClient->setEnabled(true);
+}
+
+void MainWindow::disconnectClient()
+{
+    m_modbus->disconnectModbus();
+    m_connectClient->setEnabled(true);
+    m_disconnectClient->setEnabled(false);
+}
+
 void MainWindow::createMenuBar()
 {
     const auto file = new QMenu("File", ui->menuBar);
@@ -125,23 +144,17 @@ void MainWindow::createMenuBar()
 
     ui->menuBar->addMenu(file);
 
-    const auto comMenu = new QMenu("Communication", ui->menuBar);
+    const auto comMenu = new QMenu(tr("Communication"), ui->menuBar);
 
-    m_serialConnect = std::make_unique<QAction>("Connect...", comMenu);
-    m_serialConnect->setEnabled(false);
-    connect(m_serialConnect.get(), &QAction::triggered, this, [&]() {
-        if (m_modbus->isConnected()) {
-            m_modbus->disconnectModbus();
-            m_serialConnect->setText("Connect...");
-        } else {
-            if (!m_modbus->connectModbus(m_config->settings)) {
-                QMessageBox::critical(this, tr("Tino"), tr("Modbus connection failed."));
-                return;
-            }
-            m_serialConnect->setText("Disconnect...");
-        }
-    });
-    comMenu->addAction(m_serialConnect.get());
+    m_connectClient = std::make_unique<QAction>(tr("Connect..."), comMenu);
+    m_connectClient->setEnabled(false);
+    connect(m_connectClient.get(), &QAction::triggered, this, &MainWindow::connectClient);
+    comMenu->addAction(m_connectClient.get());
+
+    m_disconnectClient = std::make_unique<QAction>(tr("Disconnect..."), comMenu);
+    m_disconnectClient->setEnabled(false);
+    connect(m_disconnectClient.get(), &QAction::trigger, this, &MainWindow::disconnectClient);
+    comMenu->addAction(m_disconnectClient.get());
 
     comMenu->addSeparator();
 
@@ -164,7 +177,12 @@ void MainWindow::createMenuBar()
 void MainWindow::createToolBar()
 {
     m_toolbar = new QToolBar(this);
+    m_toolbar->setMovable(false);
     addToolBar(Qt::ToolBarArea::TopToolBarArea, m_toolbar);
+    m_connectClient->setIcon(QIcon(":/resources/icons8-collegato-48.png"));
+    m_disconnectClient->setIcon(QIcon(":/resources/icons8-scollegato-48.png"));
+    m_toolbar->addAction(m_connectClient.get());
+    m_toolbar->addAction(m_disconnectClient.get());
 }
 
 MainWindow::Error MainWindow::importConfig(const QString &filename)
@@ -190,7 +208,7 @@ MainWindow::Error MainWindow::importConfig(const QString &filename)
         }
     });
 
-    m_serialConnect->setEnabled(true);
+    m_connectClient->setEnabled(true);
     m_serialSettings->setEnabled(true);
 
     emit importFinished({});
