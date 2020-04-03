@@ -151,6 +151,7 @@ void MainWindow::createActions()
 
     m_actions[Actions::Settins] = std::make_unique<QAction>(tr("Setting..."));
     m_actions[Actions::Settins]->setIcon(QIcon(":/icons8-impostazioni-48.png"));
+    m_actions[Actions::Settins]->setEnabled(false);
     connect(m_actions[Actions::Settins].get(), &QAction::triggered, this, [&]() {
         DialogSerialSettings(&m_config->settings).exec();
     });
@@ -222,6 +223,7 @@ MainWindow::Error MainWindow::importConfig(const QString &filename)
 
     m_actions[Actions::Connect]->setEnabled(true);
     m_actions[Actions::Disconnect]->setEnabled(true);
+    m_actions[Actions::Settins]->setEnabled(true);
 
     emit importFinished({});
 
