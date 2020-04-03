@@ -4,5 +4,7 @@
         <file>icons8-collegato-48.png</file>
         <file>icons8-impostazioni-48.png</file>
         <file>icons8-scollegato-48.png</file>
+        <file>circle_green.svg</file>
+        <file>circle_grey.svg</file>
     </qresource>
 </RCC>

@@ -1,13 +1,14 @@
 #pragma once
 
-#include <memory>
 #include <QHash>
 #include <QWidget>
+
+#include <memory>
 
 class Bitset;
 class QSvgRenderer;
 
-class Led : public QWidget
+class Led final : public QWidget
 {
     Q_OBJECT
 
@@ -15,25 +16,13 @@ public:
     friend class LedRenderer;
 
     enum LedColor {
-        Red,
-        Green,
-        Yellow,
         Grey,
-        Orange,
-        Purple,
-        Blue,
+        Green,
 
         MaxLedColor
     };
 
-    enum LedShape {
-        Circle,
-        Square,
-        Triangle,
-        Rounded,
-
-        MaxLedShape
-    };
+    enum LedShape { Circle, MaxLedShape };
 
     enum State {
         Off,
@@ -42,42 +31,16 @@ public:
         MaxState
     };
 
-    Led(QString description = QString(),
-        QWidget *parent = nullptr,
-        const QSize &ledSize = QSize(30, 30),
-        Led::State state = Led::Off,
-        const Led::LedColor &onColor = Led::Green,
-        const Led::LedColor &offColor = Led::Grey,
-        const Led::LedShape &shape = Led::Circle,
-        int textAligment = Qt::AlignCenter);
-    Led();
-    ~Led() override;
+    explicit Led(QString description = {}, Led::State state = Led::Off, QWidget *parent = nullptr);
 
     [[nodiscard]] Led::State state() const;
     void setState(const Led::State &state);
 
-    [[nodiscard]] LedColor color(const State &state) const;
-    void setColor(const State &state, const LedColor &color);
-
-    [[nodiscard]] LedShape shape() const;
-    void setShape(const LedShape &shape);
-
-    void setLedSize(QSize size);
-
-    [[nodiscard]] int textAligment() const;
-    void setTextAligment(const int &textAligment);
-
     [[nodiscard]] QString description() const;
     void setDescription(const QString &description);
 
-    [[nodiscard]] bool isBlinking() const;
-    void setBlinkEnabled(bool enable, int blinkMsec = 2000);
-
     [[nodiscard]] bool isInteractive();
     void setInteractive(bool value);
-
-    [[nodiscard]] QString tag() const;
-    void setTag(const QString &tag);
 
     void attachBitset(Bitset *bitset, size_t bitIndex);
 
@@ -101,15 +64,11 @@ private:
     LedShape m_shape{Led::Circle};
     QString m_description{};
     int m_textAligment{Qt::AlignCenter};
-    bool m_blink{false};
-    QTimer *m_blinkTimer;
     bool m_interactive{true};
-    QString m_tag{};
 
     Bitset *m_bitset{nullptr};
     size_t m_bitIndex{};
 
-    void init();
     void checkWidgetSize();
 };
 

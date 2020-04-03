@@ -38,9 +38,8 @@ MdiChild::MdiChild(const Block &block, QWidget *parent)
                 ++c;
 
                 auto led = new Led(bitset->names().at(static_cast<int>(i)),
-                                   this,
-                                   QSize(30, 30),
-                                   bitset->valueAt(i) ? Led::State::On : Led::State::Off);
+                                   bitset->valueAt(i) ? Led::State::On : Led::State::Off,
+                                   this);
                 led->attachBitset(bitset, i);
                 connect(led, &Led::bitsetStateChanged, this, &MdiChild::updateModbus);
                 leds.emplace_back(led);

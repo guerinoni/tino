@@ -7,145 +7,22 @@
 #include <QApplication>
 #include <QtSvg>
 
-const int spacing = 2;
-const int ledMinimumSize = 24;
-const int ledMaximumSize = 32;
+constexpr static int spacing = 2;
+constexpr static int ledMinimumSize = 24;
+constexpr static int ledMaximumSize = 32;
 
-LedRenderer *LedRenderer::istance = nullptr;
-
-LedRenderer::LedRenderer(QObject *parent)
-    : QObject(parent)
-{
-    init();
-}
-
-LedRenderer::~LedRenderer()
-{
-    qDeleteAll(m_renderers);
-    m_renderers.clear();
-}
-
-LedRenderer *LedRenderer::getIstance()
-{
-    if (!istance) {
-        istance = new LedRenderer(QGuiApplication::instance());
-    }
-    return istance;
-}
-
-QSvgRenderer *LedRenderer::getRenderer(const Led::LedShape &shape, const Led::LedColor &color)
-{
-    QPair<Led::LedShape, Led::LedColor> pair(shape, color);
-    return m_renderers.value(pair, nullptr);
-}
-
-void LedRenderer::init()
-{
-    static const QString prefix = QString(":/resources/");
-    static const QString extension = QString(".svg");
-    for (int i = 0; i < Led::MaxLedShape; i++) {
-        for (int j = 0; j < Led::MaxLedColor; j++) {
-            auto shape = static_cast<Led::LedShape>(i);
-            auto color = static_cast<Led::LedColor>(j);
-            auto file = QString("%1%2_%3%4")
-                            .arg(prefix, stringifyShape(shape), stringifyColor(color), extension);
-            m_renderers.insert(QPair<Led::LedShape, Led::LedColor>(shape, color),
-                               new QSvgRenderer(file, this));
-        }
-    }
-}
-
-QString LedRenderer::stringifyColor(const Led::LedColor &color) const
-{
-    QString ret = QString();
-    switch (color) {
-    case Led::Red:
-        ret = QString("red");
-        break;
-    case Led::Green:
-        ret = QString("green");
-        break;
-    case Led::Yellow:
-        ret = QString("yellow");
-        break;
-    case Led::Grey:
-        ret = QString("grey");
-        break;
-    case Led::Orange:
-        ret = QString("orange");
-        break;
-    case Led::Purple:
-        ret = QString("purple");
-        break;
-    case Led::Blue:
-        ret = QString("blue");
-        break;
-    default:
-        break;
-    }
-    return ret;
-}
-
-QString LedRenderer::stringifyShape(const Led::LedShape &shape) const
-{
-    QString ret = QString();
-    switch (shape) {
-    case Led::Circle:
-        ret = QString("circle");
-        break;
-    case Led::Square:
-        ret = QString("square");
-        break;
-    case Led::Triangle:
-        ret = QString("triang");
-        break;
-    case Led::Rounded:
-        ret = QString("round");
-        break;
-    default:
-        break;
-    }
-    return ret;
-}
-
-Led::Led(QString description,
-         QWidget *parent,
-         const QSize &ledSize,
-         State state,
-         const Led::LedColor &onColor,
-         const Led::LedColor &offColor,
-         const Led::LedShape &shape,
-         int textAligment)
+Led::Led(QString description, State state, QWidget *parent)
     : QWidget(parent)
-    , m_ledSize(ledSize)
+    , m_ledSize(QSize(32, 32))
     , m_state(state)
-    , m_onColor(onColor)
-    , m_offColor(offColor)
-    , m_shape(shape)
+    , m_onColor(Green)
+    , m_offColor(Grey)
+    , m_shape(Circle)
     , m_description(std::move(description))
-    , m_textAligment(textAligment)
-    , m_blinkTimer(new QTimer(this))
-    , m_tag(QString())
+    , m_textAligment(Qt::AlignCenter)
 {
-    init();
-}
-
-Led::Led()
-    : QWidget(nullptr)
-    , m_ledSize(QSize(30, 30))
-    , m_blinkTimer(new QTimer(this))
-{
-    init();
-}
-
-Led::~Led()
-{
-    delete m_blinkTimer;
-}
-
-void Led::setLedSize(QSize size)
-{
-    m_ledSize = size;
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    checkWidgetSize();
 }
 
 void Led::paintEvent(QPaintEvent *event)
@@ -196,13 +73,6 @@ void Led::mousePressEvent(QMouseEvent *event)
     emit clicked();
 }
 
-void Led::init()
-{
-    connect(m_blinkTimer, SIGNAL(timeout()), this, SLOT(toggle()));
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    checkWidgetSize();
-}
-
 void Led::checkWidgetSize()
 {
     if (m_ledSize.isEmpty()) {
@@ -246,20 +116,6 @@ void Led::setDescription(const QString &description)
     }
 }
 
-void Led::setBlinkEnabled(bool enable, int blinkMsec)
-{
-    m_blink = enable;
-    if (enable)
-        m_blinkTimer->start(blinkMsec);
-    else
-        m_blinkTimer->stop();
-}
-
-bool Led::isBlinking() const
-{
-    return m_blink;
-}
-
 void Led::setInteractive(bool value)
 {
     if (value != m_interactive)
@@ -271,44 +127,11 @@ bool Led::isInteractive()
     return m_interactive;
 }
 
-void Led::setTag(const QString &tag)
-{
-    if (tag != m_tag)
-        m_tag = tag;
-}
-
 void Led::attachBitset(Bitset *bitset, size_t bitIndex)
 
 {
     m_bitset = bitset;
     m_bitIndex = bitIndex;
-}
-
-QString Led::tag() const
-{
-    return m_tag;
-}
-
-int Led::textAligment() const
-{
-    return m_textAligment;
-}
-
-void Led::setTextAligment(const int &textAligment)
-{
-    m_textAligment = textAligment;
-    checkWidgetSize();
-}
-
-Led::LedShape Led::shape() const
-{
-    return m_shape;
-}
-
-void Led::setShape(const LedShape &shape)
-{
-    m_shape = shape;
-    checkWidgetSize();
 }
 
 Led::State Led::state() const
@@ -341,18 +164,75 @@ void Led::toggle()
     }
 }
 
-Led::LedColor Led::color(const Led::State &state) const
+LedRenderer *LedRenderer::istance = nullptr;
+
+LedRenderer::LedRenderer(QObject *parent)
+    : QObject(parent)
 {
-    if (state == On)
-        return m_onColor;
-    return m_offColor;
+    init();
 }
 
-void Led::setColor(const Led::State &state, const Led::LedColor &color)
+LedRenderer::~LedRenderer()
 {
-    if (state == On)
-        m_onColor = color;
-    else
-        m_offColor = color;
-    checkWidgetSize();
+    qDeleteAll(m_renderers);
+    m_renderers.clear();
+}
+
+LedRenderer *LedRenderer::getIstance()
+{
+    if (!istance) {
+        istance = new LedRenderer(QGuiApplication::instance());
+    }
+    return istance;
+}
+
+QSvgRenderer *LedRenderer::getRenderer(const Led::LedShape &shape, const Led::LedColor &color)
+{
+    QPair<Led::LedShape, Led::LedColor> pair(shape, color);
+    return m_renderers.value(pair, nullptr);
+}
+
+void LedRenderer::init()
+{
+    static const QString prefix = QString(":/");
+    static const QString extension = QString(".svg");
+    for (int i = 0; i < Led::MaxLedShape; i++) {
+        for (int j = 0; j < Led::MaxLedColor; j++) {
+            auto shape = static_cast<Led::LedShape>(i);
+            auto color = static_cast<Led::LedColor>(j);
+            auto file = QString("%1%2_%3%4")
+                            .arg(prefix, stringifyShape(shape), stringifyColor(color), extension);
+            m_renderers.insert(QPair<Led::LedShape, Led::LedColor>(shape, color),
+                               new QSvgRenderer(file, this));
+        }
+    }
+}
+
+QString LedRenderer::stringifyColor(const Led::LedColor &color) const
+{
+    QString ret = QString();
+    switch (color) {
+    case Led::Grey:
+        ret = QString("grey");
+        break;
+    case Led::Green:
+        ret = QString("green");
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+QString LedRenderer::stringifyShape(const Led::LedShape &shape) const
+{
+    QString ret = QString();
+    switch (shape) {
+    case Led::Circle:
+        ret = QString("circle");
+        break;
+    default:
+        break;
+    }
+    return ret;
 }
