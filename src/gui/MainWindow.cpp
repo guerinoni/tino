@@ -145,7 +145,7 @@ void MainWindow::createActions()
     m_actions[Actions::Disconnect]->setIcon(QIcon(":/icons8-scollegato-48.png"));
     m_actions[Actions::Disconnect]->setEnabled(false);
     connect(m_actions[Actions::Disconnect].get(),
-            &QAction::trigger,
+            &QAction::triggered,
             this,
             &MainWindow::disconnectClient);
 
@@ -190,6 +190,7 @@ void MainWindow::createMenuBar()
 void MainWindow::createToolBar()
 {
     m_toolbar = new QToolBar(this);
+    m_toolbar->setObjectName("toolbar");
     m_toolbar->setMovable(false);
     addToolBar(Qt::ToolBarArea::TopToolBarArea, m_toolbar);
     m_toolbar->addAction(m_actions[Actions::Open].get());
@@ -222,7 +223,7 @@ MainWindow::Error MainWindow::importConfig(const QString &filename)
     });
 
     m_actions[Actions::Connect]->setEnabled(true);
-    m_actions[Actions::Disconnect]->setEnabled(true);
+    m_actions[Actions::Disconnect]->setEnabled(false);
     m_actions[Actions::Settins]->setEnabled(true);
 
     emit importFinished({});
