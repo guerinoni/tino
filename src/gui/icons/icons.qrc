@@ -1,9 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons8-apri-cartella-48.png</file>
-        <file>icons8-collegato-48.png</file>
-        <file>icons8-impostazioni-48.png</file>
-        <file>icons8-scollegato-48.png</file>
         <file>circle_green.svg</file>
         <file>circle_grey.svg</file>
         <file>logos/cover.png</file>
@@ -16,5 +12,9 @@
         <file>logos/vector/isolated-layout.svg</file>
         <file>logos/vector/isolated-monochrome-black.svg</file>
         <file>logos/vector/isolated-monochrome-white.svg</file>
+        <file>flat/connected.png</file>
+        <file>flat/settings.png</file>
+        <file>flat/folder.png</file>
+        <file>flat/disconnected.png</file>
     </qresource>
 </RCC>

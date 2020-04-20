@@ -138,11 +138,11 @@ void MainWindow::disconnectClient()
 void MainWindow::createActions()
 {
     m_actions[Actions::Open] = std::make_unique<QAction>(tr("Open File..."));
-    m_actions[Actions::Open]->setIcon(QIcon(":/icons8-apri-cartella-48.png"));
+    m_actions[Actions::Open]->setIcon(QIcon(":/flat/folder.png"));
     connect(m_actions[Actions::Open].get(), &QAction::triggered, this, &MainWindow::selectFile);
 
     m_actions[Actions::Connect] = std::make_unique<QAction>(tr("Connect"));
-    m_actions[Actions::Connect]->setIcon(QIcon(":/icons8-collegato-48.png"));
+    m_actions[Actions::Connect]->setIcon(QIcon(":/flat/connected.png"));
     m_actions[Actions::Connect]->setEnabled(false);
     connect(m_actions[Actions::Connect].get(),
             &QAction::triggered,
@@ -150,7 +150,7 @@ void MainWindow::createActions()
             &MainWindow::connectClient);
 
     m_actions[Actions::Disconnect] = std::make_unique<QAction>(tr("Disconnect"));
-    m_actions[Actions::Disconnect]->setIcon(QIcon(":/icons8-scollegato-48.png"));
+    m_actions[Actions::Disconnect]->setIcon(QIcon(":/flat/disconnected.png"));
     m_actions[Actions::Disconnect]->setEnabled(false);
     connect(m_actions[Actions::Disconnect].get(),
             &QAction::triggered,
@@ -158,7 +158,7 @@ void MainWindow::createActions()
             &MainWindow::disconnectClient);
 
     m_actions[Actions::Settins] = std::make_unique<QAction>(tr("Setting..."));
-    m_actions[Actions::Settins]->setIcon(QIcon(":/icons8-impostazioni-48.png"));
+    m_actions[Actions::Settins]->setIcon(QIcon(":/flat/settings.png"));
     m_actions[Actions::Settins]->setEnabled(false);
     connect(m_actions[Actions::Settins].get(), &QAction::triggered, this, [&]() {
         DialogSerialSettings(&m_config->settings).exec();
