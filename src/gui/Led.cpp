@@ -13,7 +13,6 @@ constexpr static int ledMaximumSize = 32;
 
 Led::Led(QString description, State state, bool defaultValue, QWidget *parent)
     : QWidget(parent)
-    , m_defaultValue {defaultValue}
     , m_ledSize(QSize(32, 32))
     , m_state(state)
     , m_onColor(Green)
@@ -21,6 +20,7 @@ Led::Led(QString description, State state, bool defaultValue, QWidget *parent)
     , m_shape(Circle)
     , m_description(std::move(description))
     , m_textAligment(Qt::AlignCenter)
+    , m_defaultValue{defaultValue}
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     checkWidgetSize();
@@ -53,11 +53,13 @@ void Led::paintEvent(QPaintEvent *event)
     QRect ledRect(center.x() - (led_size / 2), usefulRect.y(), led_size, led_size);
     renderer->render(&painter, ledRect);
     if (!m_description.isEmpty()) {
+        QString reduced = m_description.remove("Cmd").remove("Alarm");
+
         const auto textRect = QRectF(usefulRect.x(),
                                      ledRect.height() + spacing,
                                      usefulRect.width(),
                                      fontMetrics().height());
-        const auto desc = fontMetrics().elidedText(m_description, Qt::ElideMiddle, textRect.width());
+        const auto desc = fontMetrics().elidedText(reduced, Qt::ElideMiddle, textRect.width());
         painter.drawText(textRect, m_textAligment, desc);
     }
 #ifdef PAINT_BOUNDING_RECT
@@ -204,14 +206,11 @@ QSvgRenderer *LedRenderer::getRenderer(const Led::LedShape &shape, const Led::Le
 
 void LedRenderer::init()
 {
-    static const QString prefix = QString(":/");
-    static const QString extension = QString(".svg");
     for (int i = 0; i < Led::MaxLedShape; i++) {
         for (int j = 0; j < Led::MaxLedColor; j++) {
             auto shape = static_cast<Led::LedShape>(i);
             auto color = static_cast<Led::LedColor>(j);
-            auto file = QString("%1%2_%3%4")
-                            .arg(prefix, stringifyShape(shape), stringifyColor(color), extension);
+            auto file = QString("%1%2.svg").arg(stringifyShape(shape), stringifyColor(color));
             m_renderers.insert(QPair<Led::LedShape, Led::LedColor>(shape, color),
                                new QSvgRenderer(file, this));
         }
@@ -220,13 +219,13 @@ void LedRenderer::init()
 
 QString LedRenderer::stringifyColor(const Led::LedColor &color) const
 {
-    QString ret = QString();
+    QString ret = QStringLiteral();
     switch (color) {
     case Led::Grey:
-        ret = QString("grey");
+        ret = QStringLiteral("gray");
         break;
     case Led::Green:
-        ret = QString("green");
+        ret = QStringLiteral("green");
         break;
     default:
         break;
@@ -236,10 +235,10 @@ QString LedRenderer::stringifyColor(const Led::LedColor &color) const
 
 QString LedRenderer::stringifyShape(const Led::LedShape &shape) const
 {
-    QString ret = QString();
+    QString ret = QStringLiteral(":/");
     switch (shape) {
     case Led::Circle:
-        ret = QString("circle");
+        ret.append(QStringLiteral("led/"));
         break;
     default:
         break;

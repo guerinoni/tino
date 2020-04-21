@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>circle_green.svg</file>
-        <file>circle_grey.svg</file>
         <file>logos/cover.png</file>
         <file>logos/default.png</file>
         <file>logos/profile.png</file>
@@ -18,5 +16,15 @@
         <file>flat/disconnected.png</file>
         <file>flat/info.png</file>
         <file>flat/quit.png</file>
+        <file>led/png/gray.png</file>
+        <file>led/png/green.png</file>
+        <file>led/png/red.png</file>
+        <file>led/png/blue.png</file>
+        <file>led/png/orange.png</file>
+        <file>led/red.svg</file>
+        <file>led/orange.svg</file>
+        <file>led/green.svg</file>
+        <file>led/gray.svg</file>
+        <file>led/blue.svg</file>
     </qresource>
 </RCC>
