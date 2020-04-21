@@ -157,19 +157,21 @@ void MainWindow::createActions()
             this,
             &MainWindow::disconnectClient);
 
-    m_actions[Actions::Settins] = std::make_unique<QAction>(tr("Setting..."));
-    m_actions[Actions::Settins]->setIcon(QIcon(":/flat/settings.png"));
-    m_actions[Actions::Settins]->setEnabled(false);
-    connect(m_actions[Actions::Settins].get(), &QAction::triggered, this, [&]() {
+    m_actions[Actions::Settings] = std::make_unique<QAction>(tr("Setting..."));
+    m_actions[Actions::Settings]->setIcon(QIcon(":/flat/settings.png"));
+    m_actions[Actions::Settings]->setEnabled(false);
+    connect(m_actions[Actions::Settings].get(), &QAction::triggered, this, [&]() {
         DialogSerialSettings(&m_config->settings).exec();
     });
 
     m_actions[Actions::About] = std::make_unique<QAction>(tr("About..."));
+    m_actions[Actions::About]->setIcon(QIcon(":/flat/info.png"));
     connect(m_actions[Actions::About].get(), &QAction::triggered, this, []() {
         DialogAbout().exec();
     });
 
     m_actions[Actions::Quit] = std::make_unique<QAction>(tr("Quit"));
+    m_actions[Actions::Quit]->setIcon(QIcon(":/flat/quit.png"));
     m_actions[Actions::Quit]->setShortcut(QKeySequence::StandardKey::Quit);
     connect(m_actions[Actions::Quit].get(), &QAction::triggered, this, []() {
         QApplication::exit();
@@ -187,7 +189,7 @@ void MainWindow::createMenuBar()
     comMenu->addAction(m_actions[Actions::Connect].get());
     comMenu->addAction(m_actions[Actions::Disconnect].get());
     comMenu->addSeparator();
-    comMenu->addAction(m_actions[Actions::Settins].get());
+    comMenu->addAction(m_actions[Actions::Settings].get());
     ui->menuBar->addMenu(comMenu);
 
     const auto help = new QMenu("Help", ui->menuBar);
@@ -204,7 +206,7 @@ void MainWindow::createToolBar()
     m_toolbar->addAction(m_actions[Actions::Open].get());
     m_toolbar->addAction(m_actions[Actions::Connect].get());
     m_toolbar->addAction(m_actions[Actions::Disconnect].get());
-    m_toolbar->addAction(m_actions[Actions::Settins].get());
+    m_toolbar->addAction(m_actions[Actions::Settings].get());
 }
 
 MainWindow::Error MainWindow::importConfig(const QString &filename)
@@ -235,7 +237,7 @@ MainWindow::Error MainWindow::importConfig(const QString &filename)
 
     m_actions[Actions::Connect]->setEnabled(true);
     m_actions[Actions::Disconnect]->setEnabled(false);
-    m_actions[Actions::Settins]->setEnabled(true);
+    m_actions[Actions::Settings]->setEnabled(true);
 
     emit importFinished({});
 

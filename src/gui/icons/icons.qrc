@@ -16,5 +16,7 @@
         <file>flat/settings.png</file>
         <file>flat/folder.png</file>
         <file>flat/disconnected.png</file>
+        <file>flat/info.png</file>
+        <file>flat/quit.png</file>
     </qresource>
 </RCC>

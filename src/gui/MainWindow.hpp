@@ -40,7 +40,7 @@ private:
 
     QToolBar *m_toolbar{nullptr};
     std::unique_ptr<Configuration> m_config;
-    enum class Actions { Open, Connect, Disconnect, Settins, About, Quit };
+    enum class Actions { Open, Connect, Disconnect, Settings, About, Quit };
     std::unordered_map<Actions, std::unique_ptr<QAction>> m_actions;
     std::unique_ptr<QDockWidget> m_configViewDock;
 
